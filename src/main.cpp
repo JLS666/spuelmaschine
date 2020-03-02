@@ -16,7 +16,8 @@
 void setup() {
   // put your setup code here, to run once:
   pinMode(2, OUTPUT);
-  pinMode(7, INPUT_PULLUP);
+  pinMode(ventil1, INPUT_PULLUP);
+  digitalWrite(ventil1, HIGH);
 
   Serial.begin(9600);
 }
