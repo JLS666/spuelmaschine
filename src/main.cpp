@@ -1,5 +1,5 @@
 /********************************************************************/
-/*  Autoren:      Andreas Bank, Anselm Maximilan Lehmann            */
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann            */
 /*                Julian Schweizerhof                               */                 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
