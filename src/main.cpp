@@ -17,6 +17,8 @@ void setup() {
   // put your setup code here, to run once:
   pinMode(2, OUTPUT);
   pinMode(7, INPUT_PULLUP);
+
+  Serial.begin(9600);
 }
 
 void loop() {
