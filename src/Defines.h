@@ -11,21 +11,20 @@ Seeed Shield für Arduino:
 - A0: A0, A1 --> Ventiltreiber
 - A1: A1, A2 --> Notaus
 - A2: A2, A3 --> -
-- A3: A3. A4 --> LEDs
+- A3: A3, A4 --> LEDs
 - 4 x I2C: SDA, SCL
 */
 
 
 #define startPin 0
 #define endePin 1
-#define endschalter_Vorne 2
-#define endschalter_Hinten 3
-#define endschalter_Zylinder 4
+#define encoderA 2
+#define encoderB 3
 #define motortreiberPWM 5
 #define motortreiberDIR 6
-#define endschalter1 7
-#define endschalter2 8
-#define endschalter3 9
+#define endschalter_Vorne 7
+#define endschalter_Hinten 8
+#define endschalter_Zylinder 9
 #define ventil1 A0
 #define ventil2 A1
 #define notaus A2
