@@ -18,9 +18,9 @@ Seeed Shield für Arduino:
 
 #define startPin 0
 #define endePin 1
-#define endschalter1 2
-#define endschalter2 3
-#define endschalter3 4
+#define endschalter_Vorne 2
+#define endschalter_Hinten 3
+#define endschalter_Zylinder 4
 #define motortreiberPWM 5
 #define motortreiberDIR 6
 #define encoder1 7
@@ -38,4 +38,5 @@ Seeed Shield für Arduino:
 
 #define Error -1
 #define Ok 0
+#define kontakt true //Was macht der Endschalter bei Kontakt.
 
