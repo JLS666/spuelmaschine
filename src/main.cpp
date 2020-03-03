@@ -1,5 +1,5 @@
 /********************************************************************/
-/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann            */
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
 /*                Julian Schweizerhof                               */                 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
@@ -17,7 +17,7 @@
   Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht.
 
   //******************************************************************************/
-  //Zustandsautomat erstellen. Nach Plan in de Drive
+  //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
   State Init        = State (do_Init);
   State Blasen      = State (en_Blasen);
