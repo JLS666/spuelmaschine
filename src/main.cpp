@@ -15,7 +15,9 @@
 
 
   Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht.
-
+  void do_Init();
+  void en_Blasen();
+  void do_Standby();
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
