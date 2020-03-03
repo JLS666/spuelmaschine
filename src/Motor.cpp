@@ -16,7 +16,7 @@
     int Motor::Run() //analogWrite + Ramp +Dir
     {
     
-        long lastTime;
+        unsigned long lastTime;
 
         if(istRichtung!=sollRichtung)
         {
@@ -30,11 +30,11 @@
             lastTime=millis();
             if(Stopp==false)
             {
-                istSpeed=istSpeed++;
+                istSpeed++;
             }
             else
             {
-                istSpeed=istSpeed--;
+                istSpeed--;
             }
 
             if(istSpeed==0)
