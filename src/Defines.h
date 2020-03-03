@@ -29,5 +29,13 @@ Seeed Shield für Arduino:
 #define ventil1 A0
 #define ventil2 A1
 
+#define MotorRechts true
+#define MotorLinks !MotorRechts //Andy: Kann man so invertieren?
+#define Lore_Vor MotorRechts
+#define Lore_Zurueck MotorLinks
+#define Ramp 100 //in ms bis MotSpeed Rampenzeit
+#define MotSpeed 30 //in Prozent       Niemals über 100% gehen! sast wird Andy böse
 
+#define Error -1
+#define Ok 0
 

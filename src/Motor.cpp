@@ -7,15 +7,25 @@
     {
         sollRichtung=Lore_Zurueck;
         istRichtung=sollRichtung;
+        maxSpeed=MotSpeed;
+
+        //Hier oder muss das in den Setup?
+        pinMode(motortreiberPWM,OUTPUT);
+        pinMode(motortreiberDIR,OUTPUT);
     }                  
-    bool Motor::Run() //analogWrite + Ramp +Dir
+    int Motor::Run() //analogWrite + Ramp +Dir
     {
     
         long lastTime;
 
-        if(istSpeed==MotSpeed)
-        return Ok;
-        if(lastTime+Ramp/100<=millis()) //in 100Schritten
+        if(istRichtung!=sollRichtung)
+        {
+            Stopp=true;
+        }
+
+        if(istSpeed==maxSpeed)
+        return Ok; //Volle Fahrt
+        if(lastTime+Ramp/100<=millis()) //in 100 Schritten
         {
             lastTime=millis();
             if(Stopp==false)
@@ -29,28 +39,33 @@
 
             if(istSpeed==0)
             {
+            analogWrite(motortreiberPWM,istSpeed);
             analogWrite(motortreiberDIR,sollRichtung);
             istRichtung=sollRichtung;
             }
-            else if(istSpeed<10)
+            else if(istSpeed<10/2)
             {
                 //nix
+                analogWrite(motortreiberPWM,0);
             }
-            else if(istSpeed>=MotSpeed/2) //Maxwert festlegen % !! nicht über 100!!
+            else if(istSpeed>maxSpeed/2) //Maxwert festlegen % !! nicht über 100!!
             {
-                istSpeed=MotSpeed/2; //Maximal 
+                istSpeed=maxSpeed/2; //Maximal 
             }
             else
             {
-                //Fehler
+                //Fahren
+                analogWrite(motortreiberPWM,istSpeed);
             }
             
             
 
         }
-        
-        analogWrite(motortreiberPWM,istSpeed);
-        return false;
+        if(istRichtung!=sollRichtung)
+        {
+            return Error;
+        }
+        return 1; //Hochlaufen
     }               
     void Motor::setMotorStart(bool mRichtung)
     {
@@ -62,15 +77,20 @@
     {
         Stopp=true;
     }
-    void Motor::getMotorSpeed()  
+    int Motor::getMotorSpeed()  
     {
-
+        return istSpeed;
     }
-    void Motor::getMotoristRichtung()
+    bool Motor::getMotoristRichtung()
     {
-
+        return istRichtung;
     }
+/*     void Motor::Not_Aus()
+    {
+        analogWrite(motortreiberPWM,0);
+        Stopp=true;
+    } */
     Motor::~Motor()
     {
-
+        //machen wir nicht.
     }  
