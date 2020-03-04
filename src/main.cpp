@@ -8,7 +8,7 @@
 /********************************************************************/
 
 #include <Arduino.h>
-#include <Defines.h>
+#include "Defines.h"
 #include "Motor.h"
 #include <FiniteStateMachine.h>
 
