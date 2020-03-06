@@ -1,8 +1,11 @@
 class Encoder
 {
 private:
-    /* data */
+    int zaehler;
 public:
     Encoder();
     ~Encoder();
+    void resetZaehler();
+    void inkrementZaehler();
+    void dekrementZaehler();
 };
