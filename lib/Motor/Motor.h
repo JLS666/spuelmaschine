@@ -8,8 +8,9 @@ class Motor
     void setMotorStopp();               //Anhalten
     int getMotorSpeed();                //int??? gibt die Geschwindigkeit in % zurück.
     bool getMotoristRichtung();         //sagt einem die aktuelle Drehrichtung
-    //void changeSpeed(int mnewSpeed);
-    //void Not_Aus();
+    void Not_Aus();
+    void setFrequenz(int f);            //ändert die Motorfrequenz zwischen 800-10.000 Hz.
+    void changeSpeed(int speed);        //anpassen der Default Geschwindigkeit.  VORSICHT!
     ~Motor();                    
 
     
@@ -20,4 +21,5 @@ class Motor
     bool sollRichtung;
     bool istRichtung;
     unsigned int maxSpeed;
+    int Frequenz;
 };

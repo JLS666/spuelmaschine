@@ -88,11 +88,28 @@
     {
         return istRichtung;
     }
-/*     void Motor::Not_Aus()
+    void Motor::Not_Aus()
     {
         analogWrite(motortreiberPWM,0);
         Stopp=true;
-    } */
+    } 
+ /*   void Motor::setFrequenz(int f)
+    {
+        if (f>10000||f<800)
+        return;
+        DDRB = DDRB | B00100000; // pin 11 als OUTPUT konfigurieren
+        TCCR1A = 0b11000010;     // Pin OC1A frei schalten Pin11
+        TCCR1B = 0b00011001;     // Prescaler auf 01 setzen um ~31.000 Takte zu haben
+        int F=40000/f;
+        ICR1 = 800;              // TOP auf 800 fest legen, als besteht jeder Periode aus 800 Schritten
+
+        OCR1A = 200;             // Dutycycle auf 200 von 800 Takte legen
+    }      */     
+    void Motor::changeSpeed(int speed)
+    {
+        Serial.println("Motor Speed wurde angepasst.");
+        maxSpeed=speed;
+    }
     Motor::~Motor()
     {
         //machen wir nicht.
