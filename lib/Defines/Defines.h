@@ -18,10 +18,10 @@ Seeed Shield für Arduino:
 
 #define startPin 0
 #define endePin 1
-#define encoderA 2
-#define encoderB 3
-#define motortreiberPWM 5
-#define motortreiberDIR 6
+#define encoderA 2          //Interrupt Pin
+#define encoderB 3          //Interrupt Pin
+#define motortreiberPWM 5   //PWM Pin
+#define motortreiberDIR 6   //PWM Pin
 #define endschalter_Vorne 7
 #define endschalter_Hinten 8
 #define endschalter_Zylinder 9

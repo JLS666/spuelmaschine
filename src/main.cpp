@@ -8,7 +8,7 @@
 /********************************************************************/
 
 #include <Arduino.h>
-#include "Defines.h"
+#include <Defines.h>
 #include "Motor.h"
 #include <FiniteStateMachine.h>
 
@@ -22,10 +22,11 @@
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
   State Init        = State (do_Init);
-  State Blasen      = State (en_Blasen);
+  State BlasenEin   = State (en_Blasen);
   State Standby     = State (do_Standby);
 /*State Rakeln      = State ();
   State Abstreifen  = State ();
+  State BlasenAus   = State ();
   State Return      = State ();
   State ErrorState  = State (); */
   
@@ -41,18 +42,18 @@ void setup() {
 
   Serial.begin(9600);
 
-
+  Serial.println("Setup Abgeschlossen !");
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  
+    
 
   //******************************************************************************/
   //Transitionen:
-  if(digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //&&State = Init
+  if(digitalRead( Spuelautomat.isInState(Init) && endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
   Spuelautomat.transitionTo(Standby); //Init to Standbye
-
+  //else if()
+  //Spuelautomat.transitionTo(???);
 
 
 
@@ -71,6 +72,7 @@ void loop() {
   //Aktionen:
   void do_Init()
   {
+    Serial.println("Initialisierung");
     RB_Dfr_444.setMotorStart(Lore_Zurueck);
     //Zylinder ein
     //Led an
@@ -82,10 +84,12 @@ void loop() {
   }
   void en_Blasen() 
   {
+    Serial.println("entry Blasen");
 
   }
   void do_Standby() 
   {
+    Serial.println("Standby");
 
   }
   //******************************************************************************/

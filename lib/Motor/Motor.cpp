@@ -63,6 +63,7 @@
         }
         if(istRichtung!=sollRichtung)
         {
+            Serial.println("Fehlerhafter Richtingswechsel, Motor zuerst Stoppen bis zum Halt.");
             return Error;
         }
         return 1; //Hochlaufen
@@ -71,11 +72,13 @@
     {
         Stopp=false;
         sollRichtung=mRichtung;
+        Serial.println("Motor wurde gestartet.");
 
     } 
     void Motor::setMotorStopp()
     {
         Stopp=true;
+        Serial.println("Motor wurde gesoppt.");
     }
     int Motor::getMotorSpeed()  
     {
