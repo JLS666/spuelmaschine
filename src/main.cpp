@@ -20,6 +20,7 @@
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
+  int ZyklenZaehler;
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
@@ -39,18 +40,18 @@
   State Init        = State (en_Init,Leer,Leer);
   State BlasenEin   = State (en_Blasen,Leer,Leer);
   State Standby     = State (do_Standby);
-/*State Rakeln      = State ();
-  State Abstreifen  = State ();
-  State BlasenAus   = State ();
-  State Return      = State ();
-  State ErrorState  = State (); */
+  State Rakeln      = State (Leer);
+  State Abstreifen  = State (Leer);
+  State BlasenAus   = State (Leer);
+  State Return      = State (Leer);
+  State ErrorState  = State (Leer); 
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
   //******************************************************************************/
 
 
 void setup() {
-
+  //Input Output Setzen.
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen.
   Serial.begin(9600);
 
@@ -64,8 +65,8 @@ void loop() {
   //Transitionen:
   if(digitalRead( Spuelautomat.isInState(Init) && endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
   Spuelautomat.transitionTo(Standby); //Init to Standbye
-  //else if()
-  //Spuelautomat.transitionTo(???);
+  else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
+  Spuelautomat.transitionTo(Rakeln);
 
 
 
@@ -135,11 +136,12 @@ void loop() {
   void Leer()
   {
     //Nix die ist Leer.
+    Serial.println("Welcher Trottel ruft Leer auf?");
   }
   //******************************************************************************/
 
 
-  void encoderEvent()
+  void encoderEvent() //ISR
   {
     if(encoderB)
       derEncoder.inkrementZaehler();
