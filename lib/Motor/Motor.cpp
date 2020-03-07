@@ -18,32 +18,20 @@
     {
         unsigned long lastTime=0;
 
-        if(istRichtung!=sollRichtung)
+        if(istRichtung!=sollRichtung && istSpeed!=0)
         {
             Stopp=true;
         }
 
         if(istSpeed==maxSpeed)
         return Ok; //Volle Fahrt
-        if(lastTime+Ramp/100<=millis()) //in 100 Schritten
-        {
-            lastTime=millis();
-            if(Stopp==false)
-            {
-                istSpeed++;
-            }
-            else
-            {
-                if(istSpeed!=0)
-                istSpeed--;
-            }
-            //Serial.println(istSpeed);
-            if(istSpeed==0)
+
+        //Serial.println(istSpeed);
+        if(istSpeed==0) //Entscheidung Geschw. Bereich
             {
             AusgangsPower(motortreiberPWM,istSpeed);
             AusgangsPower(motortreiberDIR,sollRichtung);
             istRichtung=sollRichtung;
-            Serial.println("DIR Change ausgefeuhrt.");
             }
             else if(istSpeed<10/2)
             {
@@ -59,9 +47,20 @@
                 //Fahren
                 AusgangsPower(motortreiberPWM,istSpeed);
             }
-                  
-
-        }
+        
+        if(lastTime+Ramp/100<=millis()) //in 100 Schritten
+        {
+            lastTime=millis();
+            if(Stopp==false)
+            {
+                istSpeed++;
+            }
+            else
+            {
+                if(istSpeed!=0)
+                istSpeed--;
+            }
+        }          
         if(istRichtung!=sollRichtung)
         {
             Serial.println("Fehlerhafter Richtingswechsel, Motor zuerst Stoppen bis zum Halt.");
@@ -73,7 +72,7 @@
     {
         Stopp=false;
         sollRichtung=mRichtung;
-        //Serial.println("Motor wurde gestartet.");
+        Serial.println("Motor wurde gestartet.");
 
     } 
     void Motor::setMotorStopp()
@@ -93,6 +92,7 @@
     {
         AusgangsPower(motortreiberPWM,0);
         Stopp=true;
+        Serial.println("Motor Not_Aus");
     } 
     void Motor::setFrequenz(int f)
     {

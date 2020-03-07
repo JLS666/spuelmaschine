@@ -17,18 +17,20 @@
   //************************************   Objekte erezugen ***************************************************/
   Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht. //@Andy, wie naiv bist du eigentlich?
   Encoder derEncoder;
+  unsigned long LoopTime=0;
 
    //***********************************   Funtkionen bekannt machen*******************************************/
-  void do_Init();
+  void en_Init();
   void en_Blasen();
   void do_Standby();
+  void Leer();
 
   void encoderEvent();
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
-  State Init        = State (do_Init);
-  State BlasenEin   = State (en_Blasen);
+  State Init        = State (en_Init,Leer,Leer);
+  State BlasenEin   = State (en_Blasen,Leer,Leer);
   State Standby     = State (do_Standby);
 /*State Rakeln      = State ();
   State Abstreifen  = State ();
@@ -68,12 +70,12 @@ void loop() {
   //Not_Aus Test
 
   //State im Serial anzeigen
-
+  LoopTime=millis()-LoopTime; Serial.print("Loop bearbeitet in (ms): "); Serial.println(LoopTime);
 }
 
 //******************************************************************************/
   //Aktionen:
-  void do_Init()
+  void en_Init()
   {
     Serial.println("Initialisierung");
     RB_Dfr_444.setMotorStart(Lore_Zurueck);
@@ -81,7 +83,7 @@ void loop() {
     //Led an
 
       //Wir warten auf den Start.
-      Serial.println("getting Reay...");
+      Serial.println("getting Ready...");
       delay(500);
     
   }
@@ -94,6 +96,10 @@ void loop() {
   {
     Serial.println("Standby");
 
+  }
+  void Leer()
+  {
+    //Nix die ist Leer.
   }
   //******************************************************************************/
 
