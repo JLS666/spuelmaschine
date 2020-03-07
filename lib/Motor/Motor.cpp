@@ -3,15 +3,13 @@
 #include <Arduino.h>
 
 
-    Motor::Motor()
+    Motor::Motor(int PWM_Pin, int DIR_Pin)
     {
         sollRichtung=Lore_Zurueck;
         istRichtung=sollRichtung;
         maxSpeed=MotSpeed;
-
-        //Hier oder muss das in den Setup?
-        pinMode(motortreiberPWM,OUTPUT);
-        pinMode(motortreiberDIR,OUTPUT);
+        pinMode(PWM_Pin,OUTPUT);
+        pinMode(DIR_Pin,OUTPUT);
         setFrequenz(1000); //PWM auf 1kHz zu Beginn
     }                  
     int Motor::Run() //AusgangsPower + Ramp +Dir

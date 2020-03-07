@@ -15,8 +15,11 @@
 
 
   //************************************   Objekte erezugen ***************************************************/
-  Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht. //@Andy, wie naiv bist du eigentlich?
+  Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR);
   Encoder derEncoder;
+
+  //************************************   Globale Variablen ***************************************************/
+  int MotorStatus;
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
@@ -48,7 +51,7 @@
 
 void setup() {
 
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING);
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen.
   Serial.begin(9600);
 
   Serial.println("Setup Abgeschlossen !");
@@ -70,34 +73,35 @@ void loop() {
   //******************************************************************************/
   
   Spuelautomat.update();
-  RB_Dfr_444.Run();
+  MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
   //Not_Aus Test
 
   //State im Serial anzeigen
 
-  if(timerModus)
-  {
-    LoopTime=millis()-LoopTime;
-    Serial.print("Loop bearbeitet in (ms): ");
-    Serial.println(LoopTime);
-  }
-  else
-  {
-    if(i < 100)
+  if(timerModus)  //Loop Geschwindigkeit
+
     {
-      LoopTimeArray[i] = micros() - lastTime;
-      lastTime = micros();
-      i++;
+      LoopTime=millis()-LoopTime;
+      Serial.print("Loop bearbeitet in (ms): ");
+      Serial.println(LoopTime);
     }
     else
     {
-      for(int j = 0; j<100; j++)
+      if(i < 100)
       {
-        Serial.println(LoopTimeArray[j]);
+        LoopTimeArray[i] = micros() - lastTime;
+        lastTime = micros();
+        i++;
       }
-      i = 0;    
+      else
+      {
+        for(int j = 0; j<100; j++)
+        {
+          Serial.println(LoopTimeArray[j]);
+        }
+        i = 0;    
+      }
     }
-  }
   
 
 
