@@ -3,11 +3,11 @@ Seeed Shield für Arduino:
 - UART: RX(0), DX(1) --> Start und Ende vom Stefan
 - D2: D2, D3 --> Encoder
 - D3: D3, D4 --> -
-- D4: D4, D5 --> -
-- D5: D5, D6 --> Motortreiber
-- D6: D6, D7 --> Endschalter1
-- D7: D7, D8 --> Endschalter2
-- D8: D8, D9 --> Endschalter3
+- D4: D4, D5 --> 
+- D5: D5, D6 --> Endschalter Vorne
+- D6: D6, D7 --> Endschalter Hinten 
+- D7: D7, D8 --> Endschalter Zylinder
+- D8: D8, D9 --> Motortreiber
 - A0: A0, A1 --> Ventiltreiber
 - A1: A1, A2 --> Notaus
 - A2: A2, A3 --> -
@@ -20,11 +20,11 @@ Seeed Shield für Arduino:
 #define endePin 1
 #define encoderA 2          //Interrupt Pin
 #define encoderB 3          //Interrupt Pin
-#define motortreiberPWM 10  //PWM Pin Andy: möchte lieber die 9+10 haben.
-#define motortreiberDIR 9   //PWM Pin
-#define endschalter_Vorne 7
-#define endschalter_Hinten 8
-#define endschalter_Zylinder 6
+#define motortreiberPWM 9  //PWM Pin Andy: möchte lieber die 9+10 haben. // da hast du 9 und 8
+#define motortreiberDIR 8   //PWM Pin
+#define endschalter_Vorne 5
+#define endschalter_Hinten 6
+#define endschalter_Zylinder 7
 #define ventil1 A0
 #define ventil2 A1
 #define notaus A2
