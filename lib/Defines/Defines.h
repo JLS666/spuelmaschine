@@ -21,7 +21,7 @@ Seeed Shield für Arduino:
 #define encoderA 2          //Interrupt Pin
 #define encoderB 3          //Interrupt Pin
 #define motortreiberPWM 9  //PWM Pin Andy: möchte lieber die 9+10 haben. // da hast du 9 und 8
-#define motortreiberDIR 8   //PWM Pin
+#define motortreiberDIR 8   //Dir Pin
 #define endschalter_Vorne 5
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
@@ -41,3 +41,5 @@ Seeed Shield für Arduino:
 #define Error -1
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt.
+
+// Zeiten
