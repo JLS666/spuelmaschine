@@ -42,4 +42,5 @@ Seeed Shield für Arduino:
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt.
 
-// Zeiten
+// Zeiten und Grenzwerte
+#define SollEncoderWert 444

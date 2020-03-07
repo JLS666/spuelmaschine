@@ -1,9 +1,10 @@
 #include "Encoder.h"
 #include "Defines.h"
-#include "Arduino.h"
+//#include "Arduino.h"
 
 Encoder::Encoder()
 {
+    zaehler = 0;
 }
 
 Encoder::~Encoder()
@@ -20,4 +21,8 @@ void Encoder::dekrementZaehler()
 void Encoder::resetZaehler()
 {
     zaehler = 0;
+}
+int Encoder::getZaehler()
+{
+    return zaehler;
 }
