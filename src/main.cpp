@@ -14,11 +14,16 @@
 #include <FiniteStateMachine.h>
 
 
+  //************************************   Objekte erezugen ***************************************************/
+  Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht. //@Andy, wie naiv bist du eigentlich?
+  Encoder derEncoder;
 
-  Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht.
+   //***********************************   Funtkionen bekannt machen*******************************************/
   void do_Init();
   void en_Blasen();
   void do_Standby();
+
+  void encoderEvent();
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
@@ -36,11 +41,8 @@
 
 
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(2, OUTPUT);             //AB: 2 für was gibts die Defines?
-  pinMode(ventil1, INPUT_PULLUP); //AB: @JS wer pullups net bracuht lässt es bleiben!
-  digitalWrite(ventil1, HIGH);
 
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING);
   Serial.begin(9600);
 
   Serial.println("Setup Abgeschlossen !");
@@ -94,3 +96,12 @@ void loop() {
 
   }
   //******************************************************************************/
+
+
+  void encoderEvent()
+  {
+    if(encoderB)
+      derEncoder.inkrementZaehler();
+    else
+      derEncoder.dekrementZaehler();
+  }
