@@ -18,6 +18,10 @@
   Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht. //@Andy, wie naiv bist du eigentlich?
   Encoder derEncoder;
   unsigned long LoopTime=0;
+  unsigned long LoopTimeArray[100] = {0};
+  unsigned long lastTime = 0;
+  bool timerModus = false;
+  int i = 0;
 
    //***********************************   Funtkionen bekannt machen*******************************************/
   void en_Init();
@@ -70,7 +74,34 @@ void loop() {
   //Not_Aus Test
 
   //State im Serial anzeigen
-  LoopTime=millis()-LoopTime; Serial.print("Loop bearbeitet in (ms): "); Serial.println(LoopTime);
+
+  if(timerModus)
+  {
+    LoopTime=millis()-LoopTime;
+    Serial.print("Loop bearbeitet in (ms): ");
+    Serial.println(LoopTime);
+  }
+  else
+  {
+    if(i < 100)
+    {
+      LoopTimeArray[i] = millis() - lastTime;
+      lastTime = millis();
+      i++;
+    }
+    else
+    {
+      for(int j = 0; j<100; j++)
+      {
+        Serial.println(LoopTimeArray[j]);
+      }
+      i = 0;    
+    }
+  }
+  
+
+
+
 }
 
 //******************************************************************************/
