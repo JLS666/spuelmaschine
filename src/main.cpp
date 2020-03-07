@@ -85,8 +85,8 @@ void loop() {
   {
     if(i < 100)
     {
-      LoopTimeArray[i] = millis() - lastTime;
-      lastTime = millis();
+      LoopTimeArray[i] = micros() - lastTime;
+      lastTime = micros();
       i++;
     }
     else
