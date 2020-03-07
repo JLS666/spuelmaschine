@@ -20,11 +20,11 @@ Seeed Shield für Arduino:
 #define endePin 1
 #define encoderA 2          //Interrupt Pin
 #define encoderB 3          //Interrupt Pin
-#define motortreiberPWM 5   //PWM Pin
-#define motortreiberDIR 6   //PWM Pin
+#define motortreiberPWM 10  //PWM Pin Andy: möchte lieber die 9+10 haben.
+#define motortreiberDIR 9   //PWM Pin
 #define endschalter_Vorne 7
 #define endschalter_Hinten 8
-#define endschalter_Zylinder 9
+#define endschalter_Zylinder 6
 #define ventil1 A0
 #define ventil2 A1
 #define notaus A2
@@ -35,7 +35,7 @@ Seeed Shield für Arduino:
 #define MotorLinks !MotorRechts //Andy: Kann man so invertieren?
 #define Lore_Vor MotorRechts
 #define Lore_Zurueck MotorLinks
-#define Ramp 100 //in ms bis MotSpeed Rampenzeit
+#define Ramp 300 //in ms bis MotSpeed Rampenzeit
 #define MotSpeed 30 //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
 #define Error -1

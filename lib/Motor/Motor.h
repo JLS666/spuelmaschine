@@ -16,7 +16,8 @@ class Motor
     
 
   private:                              // privat
-    unsigned int istSpeed;
+    void AusgangsPower(int Pin, int Power);
+    unsigned int istSpeed=0;
     bool Stopp=true;
     bool sollRichtung;
     bool istRichtung;
