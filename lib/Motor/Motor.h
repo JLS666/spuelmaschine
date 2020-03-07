@@ -1,4 +1,3 @@
-
 class Motor
 {
   public:                               // öffentlich
