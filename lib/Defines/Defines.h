@@ -37,8 +37,8 @@ Seeed Shield für Arduino:
 #define ventil1 A0
 #define ventil2 A1
 #define notaus A2
-#define led1 A3
-#define led2 A4
+#define led_Rot A3                 
+#define led_Gruen A4
 
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts //Andy: Kann man so invertieren?
@@ -49,10 +49,10 @@ Seeed Shield für Arduino:
 
 #define Error -1
 #define Ok 0
-#define kontakt true //Was macht der Endschalter bei Kontakt. // Ich würde false sagen!!, wegen Pull-Up Wiederständen
+#define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 444 //Encoder in Mitte?? // Jop
+#define SollEncoderWert 444 //Encoder in Mitte
 
 
 
