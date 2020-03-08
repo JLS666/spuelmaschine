@@ -15,7 +15,7 @@
 
 
   //************************************   Objekte erezugen ***************************************************/
-  Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR);
+  Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder;
 
   //************************************   Globale Variablen ***************************************************/
