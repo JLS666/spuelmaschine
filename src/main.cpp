@@ -1,5 +1,5 @@
 /********************************************************************/
-/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann            */
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
 /*                Julian Schweizerhof                               */                 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
@@ -8,82 +8,138 @@
 /********************************************************************/
 
 #include <Arduino.h>
-#include <Defines.h>
+#include "Defines.h"
 #include "Motor.h"
-#include <FiniteStateMachine.h>
+#include "Encoder.h"
+#include "FiniteStateMachine.h"
 
 
+  //************************************   Objekte erezugen ****************************************************/
+  Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
+  Encoder derEncoder; //Andy: Warum ist das bei mir nicht Farbig???
 
-  Motor RB_Dfr_444; //Obj erstellen. Bitte Auskommentieren wenn was am Motor nicht geht.
+  //************************************   Globale Variablen ***************************************************/
+  int MotorStatus;
+  int ZyklenZaehler;
+  unsigned long LoopTime=0;
+  unsigned long LoopTimeArray[100] = {0};
+  unsigned long lastTime = 0;
+  bool timerModus = false;
+  int i = 0;
 
   //******************************************************************************/
-  //Zustandsautomat erstellen. Nach Plan in de Drive
+  //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
-  State Init        = State (do_Init);
-  State Blasen      = State (en_Blasen);
+  State Init        = State (en_Init,Leer,Leer);
+  State BlasenEin   = State (en_Blasen,Leer,Leer);
   State Standby     = State (do_Standby);
-/*State Rakeln      = State ();
-  State Abstreifen  = State ();
-  State Return      = State ();
-  State ErrorState  = State (); */
+  State Rakeln      = State (Leer);
+  State Abstreifen  = State (Leer);
+  State BlasenAus   = State (Leer);
+  State Return      = State (Leer);
+  State ErrorState  = State (Leer); 
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
   //******************************************************************************/
 
 
 void setup() {
-  // put your setup code here, to run once:
-  pinMode(2, OUTPUT);             //AB: 2 für was gibts die Defines?
-  pinMode(ventil1, INPUT_PULLUP); //AB: @JS wer pullups net bracuht lässt es bleiben!
-  digitalWrite(ventil1, HIGH);
-
+  //Input Output Setzen.
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen.
   Serial.begin(9600);
 
-
+  Serial.println("Setup Abgeschlossen !");
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-  
+void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
+    
 
   //******************************************************************************/
   //Transitionen:
-  if(digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //&&State = Init
+  if(digitalRead( Spuelautomat.isInState(Init) && endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
   Spuelautomat.transitionTo(Standby); //Init to Standbye
-
-
+  else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
+  Spuelautomat.transitionTo(Rakeln);
+  else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
+  Spuelautomat.transitionTo(ErrorState);
+  //Hier darf Max sich austoben...
 
 
 
   //******************************************************************************/
   
-  Spuelautomat.update();
-  RB_Dfr_444.Run();
-  //Not_Aus Test
+  Spuelautomat.update();        //Zustandsautomat
+  MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
   //State im Serial anzeigen
 
+  if(timerModus)  //Loop Geschwindigkeit
+
+    {
+      LoopTime=millis()-LoopTime;
+      Serial.print("Loop bearbeitet in (ms): ");
+      Serial.println(LoopTime);
+    }
+    else
+    {
+      if(i < 100)
+      {
+        LoopTimeArray[i] = micros() - lastTime;
+        lastTime = micros();
+        i++;
+      }
+      else
+      {
+        for(int j = 0; j<100; j++)
+        {
+          Serial.println(LoopTimeArray[j]);
+        }
+        i = 0;    
+      }
+    }
+  
+
+
+
 }
+//Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 //******************************************************************************/
   //Aktionen:
-  void do_Init()
+  void en_Init()
   {
+    Serial.println("Initialisierung");
     RB_Dfr_444.setMotorStart(Lore_Zurueck);
     //Zylinder ein
     //Led an
 
       //Wir warten auf den Start.
-      Serial.println("getting Reay...");
+      Serial.println("getting Ready...");
       delay(500);
     
   }
   void en_Blasen() 
   {
+    Serial.println("entry Blasen");
 
   }
   void do_Standby() 
   {
+    Serial.println("Standby");
 
   }
+  void Leer()
+  {
+    //Nix die ist Leer.
+    Serial.println("Welcher Trottel ruft Leer auf?");
+  }
   //******************************************************************************/
+
+
+  void encoderEvent() //ISR
+  {
+    if(encoderB)
+      derEncoder.inkrementZaehler();
+    else
+      derEncoder.dekrementZaehler();
+  }
