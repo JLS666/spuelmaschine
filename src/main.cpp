@@ -8,10 +8,10 @@
 /********************************************************************/
 
 #include <Arduino.h>
-#include <Defines.h>
+#include "Defines.h"
 #include "Motor.h"
 #include "Encoder.h"
-#include <FiniteStateMachine.h>
+#include "FiniteStateMachine.h"
 
 
   //************************************   Objekte erezugen ****************************************************/

@@ -1,3 +1,11 @@
+/********************************************************************/
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
+/*                Julian Schweizerhof                               */                 
+/*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
+/*  Datei:        Defines.h                                         */
+/*  Beschreibung: Defines für Spülmaschine                          */
+/*  Version:      0.1                                               */                 
+/********************************************************************/
 /*
 Seeed Shield für Arduino:
 - UART: RX(0), DX(1) --> Start und Ende vom Stefan
@@ -20,7 +28,7 @@ Seeed Shield für Arduino:
 #define endePin 1
 #define encoderA 2              //Interrupt Pin
 #define encoderB 3              //Interrupt Pin
-#define motortreiberPWM 9       //PWM Pin Andy: möchte lieber die 9+10 haben. // da hast du 9 und 8
+#define motortreiberPWM 9       //PWM Pin 
 #define motortreiberDIR_A 8     //Dir Pin H=>CW
 #define motortreiberDIR_B 4     //Dir Pin H=>CCW
 #define endschalter_Vorne 5
@@ -41,7 +49,7 @@ Seeed Shield für Arduino:
 
 #define Error -1
 #define Ok 0
-#define kontakt true //Was macht der Endschalter bei Kontakt.
+#define kontakt true //Was macht der Endschalter bei Kontakt. // Ich würde false sagen!!, wegen Pull-Up Wiederständen
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
 #define SollEncoderWert 444 //Encoder in Mitte?? // Jop
