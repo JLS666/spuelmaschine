@@ -1,6 +1,6 @@
 # Reinigungssystem für Prüfkörper
 
-Ein System zum Reinigen von Prüfkörpern eines Schmiermittelsauftrag-Versuchst. 
+Ein System zum Reinigen von Prüfkörpern eines Schmiermittelsauftrag-Versuchs. 
 
 ## Getting Started
 
