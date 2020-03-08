@@ -60,15 +60,17 @@ void loop() {
   Spuelautomat.transitionTo(Standby); //Init to Standbye
   else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
   Spuelautomat.transitionTo(Rakeln);
+  else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
+  Spuelautomat.transitionTo(ErrorState);
 
 
 
 
   //******************************************************************************/
   
-  Spuelautomat.update();
+  Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-  //Not_Aus Test
+   
 
   //State im Serial anzeigen
 

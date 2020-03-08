@@ -14,7 +14,7 @@
         pinMode(DIR_Pin_B,OUTPUT);
         setFrequenz(1000); //PWM auf 1kHz zu Beginn
     }                  
-    int Motor::Run() //AusgangsPower + Ramp +Dir
+    int Motor::Run() //Ramp + Dir
     {
         unsigned long lastTime=0;
 
