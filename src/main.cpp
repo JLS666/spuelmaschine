@@ -16,7 +16,7 @@
 
   //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
-  Encoder derEncoder; //Andy: Warum ist das bei mir nicht Farbig???
+  Encoder derEncoder; //Andy: Warum ist das bei mir nicht Farbig??? Bei Visual Studio sind Klassen nicht bunt. 
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
