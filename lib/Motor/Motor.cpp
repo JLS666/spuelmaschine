@@ -1,15 +1,17 @@
+//ifdef ??? PragmaOnce
 #include "Motor.h"
 #include <Defines.h>
 #include <Arduino.h>
 
 
-    Motor::Motor(int PWM_Pin, int DIR_Pin)
+    Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
     {
         sollRichtung=Lore_Zurueck;
         istRichtung=sollRichtung;
         maxSpeed=MotSpeed;
         pinMode(PWM_Pin,OUTPUT);
-        pinMode(DIR_Pin,OUTPUT);
+        pinMode(DIR_Pin_A,OUTPUT);
+        pinMode(DIR_Pin_B,OUTPUT);
         setFrequenz(1000); //PWM auf 1kHz zu Beginn
     }                  
     int Motor::Run() //AusgangsPower + Ramp +Dir
@@ -28,7 +30,7 @@
         if(istSpeed==0) //Entscheidung Geschw. Bereich
             {
             AusgangsPower(motortreiberPWM,istSpeed);
-            AusgangsPower(motortreiberDIR,sollRichtung);
+            AusgangsPower(-1,sollRichtung);
             istRichtung=sollRichtung;
             }
             else if(istSpeed<10/2)
@@ -114,9 +116,11 @@
     }
     void Motor::AusgangsPower(int Pin, int Power)
     {
-        if(Pin==motortreiberDIR)
+        if(Pin==-1)//Power==1 => CW  =Motor_links @BB-VNH3SP30
         {
-            digitalWrite(Pin,Power);
+            digitalWrite(motortreiberDIR_A,Power);
+            Power=!Power;
+            digitalWrite(motortreiberDIR_B,Power);
         }
         else
         {
@@ -126,6 +130,8 @@
             analogWrite(Pin,Power);
         }     
     }
+    int Motor::Fehlererkennung(){return Ok;}      //Nicht Implementiert.
+    void Motor::Bremsen(){}                       //Nicht Implementiert.
     Motor::~Motor()
     {
         //machen wir nicht.

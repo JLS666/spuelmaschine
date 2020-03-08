@@ -15,13 +15,14 @@ Seeed Shield für Arduino:
 - 4 x I2C: SDA, SCL
 */
 
-
+//Pins
 #define startPin 0
 #define endePin 1
-#define encoderA 2          //Interrupt Pin
-#define encoderB 3          //Interrupt Pin
-#define motortreiberPWM 9  //PWM Pin Andy: möchte lieber die 9+10 haben. // da hast du 9 und 8
-#define motortreiberDIR 8   //Dir Pin
+#define encoderA 2              //Interrupt Pin
+#define encoderB 3              //Interrupt Pin
+#define motortreiberPWM 9       //PWM Pin Andy: möchte lieber die 9+10 haben. // da hast du 9 und 8
+#define motortreiberDIR_A 8     //Dir Pin H=>CW
+#define motortreiberDIR_B 4     //Dir Pin H=>CCW
 #define endschalter_Vorne 5
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
@@ -31,16 +32,16 @@ Seeed Shield für Arduino:
 #define led1 A3
 #define led2 A4
 
-#define MotorRechts true
+#define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts //Andy: Kann man so invertieren?
-#define Lore_Vor MotorRechts
+#define Lore_nachHinten MotorRechts    //Vorne ist die Plattenaufnahme Position.
 #define Lore_Zurueck MotorLinks
-#define Ramp 300 //in ms bis MotSpeed Rampenzeit
-#define MotSpeed 30 //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define Ramp 300                //in ms bis MotSpeed Rampenzeit
+#define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
 #define Error -1
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt.
 
-// Zeiten und Grenzwerte
-#define SollEncoderWert 444
+// Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
+#define SollEncoderWert 444 //Encoder in Mitte??
