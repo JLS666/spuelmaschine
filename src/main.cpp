@@ -14,7 +14,7 @@
 #include <FiniteStateMachine.h>
 
 
-  //************************************   Objekte erezugen ***************************************************/
+  //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder;
 
@@ -27,13 +27,6 @@
   bool timerModus = false;
   int i = 0;
 
-   //***********************************   Funtkionen bekannt machen*******************************************/
-  void en_Init();
-  void en_Blasen();
-  void do_Standby();
-  void Leer();
-
-  void encoderEvent();
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:

@@ -44,4 +44,15 @@ Seeed Shield für Arduino:
 #define kontakt true //Was macht der Endschalter bei Kontakt.
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 444 //Encoder in Mitte??
+#define SollEncoderWert 444 //Encoder in Mitte?? // Jop
+
+
+
+
+//***********************************   Funtkionen bekannt machen *******************************************/
+  void en_Init();
+  void en_Blasen();
+  void do_Standby();
+  void Leer();
+
+  void encoderEvent();
