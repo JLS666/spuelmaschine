@@ -143,3 +143,20 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     else
       derEncoder.dekrementZaehler();
   }
+bool ABS() //Gibt ein Error zurück wenn die Lore fest hängt.
+{
+  static int Position=0;
+  static unsigned long Zeit=0;
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
+  {
+    Zeit=millis();
+    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz)
+      return Error;
+    Position=derEncoder.getZaehler();
+    return Ok;       
+  }
+  else
+  {
+    return Ok;
+  }
+}
