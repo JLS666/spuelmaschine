@@ -16,7 +16,7 @@
 
   //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
-  Encoder derEncoder;
+  Encoder derEncoder; //Andy: Warum ist das bei mir nicht Farbig???
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
@@ -51,7 +51,7 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 }
 
-void loop() {
+void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     
 
   //******************************************************************************/
@@ -60,15 +60,16 @@ void loop() {
   Spuelautomat.transitionTo(Standby); //Init to Standbye
   else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
   Spuelautomat.transitionTo(Rakeln);
-
+  else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
+  Spuelautomat.transitionTo(ErrorState);
+  //Hier darf Max sich austoben...
 
 
 
   //******************************************************************************/
   
-  Spuelautomat.update();
+  Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-  //Not_Aus Test
 
   //State im Serial anzeigen
 
@@ -101,6 +102,7 @@ void loop() {
 
 
 }
+//Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 //******************************************************************************/
   //Aktionen:
