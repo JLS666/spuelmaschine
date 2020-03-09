@@ -12,4 +12,4 @@ Ein System zum Reinigen von Prüfkörpern eines Schmiermittelauftragversuchs.
 * **Andreas B.** - *SchweinVomRhein* - [TrandyAndy](https://github.com/TrandyAndy)
 * **Max L.** - *SchlauImBreisgau* - [AML113](https://github.com/AML113)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/JLS666/spuelmaschine/graphs/contributors) who participated in this project.
