@@ -11,7 +11,7 @@ Seeed Shield für Arduino:
 - UART: RX(0), DX(1) --> Start und Ende vom Stefan
 - D2: D2, D3 --> Encoder
 - D3: D3, D4 --> -
-- D4: D4, D5 --> 
+- D4: D4, D5 --> Motortreiber
 - D5: D5, D6 --> Endschalter Vorne
 - D6: D6, D7 --> Endschalter Hinten 
 - D7: D7, D8 --> Endschalter Zylinder
