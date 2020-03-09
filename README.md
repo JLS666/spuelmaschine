@@ -4,7 +4,7 @@ Ein System zum Reinigen von Prüfkörpern eines Schmiermittelsauftrag-Versuchs.
 
 ## Versionen
 
-0.1         Erste Version.
+0.1         <p>Erste Version.</p>
 
 ## Autoren
 
