@@ -1,6 +1,6 @@
 # Reinigungssystem für Prüfkörper
 
-Ein System zum Reinigen von Prüfkörpern eines Schmiermittelsauftrag-Versuchs. 
+Ein System zum Reinigen von Prüfkörpern eines Schmiermittelauftragversuchs. 
 
 ## Versionen
 
@@ -8,6 +8,8 @@ Ein System zum Reinigen von Prüfkörpern eines Schmiermittelsauftrag-Versuchs.
 
 ## Autoren
 
-* **Julian S.** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Julian S.** - *CheckerVomNeckar* - [JLS666](https://github.com/JLS666)
+* **Andreas B.** - *SchweinVomRhein* - [TrandyAndy](https://github.com/TrandyAndy)
+* **Max L.** - *SchlauImBreisgau* - [AML113](https://github.com/AML113)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
