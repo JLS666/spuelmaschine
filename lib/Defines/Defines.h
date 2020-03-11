@@ -20,7 +20,8 @@ Seeed Shield für Arduino:
 - A1: A1, A2 --> Notaus
 - A2: A2, A3 --> -
 - A3: A3, A4 --> LEDs
-- 4 x I2C: SDA, SCL
+- 4 x I2C: SDA, SCL --> 
+- noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
 
 //Pins
