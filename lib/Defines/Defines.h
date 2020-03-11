@@ -34,6 +34,8 @@ Seeed Shield für Arduino:
 #define endschalter_Vorne 5
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
+#define endschalter_Deckel 
+#define quitieren
 #define ventil1 A0
 #define ventil2 A1
 #define notaus A2
