@@ -6,7 +6,7 @@
 
     Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
     {
-        sollRichtung=Lore_Zurueck;
+        sollRichtung=Lore_auf;
         istRichtung=sollRichtung;
         maxSpeed=MotSpeed;
         pinMode(PWM_Pin,OUTPUT);
