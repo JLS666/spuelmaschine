@@ -26,19 +26,21 @@
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
   bool timerModus = false;
-  int i = 0;
+  int8_t i = 0;
+  int8_t Statecounter = 0;
+  
 
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
-  State Init        = State (en_Init,Leer,Leer);
-  State BlasenEin   = State (en_Blasen,Leer,Leer);
-  State Standby     = State (do_Standby);
-  State Rakeln      = State (Leer);
-  State Abstreifen  = State (Leer);
-  State BlasenAus   = State (Leer);
-  State Return      = State (Leer);
-  State ErrorState  = State (Leer); 
+  State Init            = State (en_Init,do_Init,ex_Init);
+  State Kalibrierung    = State (en_Kalibrierung, do_Kalibrierung, ex_Kalibrierung);
+  State Rakelreinigen   = State (en_Rakelreinigen,do_Rakelreinigen,ex_Rakelreinigen);
+  State Standby         = State (do_Standby);
+  State Rakeln          = State (Leer);
+  State Abstreifen      = State (Leer);
+  State Ausgabe         = State (Leer);
+  State ErrorState      = State (Leer);
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
   //******************************************************************************/
@@ -58,13 +60,46 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Init) && digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
-  Spuelautomat.transitionTo(Standby); //Init to Standbye
+    Spuelautomat.transitionTo(Standby); //Init to Standbye
   else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
-  Spuelautomat.transitionTo(Rakeln);
+    Spuelautomat.transitionTo(Rakeln);
   else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
-  Spuelautomat.transitionTo(ErrorState);
+    Spuelautomat.transitionTo(ErrorState);
   //Hier darf Max sich austoben...
-
+  switch (Statecounter)
+  {
+  case 0:
+    Spuelautomat.transitionTo(Init);
+    Statecounter++;
+    break;
+  case 1:
+    Spuelautomat.transitionTo(Kalibrierung);
+    Statecounter++;
+    break;
+  case 2:
+    Spuelautomat.transitionTo(Standby);
+    Statecounter++;
+    break;
+  case 3:
+    Spuelautomat.transitionTo(Rakeln);
+    Statecounter++;
+    break;
+  case 4:
+    Spuelautomat.transitionTo(Rakelreinigen);
+    Statecounter++;
+    break;
+  case 5:
+    Spuelautomat.transitionTo(Abstreifen);
+    Statecounter++;
+    break;
+  case 6:
+    Spuelautomat.transitionTo(Ausgabe);
+    Statecounter = 2;
+    break;
+  
+  default:
+    break;
+  }
 
 
 
@@ -128,7 +163,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   void do_Init()
   {;}
   void ex_Init()
-  {;}
+  {
+    digitalWrite(led_Gruen, 0);
+    digitalWrite(led_Rot, 0);
+  }
 
   //Kalibrierung
   void en_Kalibrierung()
@@ -139,11 +177,38 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Kalibrierung Hinten
     while(digitalRead(endschalter_Hinten)==0)
     {
-      RB_Dfr_444.setMotorStart(Lore_nachHinten);
-      digitalRead(endschalter_Hinten);
+      RB_Dfr_444.setMotorStart(Lore_ab);
       if((maxtime-millis())<10000)
-        {} //Call Error
+        Spuelautomat.immediateTransitionTo(ErrorState);
     }
+    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen
+
+    //Kalibrierung Vorne
+    while(digitalRead(endschalter_Vorne)==0)
+    {
+      RB_Dfr_444.setMotorStart(Lore_auf);
+      if((maxtime-millis())>10000)
+        Spuelautomat.immediateTransitionTo(ErrorState);
+    }
+    //Encoderzaehler_min = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen
+    
+    //Kalibrierung Kolben
+    /*
+    maxtime = millis();
+    while(digitalRead(endschalter_Zylinder)== 1)
+    {
+      digitalWrite(Kolben, Kolben_ausfahren);
+      if((maxtime-millis())>20000)
+        Spuelautomat.immediateTransitionTo(ErrorState);
+    }
+
+    while(digitalRead(endschalter_Zylinder)== 0)
+    {
+      digitalWrite(Kolben, Kolben_einfahren)
+      if((maxtime-millis())>20000)
+        Spuelautomat.immediateTransitionTo(ErrorState);
+    }
+    */
   }
   void ex_Kalibrierung()
   {}

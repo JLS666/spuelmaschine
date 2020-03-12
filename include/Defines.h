@@ -45,7 +45,8 @@ Seeed Shield für Arduino:
 
 //#define Kolben_einfahren
 //#define Kolben_ausfahren
-
+//#define Blasen_ein
+//#define Blasen_aus
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts //Andy: Kann man so invertieren? //Max: ja, etwas ungewohnt aber
 #define Lore_nachHinten MotorRechts    //Vorne ist die Plattenaufnahme Position.
@@ -65,8 +66,8 @@ Seeed Shield für Arduino:
 
 //***********************************   Funtkionen bekannt machen *******************************************/
 
-  void encoderEvent();
-  bool ABS();
+void encoderEvent();
+bool ABS();
 
   /********** STATES **************/
 void en_Init();
@@ -83,10 +84,10 @@ void en_Rakeln();
 void do_Rakeln();
 void ex_Rakeln();
 
-//Blasen
-void en_Blasen();
-void do_Blasen();
-void ex_Blasen();
+//Rakelreinigen
+void en_Rakelreinigen();
+void do_Rakelreinigen();
+void ex_Rakelreinigen();
 
 //Abstreifen
 void en_Abstreife();
