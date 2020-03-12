@@ -44,10 +44,10 @@ Seeed Shield für Arduino:
 #define led_Gruen A4
 
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
-#define MotorLinks !MotorRechts //Andy: Kann man so invertieren?
+#define MotorLinks !MotorRechts //Andy: Kann man so invertieren? //Max: ja, etwas ungewohnt aber
 #define Lore_nachHinten MotorRechts    //Vorne ist die Plattenaufnahme Position.
-#define Lore_Zurueck MotorLinks
-#define Ramp 300                //in ms bis MotSpeed Rampenzeit
+#define Lore_Zurueck MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
+#define Ramp 300                //in ms bis MotSpeed Rampenzeit //Max: da sind wir schon durchgefahren bis die Lore auf max. v ist
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
 #define Error -1

@@ -14,6 +14,7 @@
 #include "FiniteStateMachine.h"
 
 
+
   //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
@@ -51,7 +52,7 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 }
 
-void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
+void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
     
 
   //******************************************************************************/
@@ -63,6 +64,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
   Spuelautomat.transitionTo(ErrorState);
   //Hier darf Max sich austoben...
+
+
 
 
 
@@ -109,15 +112,21 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   void en_Init()
   {
     Serial.println("Initialisierung");
-    RB_Dfr_444.setMotorStart(Lore_Zurueck);
+    RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
+
     //Zylinder ein
-    //Led an
+    //Led an beide
 
       //Wir warten auf den Start.
       Serial.println("getting Ready...");
-      delay(500);
+      delay(500);     //Max:warum solange warten?
     
   }
+  void do_Init()
+  {;}
+  void ex_Init()
+  {;}
+  
   void en_Blasen() 
   {
     Serial.println("entry Blasen");
