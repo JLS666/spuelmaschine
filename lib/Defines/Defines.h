@@ -48,26 +48,32 @@ Seeed Shield für Arduino:
 //#define Blasen_ein
 //#define Blasen_aus
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
-#define MotorLinks !MotorRechts //Andy: Kann man so invertieren? //Max: ja, etwas ungewohnt aber
-#define Lore_nachHinten MotorRechts    //Vorne ist die Plattenaufnahme Position.
-#define Lore_Zurueck MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
+#define MotorLinks !MotorRechts 
+#define Lore_ab MotorRechts    //Vorne ist die Plattenaufnahme Position.
+#define Lore_auf MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit //Max: da sind wir schon durchgefahren bis die Lore auf max. v istb
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define Kolben ventil1
 
+#define Kolben_rein true       // muss man noch checken.
+#define Kolben_raus false
 #define Error -1
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
 #define SollEncoderWert 444 //Encoder in Mitte
+#define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
 
 
 
 //***********************************   Funtkionen bekannt machen *******************************************/
 
-void encoderEvent();
-bool ABS();
+  void encoderEvent();
+  bool ABS();
+  void Leer();
+
 
   /********** STATES **************/
 void en_Init();

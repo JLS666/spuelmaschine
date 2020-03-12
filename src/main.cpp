@@ -26,9 +26,11 @@
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
   bool timerModus = false;
+
   int8_t i = 0;
   int8_t Statecounter = 0;
-  
+  int timerIndex= 0;
+
 
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
@@ -120,11 +122,11 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     }
     else
     {
-      if(i < 100)
+      if(timerIndex < 100)
       {
-        LoopTimeArray[i] = micros() - lastTime;
+        LoopTimeArray[timerIndex] = micros() - lastTime;
         lastTime = micros();
-        i++;
+        timerIndex++;
       }
       else
       {
@@ -132,12 +134,9 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         {
           Serial.println(LoopTimeArray[j]);
         }
-        i = 0;    
+        timerIndex= 0;    
       }
     }
-  
-
-
 
 }
 //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
@@ -151,13 +150,13 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
 
     //Zylinder ein
-    digitalWrite(led_Gruen, 1);
-    digitalWrite(led_Rot, 1);
-    //digitalWrite(Kolben, Kolben_einfahren);
+    digitalWrite(led_Gruen, true);
+    digitalWrite(led_Rot, true);
+    digitalWrite(Kolben, Kolben_rein);
 
-      //Wir warten auf den Start.
+    //Wir warten auf den Start.
     Serial.println("getting Ready...");
-    //delay(500);     //Max:warum solange warten?
+    
     
   }
   void do_Init()
@@ -207,9 +206,13 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       digitalWrite(Kolben, Kolben_einfahren)
       if((maxtime-millis())>20000)
         Spuelautomat.immediateTransitionTo(ErrorState);
+      digitalRead(endschalter_Hinten);
+      if((maxtime-millis())<10000)
+        {}
     }
     */
   }
+  
   void ex_Kalibrierung()
   {}
   //Standby
@@ -242,7 +245,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     else
       derEncoder.dekrementZaehler();
   }
-bool ABS() //Gibt ein Error zurück wenn die Lore fest hängt.
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
   static unsigned long Zeit=0;
