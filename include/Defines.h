@@ -47,9 +47,9 @@ Seeed Shield für Arduino:
 //#define Kolben_ausfahren
 
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
-#define MotorLinks !MotorRechts //Andy: Kann man so invertieren? //Max: ja, etwas ungewohnt aber
-#define Lore_nachHinten MotorRechts    //Vorne ist die Plattenaufnahme Position.
-#define Lore_Zurueck MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
+#define MotorLinks !MotorRechts 
+#define Lore_ab MotorRechts    //Vorne ist die Plattenaufnahme Position.
+#define Lore_auf MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit //Max: da sind wir schon durchgefahren bis die Lore auf max. v istb
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
@@ -67,6 +67,7 @@ Seeed Shield für Arduino:
 
   void encoderEvent();
   bool ABS();
+  void leer();
 
   /********** STATES **************/
 void en_Init();

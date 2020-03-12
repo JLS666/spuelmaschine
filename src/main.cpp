@@ -100,9 +100,6 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         i = 0;    
       }
     }
-  
-
-
 
 }
 //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
@@ -139,7 +136,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Kalibrierung Hinten
     while(digitalRead(endschalter_Hinten)==0)
     {
-      RB_Dfr_444.setMotorStart(Lore_nachHinten);
+      RB_Dfr_444.setMotorStart(Lore_ab);
       digitalRead(endschalter_Hinten);
       if((maxtime-millis())<10000)
         {}
