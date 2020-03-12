@@ -36,8 +36,8 @@
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
   State Init            = State (en_Init,do_Init,ex_Init);
-  State Kalibrierung    = State (en_Kalibrierung, do_Kalibrierung, ex_Kalibrierung);
-  State Rakelreinigen   = State (en_Rakelreinigen,do_Rakelreinigen,ex_Rakelreinigen);
+  State Kalibrierung    = State (Leer, Leer, Leer);
+  State Rakelreinigen   = State (Leer,Leer,Leer);
   State Standby         = State (do_Standby);
   State Rakeln          = State (Leer);
   State Abstreifen      = State (Leer);

@@ -91,9 +91,9 @@ void do_Rakeln();
 void ex_Rakeln();
 
 //Rakelreinigen
-void en_Rakelreinigen();
-void do_Rakelreinigen();
-void ex_Rakelreinigen();
+//void en_Rakelreinigen();
+//void do_Rakelreinigen();
+//void ex_Rakelreinigen();
 
 //Abstreifen
 void en_Abstreife();
@@ -111,7 +111,7 @@ void do_Error();
 void ex_Error();
 
 //Kalibrierung
-void en_Kalibrierung();
-void do_Kalibrierung();
-void ex_Kalibrierung();
+//void en_Kalibrierung();
+//void do_Kalibrierung();
+//void ex_Kalibrierung();
 
