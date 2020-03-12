@@ -59,6 +59,7 @@ Seeed Shield für Arduino:
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
 #define SollEncoderWert 444 //Encoder in Mitte
+#define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
 
 
