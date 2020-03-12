@@ -26,12 +26,12 @@
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
   bool timerModus = false;
-  int i = 0;
+  int timerIndex= 0;
 
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
-  State Init        = State (en_Init,Leer,Leer); // Andy hier sind Fehler bei mir!
+  State Init        = State (en_Init,Leer,Leer); // Andy hier sind Fehler betimerIndexmir!
   State BlasenEin   = State (en_Blasen,Leer,Leer);
   State Standby     = State (do_Standby);
   State Rakeln      = State (Leer);
@@ -85,11 +85,11 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     }
     else
     {
-      if(i < 100)
+      if(timerIndex < 100)
       {
-        LoopTimeArray[i] = micros() - lastTime;
+        LoopTimeArray[timerIndex] = micros() - lastTime;
         lastTime = micros();
-        i++;
+        timerIndex++;
       }
       else
       {
@@ -97,7 +97,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         {
           Serial.println(LoopTimeArray[j]);
         }
-        i = 0;    
+        timerIndex= 0;    
       }
     }
 
