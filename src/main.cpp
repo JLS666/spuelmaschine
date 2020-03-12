@@ -46,7 +46,7 @@
 
 void setup() {
   //Input Output Setzen.
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen.
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
   Serial.begin(9600);
 
   Serial.println("Setup Abgeschlossen !");
@@ -109,24 +109,49 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 //******************************************************************************/
   //Aktionen:
+  //Init
   void en_Init()
   {
     Serial.println("Initialisierung");
     RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
 
     //Zylinder ein
-    //Led an beide
+    digitalWrite(led_Gruen, 1);
+    digitalWrite(led_Rot, 1);
+    //digitalWrite(Kolben, Kolben_einfahren);
 
       //Wir warten auf den Start.
-      Serial.println("getting Ready...");
-      delay(500);     //Max:warum solange warten?
+    Serial.println("getting Ready...");
+    //delay(500);     //Max:warum solange warten?
     
   }
   void do_Init()
   {;}
   void ex_Init()
   {;}
-  
+
+  //Kalibrierung
+  void en_Kalibrierung()
+  {}
+  void do_Kalibrierung()
+  {
+    unsigned long maxtime = millis();
+    //Kalibrierung Hinten
+    while(digitalRead(endschalter_Hinten)==0)
+    {
+      RB_Dfr_444.setMotorStart(Lore_nachHinten);
+      digitalRead(endschalter_Hinten);
+      if((maxtime-millis())<10000)
+        
+    }
+  }
+  void ex_Kalibrierung()
+  {}
+  //Standby
+
+  //Rakeln
+
+  //Rakel reinigen
   void en_Blasen() 
   {
     Serial.println("entry Blasen");
