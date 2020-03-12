@@ -31,7 +31,7 @@
   //******************************************************************************/
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
-  State Init        = State (en_Init,Leer,Leer);
+  State Init        = State (en_Init,Leer,Leer); // Andy hier sind Fehler bei mir!
   State BlasenEin   = State (en_Blasen,Leer,Leer);
   State Standby     = State (do_Standby);
   State Rakeln      = State (Leer);
