@@ -113,13 +113,13 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
 
     //Zylinder ein
-    digitalWrite(led_Gruen, 1);
-    digitalWrite(led_Rot, 1);
-    //digitalWrite(Kolben, Kolben_einfahren);
+    digitalWrite(led_Gruen, true);
+    digitalWrite(led_Rot, true);
+    digitalWrite(Kolben, Kolben_rein);
 
-      //Wir warten auf den Start.
+    //Wir warten auf den Start.
     Serial.println("getting Ready...");
-    //delay(500);     //Max:warum solange warten?
+    
     
   }
   void do_Init()
@@ -175,7 +175,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     else
       derEncoder.dekrementZaehler();
   }
-bool ABS() //Gibt ein Error zurück wenn die Lore fest hängt.
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
   static unsigned long Zeit=0;

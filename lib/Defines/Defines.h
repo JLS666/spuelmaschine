@@ -52,7 +52,10 @@ Seeed Shield für Arduino:
 #define Lore_auf MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit //Max: da sind wir schon durchgefahren bis die Lore auf max. v istb
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define Kolben ventil1
 
+#define Kolben_rein true       // muss man noch checken.
+#define Kolben_raus false
 #define Error -1
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen
