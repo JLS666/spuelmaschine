@@ -68,6 +68,7 @@ Seeed Shield für Arduino:
 
   void encoderEvent();
   bool ABS();
+  void Leer();
 
   /********** STATES **************/
 void en_Init();
