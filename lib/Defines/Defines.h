@@ -43,15 +43,14 @@ Seeed Shield für Arduino:
 #define led_Rot A3                 
 #define led_Gruen A4
 
-//#define Kolben_einfahren
-//#define Kolben_ausfahren
-//#define Blasen_ein
-//#define Blasen_aus
+
+//#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
+#define Blasen ventil2
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts 
-#define Lore_ab MotorRechts    //Vorne ist die Plattenaufnahme Position.
-#define Lore_auf MotorLinks         //Max: "Zurueck" find ich nicht so gut als begriff, mach lieber "vorfahren", "vor"
-#define Ramp 300                //in ms bis MotSpeed Rampenzeit //Max: da sind wir schon durchgefahren bis die Lore auf max. v istb
+#define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
+#define Lore_auf MotorLinks      
+#define Ramp 300                //in ms bis MotSpeed Rampenzeit 
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 #define Kolben ventil1
 
@@ -65,8 +64,12 @@ Seeed Shield für Arduino:
 #define SollEncoderWert 444 //Encoder in Mitte
 #define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
-
-
+#define ErrTimeLore_ab_Kalib 3000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
+#define ErrTimeLore_auf_Kalib 3500
+#define ErrTimeLore_ab_Abstreifen 1300
+#define ErrTimeLore_auf_Return 3000
+#define ErrTimeKolben_backagain 1000
+#define KolbenFahrzeit 600 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
 
 //***********************************   Funtkionen bekannt machen *******************************************/
 
@@ -91,9 +94,9 @@ void do_Rakeln();
 void ex_Rakeln();
 
 //Rakelreinigen
-//void en_Rakelreinigen();
-//void do_Rakelreinigen();
-//void ex_Rakelreinigen();
+void en_Rakelreinigen();
+void do_Rakelreinigen();
+void ex_Rakelreinigen();
 
 //Abstreifen
 void en_Abstreife();
