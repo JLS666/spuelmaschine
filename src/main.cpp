@@ -12,12 +12,14 @@
 #include "Motor.h"
 #include "Encoder.h"
 #include "FiniteStateMachine.h"
+#include "LED.h"
 
 
 
   //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
+  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
@@ -52,13 +54,13 @@ void setup() {
   //Input Output Setzen.
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
   Serial.begin(9600);
-
+  
   Serial.println("Setup Abgeschlossen !");
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-    
 
+OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Init) && digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
@@ -142,7 +144,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 //******************************************************************************/
-  //Aktionen:
+//Aktionen:
   //Init
   void en_Init()
   {
@@ -177,10 +179,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     while(digitalRead(endschalter_Hinten)==0)
     {
       RB_Dfr_444.setMotorStart(Lore_ab);
-      if((maxtime-millis())<10000)
+      if((maxtime-millis())<10000) //Andy: oder so: if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Kalib)
         Spuelautomat.immediateTransitionTo(ErrorState);
     }
-    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen
+    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen //Andy: brauchst du net Juli macht das automatisch.
 
     //Kalibrierung Vorne
     while(digitalRead(endschalter_Vorne)==0)
@@ -235,15 +237,17 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Nix die ist Leer.
     Serial.println("Welcher Trottel ruft Leer auf?");
   }
-  //******************************************************************************/
+//******************************************************************************/
 
 
   void encoderEvent() //ISR
   {
+   // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
     if(encoderB)
       derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
+    //  interrupts();
   }
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
@@ -262,3 +266,8 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
     return Ok;
   }
 }
+
+ISR(TIMER2_COMPA_vect){    //This is the interrupt request
+OnBoardLED.Flashen();
+OnBoardLED.refresh();     //Kann auch in die loop
+};

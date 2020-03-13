@@ -1,0 +1,115 @@
+/* 
+LED Blinken.
+Autor: Andy 
+
+Anleitung:
+LED Objetk erstellen
+Timerfuktion erstellen sie ganz unten.
+Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
+*/
+#include <Arduino.h>
+
+class LED
+{
+    public:
+    LED(int Pin)
+    {
+        State=sAus;
+        LEDPin=Pin;
+        pinMode(LEDPin,OUTPUT);
+        TimerSetup();
+    }
+    void An() //Macht die LED An.
+    {
+        State=sAn;
+    };
+    void Aus() //Selbsterklärend
+    {
+        State=sAus;
+    };
+    void Blinken() //Blinkt in Faktor "Schnellfaktor" langsamer als Schnell. 50% Duty.
+    {
+        State=sBlinken;
+    };
+    void SchnellBlinken() //Selbsterklärend
+    {
+        State=sSchnellBlinken;
+    };
+    char getState() //Gibt Status zurück.
+    {
+        return State;
+    };
+    void refresh() //Updatet den Status. In Loop oder ISR aufrufen!
+    {
+        switch (State)
+        {
+        case sAus:
+            digitalWrite(LEDPin,false);
+            break;
+        case sAn:
+            digitalWrite(LEDPin,true);
+            break;
+        case sBlinken:
+            if((Flash>Blinkfrequenz*SchnellFaktor/2)) //Geilon
+            {
+                digitalWrite(LEDPin,true);
+            }
+            else 
+            {
+                digitalWrite(LEDPin,false);
+            }
+            break;
+        case sSchnellBlinken:
+            if(Flash/(Blinkfrequenz/2)%2)
+            {
+                digitalWrite(LEDPin,true);
+            }
+            else
+            {
+                digitalWrite(LEDPin,false);
+            }
+            break;
+        
+        default:
+            break;
+        }
+        
+    };
+    void Flashen() //1ms Periode. Aufruf in ISR.
+    {
+        Flash++;
+        if(Flash>Blinkfrequenz*SchnellFaktor)
+        Flash=1;
+    };
+
+
+
+    private:
+    enum {sAus,sAn,sBlinken,sSchnellBlinken};
+    int LEDPin;
+    int Blinkfrequenz=100; //in mHz (Schnelles Blinken)
+    int SchnellFaktor=3; //x mal so langsam
+    int State=0;
+    int Flash=1;
+    void TimerSetup() // UNO Spezifisch 
+    {            
+        cli();           // disable all interrupts
+        TCCR2A = 0; // set TCCR2A register to 0
+        TCCR2B = 0; // set TCCR2B register to 0
+        TCNT2  = 0; // set counter value to 0
+        
+        OCR2A = 156; // set compare match register    =1ms Bei UNO 
+        TCCR2B |= (1 << CS22) | (1 << CS20);         // 1:1024 prescaling for timer 2
+        TCCR2A |= (1 << WGM21); // turn on CTC mode
+        TIMSK2 |= (1 << OCIE2A); // enable timer compare interrupt
+        sei();             // enable all interrupts
+    };
+};
+
+
+//ISR((TIMER2_COMPA_vect));
+
+// ISR(TIMER2_COMPA_vect){    //This is the interrupt request
+//   GrueneLED.Flashen();
+//   GrueneLED.refresh();     //Kann auch in die loop
+// };
