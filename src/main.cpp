@@ -54,6 +54,23 @@ void setup() {
   Serial.begin(9600);
   OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
+
+
+  pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
+  pinMode(endePin, OUTPUT);
+  pinMode(encoderA, INPUT_PULLUP);
+  pinMode(encoderB, INPUT_PULLUP);
+  // Motortreiber werden extern gemacht, siehe Motor Klasse, finde ich doof!!!!
+  pinMode(endschalter_Vorne, INPUT_PULLUP);
+  pinMode(endschalter_Hinten, INPUT_PULLUP);
+  pinMode(endschalter_Zylinder, INPUT_PULLUP);
+  pinMode(endschalter_Deckel, INPUT_PULLUP);
+  pinMode(quitieren, INPUT_PULLUP);
+  pinMode(kolben, OUTPUT);
+  pinMode(blasen, OUTPUT);
+  pinMode(notaus, INPUT_PULLUP);
+  pinMode(led_Rot, OUTPUT);
+  pinMode(led_Gruen, OUTPUT);
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -152,7 +169,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Zylinder ein
     digitalWrite(led_Gruen, true);
     digitalWrite(led_Rot, true);
-    digitalWrite(Kolben, Kolben_rein);
+    digitalWrite(kolben, kolbenRein);
 
     //Wir warten auf den Start.
     Serial.println("getting Ready...");

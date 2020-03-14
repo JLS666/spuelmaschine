@@ -35,27 +35,23 @@ Seeed Shield für Arduino:
 #define endschalter_Vorne 5
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
-#define endschalter_Deckel 
-#define quitieren
-#define ventil1 A0
-#define ventil2 A1
+#define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
+#define quitieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
+#define kolben A0
+#define blasen A1
 #define notaus A2
 #define led_Rot A3                 
 #define led_Gruen A4
 
 
 //#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
-#define Blasen ventil2
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts 
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit 
 #define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
-#define Kolben ventil1
 
-#define Kolben_rein true       // muss man noch checken.
-#define Kolben_raus false
 #define Error -1
 #define Ok 0
 #define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen
@@ -77,6 +73,34 @@ Seeed Shield für Arduino:
   bool ABS();
   void Leer();
 
+
+
+//***********************************   True und False Defines  *********************************************/
+// Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
+#define blasenEin true
+#define blasenAus false
+#define kolbenRaus true
+#define kolbenRein false
+#define notausEin false
+#define notausAus true
+#define startPinEin true
+#define startPinAus false
+#define endePinEin true
+#define endePinAus false
+#define endschalter_VorneEin false
+#define endschalter_VorneAus true
+#define endschalter_HintenEin false
+#define endschalter_HintenAus true
+#define endschalter_ZylinderEin false
+#define endschalter_ZylinderAus true
+#define endschalter_DeckelEin false
+#define endschalter_DeckelAus true
+#define quitierenEin false
+#define quitierenAus true
+#define led_RotAn true
+#define led_RotAus false
+#define led_GruenAn true
+#define led_GruenAus false
 
   /********** STATES **************/
 void en_Init();
