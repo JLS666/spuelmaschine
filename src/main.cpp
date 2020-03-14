@@ -24,7 +24,6 @@
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
-  int ZyklenZaehler;
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
@@ -53,13 +52,12 @@ void setup() {
   //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
   Serial.begin(9600);
-  
+  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
 
-  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Init) && digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
@@ -288,6 +286,6 @@ int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
   EEPROM.put(0,ROM);
   delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt.
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
-   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
+  Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;
 };
