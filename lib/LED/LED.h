@@ -7,6 +7,7 @@ LED Objetk erstellen
 Timerfuktion erstellen sie ganz unten.
 Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
 */
+//#ifndef <Arduino.h>
 #include <Arduino.h>
 
 class LED
@@ -92,7 +93,9 @@ class LED
     int State=0;
     int Flash=1;
     void TimerSetup() // UNO Spezifisch 
-    {            
+    {   
+        //https://www.simsso.de/?type=arduino/timer-interrupts
+        //verdammt gute Seite Junge         
         cli();           // disable all interrupts
         TCCR2A = 0; // set TCCR2A register to 0
         TCCR2B = 0; // set TCCR2B register to 0

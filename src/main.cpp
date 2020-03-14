@@ -13,6 +13,7 @@
 #include "Encoder.h"
 #include "FiniteStateMachine.h"
 #include "LED.h"
+#include <EEPROM.h>
 
 
 
@@ -28,8 +29,6 @@
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
   bool timerModus = false;
-
-  int8_t i = 0;
   int8_t Statecounter = 0;
   int timerIndex= 0;
 
@@ -60,7 +59,7 @@ void setup() {
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
 
-OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
+  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Init) && digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
@@ -240,15 +239,16 @@ OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
 //******************************************************************************/
 
 
-  void encoderEvent() //ISR
-  {
+void encoderEvent() //ISR
+{
    // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
     if(encoderB)
       derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
     //  interrupts();
-  }
+}
+
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
@@ -268,6 +268,25 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 }
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
-OnBoardLED.Flashen();
-OnBoardLED.refresh();     //Kann auch in die loop
+  OnBoardLED.Flashen();
+  OnBoardLED.refresh();     //Kann auch in die loop
+  RoteLED.Flashen();
+  RoteLED.refresh();        
+  GrueneLED.Flashen();
+  GrueneLED.refresh();      
+};
+
+int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
+{
+  static int RAM=0;
+  int ROM=EEPROM.get(0,ROM);
+  if(Increment){
+    ROM++;
+    RAM++;
+  }
+  EEPROM.put(0,ROM);
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt.
+  Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
+   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
+  return RAM;
 };
