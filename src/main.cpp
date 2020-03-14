@@ -42,7 +42,7 @@
   State Standby         = State (do_Standby);
   State Rakeln          = State (Leer);
   State Abstreifen      = State (Leer);
-  State Ausgabe         = State (Leer);
+  State Ausgabe         = State (Leer); 
   State ErrorState      = State (Leer);
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
@@ -50,7 +50,7 @@
 
 
 void setup() {
-  //Input Output Setzen.
+  //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
   Serial.begin(9600);
   
@@ -113,8 +113,9 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
   //State im Serial anzeigen
+  State& getCurrentState(); //Andy: Wie soll das gehen?
 
-  if(timerModus)  //Loop Geschwindigkeit
+  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen?
 
     {
       LoopTime=millis()-LoopTime;
