@@ -5,7 +5,6 @@
 #include "Motor.h"
 #include "FiniteStateMachine.h"
 #include "LED.h"
-#include "Zustandsautomat.h"
 
 // alle Objekte mit extern bekannt machen
 extern Motor RB_Dfr_444;
@@ -21,4 +20,4 @@ extern State Abstreifen;
 extern State Ausgabe;
 extern State ErrorState;
 
-extern FiniteStateMachine Spuelautomat;
+extern  FiniteStateMachine Spuelautomat;
