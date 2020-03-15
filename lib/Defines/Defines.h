@@ -23,6 +23,8 @@ Seeed Shield für Arduino:
 - 4 x I2C: SDA, SCL --> 
 - noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
+#pragma once
+
 
 //Pins
 #define startPin 0
@@ -35,7 +37,7 @@ Seeed Shield für Arduino:
 #define endschalter_Vorne 5
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
-#define endschalter_Deckel 
+#define endschalter_Deckel 10
 #define quitieren
 #define ventil1 A0
 #define ventil2 A1
@@ -66,52 +68,4 @@ Seeed Shield für Arduino:
 #define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
 
-
-
-//***********************************   Funtkionen bekannt machen *******************************************/
-
-  void encoderEvent();
-  bool ABS();
-  void Leer();
-
-
-  /********** STATES **************/
-void en_Init();
-void do_Init();
-void ex_Init();
-
-//Standby
-void en_Standby();
-void do_Standby();
-void ex_Standby();
-
-//Rakeln
-void en_Rakeln();
-void do_Rakeln();
-void ex_Rakeln();
-
-//Rakelreinigen
-//void en_Rakelreinigen();
-//void do_Rakelreinigen();
-//void ex_Rakelreinigen();
-
-//Abstreifen
-void en_Abstreife();
-void do_Abstreife();
-void ex_Abstreife();
-
-//Lore nach Vorne
-void en_Lore_vor();
-void do_Lore_vor();
-void ex_Lore_vor();
-
-//Error
-void en_Error();
-void do_Error();
-void ex_Error();
-
-//Kalibrierung
-//void en_Kalibrierung();
-//void do_Kalibrierung();
-//void ex_Kalibrierung();
 

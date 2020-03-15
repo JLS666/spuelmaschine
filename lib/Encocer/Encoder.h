@@ -5,6 +5,7 @@
 /*  Beschreibung: Header der Datei der Klasse Encoder               */
 /*  Version:      0.1                                               */                 
 /********************************************************************/
+#pragma once
 
 class Encoder
 {
