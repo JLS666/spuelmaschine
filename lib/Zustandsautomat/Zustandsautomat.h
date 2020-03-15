@@ -1,6 +1,7 @@
 
 
 void en_Init();
+void ex_Init();
 void do_Init();
 void en_Kalibrierung();
 void do_Kalibrierung();
