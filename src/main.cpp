@@ -12,22 +12,22 @@
 #include "Motor.h"
 #include "Encoder.h"
 #include "FiniteStateMachine.h"
+#include "LED.h"
+#include <EEPROM.h>
 
 
 
   //************************************   Objekte erezugen ****************************************************/
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
+  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
-  int ZyklenZaehler;
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
   bool timerModus = false;
-
-  int8_t i = 0;
   int8_t Statecounter = 0;
   int timerIndex= 0;
 
@@ -41,7 +41,7 @@
   State Standby         = State (do_Standby);
   State Rakeln          = State (Leer);
   State Abstreifen      = State (Leer);
-  State Ausgabe         = State (Leer);
+  State Ausgabe         = State (Leer); 
   State ErrorState      = State (Leer);
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
@@ -49,15 +49,31 @@
 
 
 void setup() {
-  //Input Output Setzen.
+  //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
   Serial.begin(9600);
-
+  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
+
+
+  pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
+  pinMode(endePin, OUTPUT);
+  pinMode(encoderA, INPUT_PULLUP);
+  pinMode(encoderB, INPUT_PULLUP);
+  // Motortreiber werden extern gemacht, siehe Motor Klasse, finde ich doof!!!!
+  pinMode(endschalter_Vorne, INPUT_PULLUP);
+  pinMode(endschalter_Hinten, INPUT_PULLUP);
+  pinMode(endschalter_Zylinder, INPUT_PULLUP);
+  pinMode(endschalter_Deckel, INPUT_PULLUP);
+  pinMode(quitieren, INPUT_PULLUP);
+  pinMode(kolben, OUTPUT);
+  pinMode(blasen, OUTPUT);
+  pinMode(notaus, INPUT_PULLUP);
+  pinMode(led_Rot, OUTPUT);
+  pinMode(led_Gruen, OUTPUT);
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-    
 
   //******************************************************************************/
   //Transitionen:
@@ -112,8 +128,9 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
   //State im Serial anzeigen
+  State& getCurrentState(); //Andy: Wie soll das gehen?
 
-  if(timerModus)  //Loop Geschwindigkeit
+  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen?
 
     {
       LoopTime=millis()-LoopTime;
@@ -142,7 +159,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 //******************************************************************************/
-  //Aktionen:
+//Aktionen:
   //Init
   void en_Init()
   {
@@ -152,7 +169,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Zylinder ein
     digitalWrite(led_Gruen, true);
     digitalWrite(led_Rot, true);
-    digitalWrite(Kolben, Kolben_rein);
+    digitalWrite(kolben, kolbenRein);
 
     //Wir warten auf den Start.
     Serial.println("getting Ready...");
@@ -177,10 +194,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     while(digitalRead(endschalter_Hinten)==0)
     {
       RB_Dfr_444.setMotorStart(Lore_ab);
-      if((maxtime-millis())<10000)
+      if((maxtime-millis())<10000) //Andy: oder so: if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Kalib)
         Spuelautomat.immediateTransitionTo(ErrorState);
     }
-    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen
+    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen //Andy: brauchst du net Juli macht das automatisch.
 
     //Kalibrierung Vorne
     while(digitalRead(endschalter_Vorne)==0)
@@ -235,16 +252,19 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Nix die ist Leer.
     Serial.println("Welcher Trottel ruft Leer auf?");
   }
-  //******************************************************************************/
+//******************************************************************************/
 
 
-  void encoderEvent() //ISR
-  {
+void encoderEvent() //ISR
+{
+   // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
     if(encoderB)
       derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
-  }
+    //  interrupts();
+}
+
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
@@ -262,3 +282,27 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
     return Ok;
   }
 }
+
+ISR(TIMER2_COMPA_vect){    //This is the interrupt request
+  OnBoardLED.Flashen();
+  OnBoardLED.refresh();     //Kann auch in die loop
+  RoteLED.Flashen();
+  RoteLED.refresh();        
+  GrueneLED.Flashen();
+  GrueneLED.refresh();      
+};
+
+int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
+{
+  static int RAM=0;
+  int ROM=EEPROM.get(0,ROM);
+  if(Increment){
+    ROM++;
+    RAM++;
+  }
+  EEPROM.put(0,ROM);
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt.
+  Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
+  Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
+  return RAM;
+};
