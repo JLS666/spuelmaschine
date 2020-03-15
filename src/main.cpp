@@ -30,18 +30,10 @@
 
 
 void setup() {
-  //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
-  Serial.begin(9600);
-  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
-  Serial.println("Setup Abgeschlossen !");
-
-
-  pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
+  pinMode(startPin, INPUT);       
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
-  // Motortreiber werden extern gemacht, siehe Motor Klasse, finde ich doof!!!!
   pinMode(endschalter_Vorne, INPUT_PULLUP);
   pinMode(endschalter_Hinten, INPUT_PULLUP);
   pinMode(endschalter_Zylinder, INPUT_PULLUP);
@@ -50,8 +42,12 @@ void setup() {
   pinMode(kolben, OUTPUT);
   pinMode(blasen, OUTPUT);
   pinMode(notaus, INPUT_PULLUP);
-  pinMode(led_Rot, OUTPUT);
-  pinMode(led_Gruen, OUTPUT);
+
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
+  Serial.begin(9600);
+  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
+  Serial.println("Setup Abgeschlossen !");
+
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -111,7 +107,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //State im Serial anzeigen
   State& getCurrentState(); //Andy: Wie soll das gehen?
 
-  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen?
+  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian
   
     {
       LoopTime=millis()-LoopTime;
@@ -136,18 +132,16 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
     }
   
-} // Loop Ende
+} // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
 
 void encoderEvent() //ISR
 {
-   // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
     if(encoderB)
       derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
-    //  interrupts();
 }
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.

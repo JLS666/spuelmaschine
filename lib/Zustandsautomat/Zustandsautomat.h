@@ -1,4 +1,5 @@
 #pragma once
+
 // Alle Headerdateien der Klassen einfügen.
 #include "Encoder.h"
 #include "Motor.h"
