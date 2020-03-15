@@ -7,9 +7,9 @@
 /*  Version:      0.1                                               */                 
 /********************************************************************/
 
+
 #include <Arduino.h>
 #include "Defines.h"
-#include "GlobaleObjekte.h"
 #include "Zustandsautomat.h"
 
 //#include "Motor.h"
@@ -29,8 +29,8 @@
 
 
 void setup() {
-  
-  pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
+
+  pinMode(startPin, INPUT);      
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
@@ -107,7 +107,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   State& getCurrentState(); //Andy: Wie soll das gehen?
 
   if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen?
-
+  
     {
       LoopTime=millis()-LoopTime;
       Serial.print("Loop bearbeitet in (ms): ");
@@ -125,10 +125,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       {
         for(int j = 0; j<100; j++)
         {
-          Serial.println(LoopTimeArray[j]);
+          Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
         }
         timerIndex= 0;    
       }
     }
-
+  
 } // Loop Ende
