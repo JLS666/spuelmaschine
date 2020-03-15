@@ -7,20 +7,17 @@
 /*  Version:      0.1                                               */                 
 /********************************************************************/
 
+
 #include <Arduino.h>
 #include "Defines.h"
-#include "Motor.h"
-#include "Encoder.h"
-#include "FiniteStateMachine.h"
-#include "LED.h"
+#include "Zustandsautomat.h"
 #include <EEPROM.h>
 
+//#include "Motor.h"
+//#include "Encoder.h"
+//#include "FiniteStateMachine.h"
+//#include "LED.h"
 
-
-  //************************************   Objekte erezugen ****************************************************/
-  Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
-  Encoder derEncoder; 
-  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
 
   //************************************   Globale Variablen ***************************************************/
   int MotorStatus;
@@ -32,35 +29,11 @@
   int timerIndex= 0;
 
 
-  //******************************************************************************/
-  //Zustandsautomat erstellen. Nach Plan in der Drive
-  //States:
-  State Init            = State (en_Init,do_Init,ex_Init);
-  State Kalibrierung    = State (Leer, Leer, Leer);
-  State Rakelreinigen   = State (Leer,Leer,Leer);
-  State Standby         = State (do_Standby);
-  State Rakeln          = State (Leer);
-  State Abstreifen      = State (Leer);
-  State Ausgabe         = State (Leer); 
-  State ErrorState      = State (Leer);
-  
-  FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
-  //******************************************************************************/
-
-
 void setup() {
-  //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
-  Serial.begin(9600);
-  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
-  Serial.println("Setup Abgeschlossen !");
-
-
-  pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
+  pinMode(startPin, INPUT);       
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
-  // Motortreiber werden extern gemacht, siehe Motor Klasse, finde ich doof!!!!
   pinMode(endschalter_Vorne, INPUT_PULLUP);
   pinMode(endschalter_Hinten, INPUT_PULLUP);
   pinMode(endschalter_Zylinder, INPUT_PULLUP);
@@ -69,8 +42,12 @@ void setup() {
   pinMode(kolben, OUTPUT);
   pinMode(blasen, OUTPUT);
   pinMode(notaus, INPUT_PULLUP);
-  pinMode(led_Rot, OUTPUT);
-  pinMode(led_Gruen, OUTPUT);
+
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
+  Serial.begin(9600);
+  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
+  Serial.println("Setup Abgeschlossen !");
+
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -130,8 +107,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //State im Serial anzeigen
   State& getCurrentState(); //Andy: Wie soll das gehen?
 
-  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen?
-
+  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian
+  
     {
       LoopTime=millis()-LoopTime;
       Serial.print("Loop bearbeitet in (ms): ");
@@ -149,120 +126,22 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       {
         for(int j = 0; j<100; j++)
         {
-          Serial.println(LoopTimeArray[j]);
+          Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
         }
         timerIndex= 0;    
       }
     }
-
-}
-//Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
-
-//******************************************************************************/
-//Aktionen:
-  //Init
-  void en_Init()
-  {
-    Serial.println("Initialisierung");
-    RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
-
-    //Zylinder ein
-    digitalWrite(led_Gruen, true);
-    digitalWrite(led_Rot, true);
-    digitalWrite(kolben, kolbenRein);
-
-    //Wir warten auf den Start.
-    Serial.println("getting Ready...");
-    
-    
-  }
-  void do_Init()
-  {;}
-  void ex_Init()
-  {
-    digitalWrite(led_Gruen, 0);
-    digitalWrite(led_Rot, 0);
-  }
-
-  //Kalibrierung
-  void en_Kalibrierung()
-  {}
-  void do_Kalibrierung()
-  {
-    unsigned long maxtime = millis();
-    //Kalibrierung Hinten
-    while(digitalRead(endschalter_Hinten)==0)
-    {
-      RB_Dfr_444.setMotorStart(Lore_ab);
-      if((maxtime-millis())<10000) //Andy: oder so: if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Kalib)
-        Spuelautomat.immediateTransitionTo(ErrorState);
-    }
-    //Encoderzaehler_max = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen //Andy: brauchst du net Juli macht das automatisch.
-
-    //Kalibrierung Vorne
-    while(digitalRead(endschalter_Vorne)==0)
-    {
-      RB_Dfr_444.setMotorStart(Lore_auf);
-      if((maxtime-millis())>10000)
-        Spuelautomat.immediateTransitionTo(ErrorState);
-    }
-    //Encoderzaehler_min = Encoder_now //Max: wenn wir Hinten und Vorne feststellen wollen
-    
-    //Kalibrierung Kolben
-    /*
-    maxtime = millis();
-    while(digitalRead(endschalter_Zylinder)== 1)
-    {
-      digitalWrite(Kolben, Kolben_ausfahren);
-      if((maxtime-millis())>20000)
-        Spuelautomat.immediateTransitionTo(ErrorState);
-    }
-
-    while(digitalRead(endschalter_Zylinder)== 0)
-    {
-      digitalWrite(Kolben, Kolben_einfahren)
-      if((maxtime-millis())>20000)
-        Spuelautomat.immediateTransitionTo(ErrorState);
-      digitalRead(endschalter_Hinten);
-      if((maxtime-millis())<10000)
-        {}
-    }
-    */
-  }
   
-  void ex_Kalibrierung()
-  {}
-  //Standby
+} // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
-  //Rakeln
-
-  //Rakel reinigen
-  void en_Blasen() 
-  {
-    Serial.println("entry Blasen");
-
-  }
-  void do_Standby() 
-  {
-    Serial.println("Standby");
-
-  }
-  void Leer()
-  {
-    //Nix die ist Leer.
-    Serial.println("Welcher Trottel ruft Leer auf?");
-  }
-//******************************************************************************/
 
 
 void encoderEvent() //ISR
 {
-   // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
     if(encoderB)
       derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
-    //  interrupts();
 }
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.

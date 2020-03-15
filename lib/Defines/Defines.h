@@ -24,8 +24,6 @@ Seeed Shield für Arduino:
 - noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
 #pragma once
-
-
 //Pins
 #define startPin 0
 #define endePin 1
@@ -73,9 +71,7 @@ Seeed Shield für Arduino:
 
   void encoderEvent();
   bool ABS();
-  void Leer();
-
-
+  
 
 //***********************************   True und False Defines  *********************************************/
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
@@ -103,3 +99,5 @@ Seeed Shield für Arduino:
 #define led_RotAus false
 #define led_GruenAn true
 #define led_GruenAus false
+
+ 
