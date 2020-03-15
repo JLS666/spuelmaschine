@@ -29,18 +29,11 @@
 
 
 void setup() {
-  //Input Output Setzen. Andy: Wenn julian ne Schalter/Ventil Klasse macht brauchen wir das nicht.
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
-  Serial.begin(9600);
-  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
-  Serial.println("Setup Abgeschlossen !");
-
-
+  
   pinMode(startPin, INPUT_PULLUP);       // HILFE INPUT PULLUP ODER NUR INPUT??????????????????????????????????????????????????????????
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
-  // Motortreiber werden extern gemacht, siehe Motor Klasse, finde ich doof!!!!
   pinMode(endschalter_Vorne, INPUT_PULLUP);
   pinMode(endschalter_Hinten, INPUT_PULLUP);
   pinMode(endschalter_Zylinder, INPUT_PULLUP);
@@ -49,8 +42,11 @@ void setup() {
   pinMode(kolben, OUTPUT);
   pinMode(blasen, OUTPUT);
   pinMode(notaus, INPUT_PULLUP);
-  pinMode(led_Rot, OUTPUT);
-  pinMode(led_Gruen, OUTPUT);
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
+  Serial.begin(9600);
+  OnBoardLED.Blinken();  //Andy: Kleines Beispiel für ne LED
+  Serial.println("Setup Abgeschlossen !");
+
 }
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -68,7 +64,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   {
   case 0:
     Spuelautomat.transitionTo(Init);
-    Statecounter++;
+    //Statecounter++;
     break;
   case 1:
     Spuelautomat.transitionTo(Kalibrierung);
