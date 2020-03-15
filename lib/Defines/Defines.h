@@ -23,7 +23,7 @@ Seeed Shield für Arduino:
 - 4 x I2C: SDA, SCL --> 
 - noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
-
+#pragma once
 //Pins
 #define startPin 0
 #define endePin 1
