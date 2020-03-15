@@ -8,5 +8,9 @@ void ex_Kalibrierung();
 void en_Blasen();
 void do_Standby();
 void Leer();
+void encoderEvent();
+bool ABS();
+ISR(TIMER2_COMPA_vect);
+int Zyklenzaeler(bool Increment);
 
 

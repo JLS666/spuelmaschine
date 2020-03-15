@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "Defines.h"
 #include "GlobaleObjekte.h"
+#include <EEPROM.h>
 
 
 void en_Init()
@@ -96,3 +97,57 @@ void en_Init()
     Serial.println("Welcher Trottel ruft Leer auf?");
   }
 //******************************************************************************/
+
+
+
+void encoderEvent() //ISR
+{
+   // noInterrupts();           // disable all interrupts  Andy:Braucht man das? wenn ja mach es rein!
+    if(encoderB)
+      derEncoder.inkrementZaehler();
+    else
+      derEncoder.dekrementZaehler();
+    //  interrupts();
+}
+
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+{
+  static int Position=0;
+  static unsigned long Zeit=0;
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
+  {
+    Zeit=millis();
+    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz)
+      return Error;
+    Position=derEncoder.getZaehler();
+    return Ok;       
+  }
+  else
+  {
+    return Ok;
+  }
+}
+
+ISR(TIMER2_COMPA_vect){    //This is the interrupt request
+  OnBoardLED.Flashen();
+  OnBoardLED.refresh();     //Kann auch in die loop
+  RoteLED.Flashen();
+  RoteLED.refresh();        
+  GrueneLED.Flashen();
+  GrueneLED.refresh();      
+};
+
+int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
+{
+  static int RAM=0;
+  int ROM=EEPROM.get(0,ROM);
+  if(Increment){
+    ROM++;
+    RAM++;
+  }
+  EEPROM.put(0,ROM);
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt.
+  Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
+  Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
+  return RAM;
+};
