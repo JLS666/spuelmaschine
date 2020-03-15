@@ -71,9 +71,7 @@ Seeed Shield für Arduino:
 
   void encoderEvent();
   bool ABS();
-  void Leer();
-
-
+  
 
 //***********************************   True und False Defines  *********************************************/
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
@@ -102,43 +100,4 @@ Seeed Shield für Arduino:
 #define led_GruenAn true
 #define led_GruenAus false
 
-  /********** STATES **************/
-void en_Init();
-void do_Init();
-void ex_Init();
-
-//Standby
-void en_Standby();
-void do_Standby();
-void ex_Standby();
-
-//Rakeln
-void en_Rakeln();
-void do_Rakeln();
-void ex_Rakeln();
-
-//Rakelreinigen
-void en_Rakelreinigen();
-void do_Rakelreinigen();
-void ex_Rakelreinigen();
-
-//Abstreifen
-void en_Abstreife();
-void do_Abstreife();
-void ex_Abstreife();
-
-//Lore nach Vorne
-void en_Lore_vor();
-void do_Lore_vor();
-void ex_Lore_vor();
-
-//Error
-void en_Error();
-void do_Error();
-void ex_Error();
-
-//Kalibrierung
-//void en_Kalibrierung();
-//void do_Kalibrierung();
-//void ex_Kalibrierung();
-
+ 
