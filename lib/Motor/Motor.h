@@ -2,7 +2,6 @@
 Motor Klasse Optimiert für BB-VNH3SP30 DC Treiber. Auf Arduino UNO.
 Autor: Andy 
 */
-#pragma once
 
 class Motor
 {

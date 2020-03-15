@@ -23,8 +23,6 @@ Seeed Shield für Arduino:
 - 4 x I2C: SDA, SCL --> 
 - noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
-#pragma once
-
 
 //Pins
 #define startPin 0
@@ -103,3 +101,44 @@ Seeed Shield für Arduino:
 #define led_RotAus false
 #define led_GruenAn true
 #define led_GruenAus false
+
+  /********** STATES **************/
+void en_Init();
+void do_Init();
+void ex_Init();
+
+//Standby
+void en_Standby();
+void do_Standby();
+void ex_Standby();
+
+//Rakeln
+void en_Rakeln();
+void do_Rakeln();
+void ex_Rakeln();
+
+//Rakelreinigen
+void en_Rakelreinigen();
+void do_Rakelreinigen();
+void ex_Rakelreinigen();
+
+//Abstreifen
+void en_Abstreife();
+void do_Abstreife();
+void ex_Abstreife();
+
+//Lore nach Vorne
+void en_Lore_vor();
+void do_Lore_vor();
+void ex_Lore_vor();
+
+//Error
+void en_Error();
+void do_Error();
+void ex_Error();
+
+//Kalibrierung
+//void en_Kalibrierung();
+//void do_Kalibrierung();
+//void ex_Kalibrierung();
+
