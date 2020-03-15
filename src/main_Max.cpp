@@ -8,12 +8,14 @@
 /********************************************************************/
 
 
+#include <Arduino.h>
 #include "Defines.h"
-
-//#include "Encoder.h"
-//#include "FiniteStateMachine.h"
+#include "Motor.h"
+#include "Encoder.h"
+#include "FiniteStateMachine.h"
+//#include "LED.h"
+#include <EEPROM.h>
 #include "Zustaende.h"
-//#include "Motor.h"
 
   //************************************   Objekte erezugen ****************************************************/
 Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);

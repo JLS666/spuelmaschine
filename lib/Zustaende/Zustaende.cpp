@@ -38,7 +38,7 @@ void Zustaende::en_Init()
   //Zylinder ein
   digitalWrite(led_Gruen, true);
   digitalWrite(led_Rot, true);
-  digitalWrite(Kolben, Kolben_rein);
+  digitalWrite(kolben, kolbenRaus);
   Serial.println("getting Ready...");
 }
 void Zustaende::do_Init()
