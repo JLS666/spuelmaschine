@@ -45,44 +45,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
     Spuelautomat.transitionTo(ErrorState);
   //Hier darf Max sich austoben...
-  switch (Statecounter)
-  {
-  case 0:
-    Spuelautomat.transitionTo(Init);
-    Statecounter++;
-    break;
-  case 1:
-    Spuelautomat.transitionTo(Kalibrierung);
-    Statecounter++;
-    break;
-  case 2:
-    Spuelautomat.transitionTo(Standby);
-    Statecounter++;
-    break;
-  case 3:
-    Spuelautomat.transitionTo(Rakeln);
-    Statecounter++;
-    break;
-  case 4:
-    Spuelautomat.transitionTo(Rakelreinigen);
-    Statecounter++;
-    break;
-  case 5:
-    Spuelautomat.transitionTo(Abstreifen);
-    Statecounter++;
-    break;
-  case 6:
-    Spuelautomat.transitionTo(Ausgabe);
-    Statecounter = 2;
-    break;
   
-  default:
-    break;
-  }
-
-
-
-
   //******************************************************************************/
   
   Spuelautomat.update();        //Zustandsautomat
