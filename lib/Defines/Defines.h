@@ -67,14 +67,14 @@ Seeed Shield für Arduino:
 #define ErrTimeKolben_backagain 1000
 #define KolbenFahrzeit 600 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
 
-//***********************************   Funktionen bekannt machen *******************************************/
+//***********************************   Funktionen bekannt machen *******************************************
 
   void encoderEvent();
   bool ABS();
   int Zyklenzaeler(bool Increment);
   
 
-//***********************************   True und False Defines  *********************************************/
+//***********************************   True und False Defines  *********************************************
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
 #define blasenEin true
 #define blasenAus false
@@ -100,5 +100,3 @@ Seeed Shield für Arduino:
 #define led_RotAus false
 #define led_GruenAn true
 #define led_GruenAus false
-
- 

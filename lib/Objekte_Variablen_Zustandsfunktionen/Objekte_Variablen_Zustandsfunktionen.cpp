@@ -2,7 +2,7 @@
 /*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
 /*                Julian Schweizerhof                               */ 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
-/*  Datei:        ObjekteUndZustandsfuntkionen.cpp                  */
+/*  Datei:        Objekte_Variablen_Zustandsfunktionen.cpp          */
 /*  Beschreibung: Header für die Objekte und die Zustandsfunktionen */
 /*  Version:      0.1                                               */                 
 /********************************************************************/
@@ -10,13 +10,22 @@
 
 #include <Arduino.h>
 #include "Defines.h"                      // werden benötigt
-#include "ObjekteUndZustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
+#include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
 
 
 //************************************   Objekte erezugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
   LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
+
+//************************************   Globale Variablen ***************************************************
+  int MotorStatus;
+  unsigned long LoopTime=0;
+  unsigned long LoopTimeArray[100] = {0};
+  unsigned long lastTime = 0;
+  bool timerModus = false;
+  int8_t Statecounter = 0;
+  int timerIndex= 0;
 
 
 //************************************   Objekte für den Zustansautomat erzeugen *****************************
