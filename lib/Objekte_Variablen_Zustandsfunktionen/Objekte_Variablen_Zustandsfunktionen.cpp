@@ -272,7 +272,7 @@ void en_Kalibrierung()
   //Nothalt
   void en_Nothalt()
   {
-    RB_Dfr_444.setMotorStopp();
+    RB_Dfr_444.setMotorStopp();     // @Andy und @Max oder RB_Dfr_444.Not_Aus(); ??
     digitalWrite(led_Gruen, 0);
     digitalWrite(led_Rot, 1);
   }
