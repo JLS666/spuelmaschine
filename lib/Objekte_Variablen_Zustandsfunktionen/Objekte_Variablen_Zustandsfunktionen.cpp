@@ -100,7 +100,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
 
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
+    else if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -125,7 +125,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
       derEncoder.resetZaehler();
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
+    else if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)
     {
       Spuelautomat.transitionTo(ErrorState);
     }
