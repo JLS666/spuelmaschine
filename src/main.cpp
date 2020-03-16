@@ -38,8 +38,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  if((Spuelautomat.isInState(Nothalt) && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
-    Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht????????????????????
+  if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
+    Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht?? Andy: der muss neu sein.
     
   //******************************************************************************/
   
@@ -119,7 +119,7 @@ int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
     RAM++;
   }
   EEPROM.put(0,ROM);
-  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!!
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!! //Andy: beweiß es ;)
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;
