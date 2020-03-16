@@ -187,11 +187,12 @@ void en_Kalibrierung()
   //Rakeln
   void en_Rakeln()
   {
-    RB_Dfr_444.setMotorStart(Lore_ab);  
   }
   void do_Rakeln()
   {  
-    if(derEncoder.getZaehler()==SollEncoderWert)
+    if(RB_Dfr_444.getMotorSpeed()==0)
+      RB_Dfr_444.setMotorStart(Lore_ab);
+    else if(derEncoder.getZaehler()==SollEncoderWert)
     {
       Spuelautomat.transitionTo(Rakelreinigen);
     }
@@ -267,8 +268,8 @@ void en_Kalibrierung()
   {
     if(digitalRead(endschalter_Hinten)== kontakt)
       Spuelautomat.transitionTo(Ausgabe); 
-      // if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen || ABS())  //Andy: So stelle ich mir das vor. ErrTime und ABS Abfrage.
-      // Spuelautomat.transitionTo(ErrorState);
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen || ABS())
+      Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Abstreifen()
   {
@@ -279,14 +280,15 @@ void en_Kalibrierung()
   //Ausgabe
   void en_Ausgabe()
   {
-    RB_Dfr_444.setMotorStart(Lore_auf);  //Andy: Der Motor mag das nicht. Er will bissel chillen.
   }
   void do_Ausgabe()
   {
-    if(RB_Dfr_444.getMotorSpeed()==0) //Z.B. so. Da kann er kurz verschnaufen.
+    if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
-    if(digitalRead(endschalter_Vorne)==kontakt)
+    else if(digitalRead(endschalter_Vorne)==kontakt)
       Spuelautomat.transitionTo(Standby);
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return && digitalRead(endschalter_Vorne)!=kontakt)
+      Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Ausgabe()
   {
