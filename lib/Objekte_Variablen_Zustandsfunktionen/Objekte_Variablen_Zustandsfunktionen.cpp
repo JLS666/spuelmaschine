@@ -65,7 +65,7 @@ void ex_Init()
   {
     GrueneLED.Aus();
     RoteLED.Aus();
-    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D //Max: Die Zahl geht dich garnichts an, die ist für die Switch im Nothalt Andy: ok
+    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D //Max: Die Zahl geht dich garnichts an, die ist für die Switch im Nothalt
   }
 
   //Kalibrierung
@@ -170,7 +170,7 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
-    derEncoder.resetZaehler();  //Andy: Warum hier?
+    derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
     RoteLED.Aus();
@@ -195,7 +195,7 @@ void en_Kalibrierung()
     if(derEncoder.getZaehler()==SollEncoderWert)
     {
       Spuelautomat.transitionTo(Rakelreinigen);
-    }//Andy: else Errortimer
+    }
   }
   void ex_Rakeln()
   {
@@ -213,9 +213,9 @@ void en_Kalibrierung()
   {
     if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
       digitalWrite(kolben, kolbenRein);
-    else if(digitalRead(endschalter_Zylinder)==kontakt) //Andy: klappt so nicht. if muss verschachtelt sein.
+    else if(digitalRead(endschalter_Zylinder)==kontakt)
       Spuelautomat.transitionTo(Abstreifen);
-    else if(Spuelautomat.timeInCurrentState()>2*KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt) //Andy daffür gibt es ErrTimeKolbenBackAgain ;D da war ein geiler typ am benennen.
+    else if(Spuelautomat.timeInCurrentState()>2*KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakelreinigen()
@@ -232,9 +232,7 @@ void en_Kalibrierung()
   void do_Abstreifen()
   {
     if(digitalRead(endschalter_Hinten)== kontakt)
-      Spuelautomat.transitionTo(Ausgabe); 
-      // if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen || ABS())  //Andy: So stelle ich mir das vor. ErrTime und ABS Abfrage.
-      // Spuelautomat.transitionTo(ErrorState);
+      Spuelautomat.transitionTo(Ausgabe);
   }
   void ex_Abstreifen()
   {
@@ -245,12 +243,10 @@ void en_Kalibrierung()
   //Ausgabe
   void en_Ausgabe()
   {
-    RB_Dfr_444.setMotorStart(Lore_auf);  //Andy: Der Motor mag das nicht. Er will bissel chillen.
+    RB_Dfr_444.setMotorStart(Lore_auf);
   }
   void do_Ausgabe()
   {
-    if(RB_Dfr_444.getMotorSpeed()==0) //Z.B. so. Da kann er kurz verschnaufen.
-      RB_Dfr_444.setMotorStart(Lore_auf);
     if(digitalRead(endschalter_Vorne)==kontakt)
       Spuelautomat.transitionTo(Standby);
   }
@@ -262,17 +258,17 @@ void en_Kalibrierung()
 
   //Error
   void en_Error()
-  {
+  {//Noch Blasen Aus!
     RoteLED.Blinken();
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
+    RB_Dfr_444.Fehlererkennung();
     digitalWrite(blasen, blasenAus); 
-    Serial.print("irgendwas ist schiefgelaufen :| "); Serial.println(LastState); //Andy: Dann will ich auch gleich wissen was ;D
+    Serial.print("irgendwas ist schiefgelaufen :|");
   }
   void do_Error()
   {
     //Fehlerausgabe
-    // if(quitierenEin)
 
   }
   void ex_Error()
@@ -282,12 +278,11 @@ void en_Kalibrierung()
 
   //Nothalt
   void en_Nothalt()
-  {
+  {//Noch Blasen Aus!
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus);
     GrueneLED.Aus();
     RoteLED.An();
-    Serial.println("Not Halt");
   }
   void do_Nothalt()
   {
