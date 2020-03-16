@@ -42,7 +42,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
    // Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht?? Andy: der muss neu sein. //Max: was ist denn das für eine Abfrage "wenn in Nothalt geh in Nothalt"? warum ist da überhaupt eine Transition in der main?
     
   //******************************************************************************/
-  
+  //Nothalt taster kommt hier noch hin
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
@@ -112,7 +112,7 @@ ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   GrueneLED.refresh();      
 };
 
-int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
+int Zyklenzaehler(bool Increment) //mit True aufrufen um Hochzuzählen.
 {
   static int RAM=0;
   int ROM=EEPROM.get(0,ROM);

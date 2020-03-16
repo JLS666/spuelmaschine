@@ -69,6 +69,16 @@ void en_Rakelreinigen();
 void do_Rakelreinigen();
 void ex_Rakelreinigen();
 
+//Rakelreinigen Kolben raus
+void en_Rakelreinigen_Kolben_raus();
+void do_Rakelreinigen_Kolben_raus();
+void ex_Rakelreinigen_Kolben_raus();
+
+//Rakelreinigen Kolben rein
+void en_Rakelreinigen_Kolben_rein();
+void do_Rakelreinigen_Kolben_rein();
+void ex_Rakelreinigen_Kolben_rein();
+
 //Abstreifen
 void en_Abstreifen();
 void do_Abstreifen();
@@ -88,15 +98,19 @@ void ex_Error();
 void en_Kalibrierung();
 void do_Kalibrierung();
 void ex_Kalibrierung();
+
 void en_Kalibrierung_Lore_hinten();
 void do_Kalibrierung_Lore_hinten();
 void ex_Kalibrierung_Lore_hinten();
+
 void en_Kalibrierung_Lore_vorne();
 void do_Kalibrierung_Lore_vorne();
 void ex_Kalibrierung_Lore_vorne();
+
 void en_Kalibrierung_Kolben_raus();
 void do_Kalibrierung_Kolben_raus();
 void ex_Kalibrierung_Kolben_raus();
+
 void en_Kalibrierung_Kolben_rein();
 void do_Kalibrierung_Kolben_rein();
 void ex_Kalibrierung_Kolben_rein();

@@ -35,6 +35,8 @@ State Kalibrierung_Lore_vorne     = State (en_Kalibrierung_Lore_vorne, do_Kalibr
 State Kalibrierung_Kolben_raus    = State (en_Kalibrierung_Kolben_raus, do_Kalibrierung_Kolben_raus, ex_Kalibrierung_Kolben_raus);
 State Kalibrierung_Kolben_rein    = State (en_Kalibrierung_Kolben_rein, do_Kalibrierung_Kolben_rein, ex_Kalibrierung_Kolben_rein);
 State Rakelreinigen               = State (en_Rakelreinigen,do_Rakelreinigen,ex_Rakelreinigen);
+State Rakelreinigen_Kolben_raus   = State (en_Rakelreinigen_Kolben_raus,do_Rakelreinigen_Kolben_raus,ex_Rakelreinigen_Kolben_raus);
+State Rakelreinigen_Kolben_rein   = State (en_Rakelreinigen_Kolben_rein,do_Rakelreinigen_Kolben_rein,ex_Rakelreinigen_Kolben_rein);
 State Standby                     = State (en_Standby, do_Standby, ex_Standby);
 State Rakeln                      = State (en_Rakeln, do_Rakeln, ex_Rakeln);
 State Abstreifen                  = State (en_Abstreifen, do_Abstreifen, ex_Abstreifen);
@@ -98,7 +100,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
 
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -113,16 +115,17 @@ void en_Kalibrierung()
 //Kalibrieren Lore Vorne
   void en_Kalibrierung_Lore_vorne()
   {
-    RB_Dfr_444.setMotorStart(Lore_auf);
   };
   void do_Kalibrierung_Lore_vorne()
   {
+    if(RB_Dfr_444.getMotorSpeed()==0)
+      RB_Dfr_444.setMotorStart(Lore_auf);
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
       derEncoder.resetZaehler();
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -176,12 +179,13 @@ void en_Kalibrierung()
   }
   void do_Standby()
   {
-    if(Serial.read()==1)
+    if(digitalRead(startPin)==startPinEin);
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()
   {
     LastState = 3;
+    digitalWrite(endePin, endePinAus);
   }
 
   //Rakeln
@@ -286,7 +290,10 @@ void en_Kalibrierung()
     if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
     else if(digitalRead(endschalter_Vorne)==kontakt)
+    {
       Spuelautomat.transitionTo(Standby);
+      digitalWrite(endePin, endePinEin);
+    }
     else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return && digitalRead(endschalter_Vorne)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
   }
@@ -294,6 +301,7 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
+    Zyklenzaehler(true);
   }
 
   //Error
@@ -303,12 +311,12 @@ void en_Kalibrierung()
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus); 
-    Serial.print("irgendwas ist schiefgelaufen :| "); Serial.println(LastState); //Andy: Dann will ich auch gleich wissen was ;D
+    Serial.print("irgendwas ist schiefgelaufen :| "); 
+    Serial.println(LastState);
   }
   void do_Error()
   {
-    //Fehlerausgabe
-    // if(quitierenEin)
+
 
   }
   void ex_Error()

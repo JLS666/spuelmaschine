@@ -70,7 +70,7 @@
 
   void encoderEvent();
   bool ABS();
-  int Zyklenzaeler(bool Increment);
+  int Zyklenzaehler(bool Increment);
   
 
 //***********************************   True und False Defines  *********************************************
