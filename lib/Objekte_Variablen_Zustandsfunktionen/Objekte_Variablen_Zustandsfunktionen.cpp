@@ -254,14 +254,14 @@ void en_Kalibrierung()
 
   //Error
   void en_Error()
-  {
+  {//Noch Blasen Aus!
     RB_Dfr_444.setMotorStopp();
-    RB_Dfr_444.Fehlererkennung();
+    RB_Dfr_444.Fehlererkennung(); 
   }
   void do_Error()
   {
     //Fehlerausgabe
-    Serial.print("irgendwas ist schiefgelaufen :|");
+    Serial.print("irgendwas ist schiefgelaufen :|");  //Ansy so was besser in entry sonnst flutet es den Monitor!
     Serial.println(LastState);
   }
   void ex_Error()
@@ -271,14 +271,14 @@ void en_Kalibrierung()
 
   //Nothalt
   void en_Nothalt()
-  {
-    RB_Dfr_444.setMotorStopp();     // @Andy und @Max oder RB_Dfr_444.Not_Aus(); ??
-    digitalWrite(led_Gruen, 0);
+  {//Noch Blasen Aus!
+    RB_Dfr_444.setMotorStopp();     // @Andy und @Max oder RB_Dfr_444.Not_Aus(); ?? Andy: Ja
+    digitalWrite(led_Gruen, 0);     //RoteLED.An(); wie oben.
     digitalWrite(led_Rot, 1);
   }
   void do_Nothalt()
   {
-    if(digitalRead(schalter_Nothalt)!=kontakt)
+    if(digitalRead(notaus)!=kontakt)
       switch (LastState)
       {
       case 1:
@@ -324,7 +324,7 @@ void en_Kalibrierung()
   }
   void ex_Nothalt()
   {
-    digitalWrite(led_Gruen, 1);
+    digitalWrite(led_Gruen, 1); //RoteLED.An(); wie oben.
     digitalWrite(led_Rot, 0);
   }
 
