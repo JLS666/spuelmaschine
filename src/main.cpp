@@ -10,20 +10,8 @@
 
 #include <Arduino.h>
 #include "Defines.h"
-#include "ObjekteUndZustandsfunktionen.h"
+#include "Objekte_Variablen_Zustandsfunktionen.h"
 #include <EEPROM.h>
-
-
-
-  //************************************   Globale Variablen ***************************************************/
-  int MotorStatus;
-  unsigned long LoopTime=0;
-  unsigned long LoopTimeArray[100] = {0};
-  unsigned long lastTime = 0;
-  bool timerModus = false;
-  int8_t Statecounter = 0;
-  int timerIndex= 0;
-
 
 void setup() {
   pinMode(startPin, INPUT);       
@@ -39,7 +27,7 @@ void setup() {
   pinMode(blasen, OUTPUT);
   pinMode(notaus, INPUT_PULLUP);
 
-  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); //Andy: Hier könnte ruhig ein Kommentar stehen. Max: ja find ich auch ;)
+  attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); // Interrupt für den Encoder, bei einer steigenden Flanke am Eingang A wird eine ISR ausgelöst
   Serial.begin(9600);
   OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
