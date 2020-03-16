@@ -54,7 +54,7 @@
 
 #define Error -1
 #define Ok 0
-#define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen
+#define kontakt true //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
 #define SollEncoderWert 444 //Encoder in Mitte
@@ -79,13 +79,13 @@
 #define blasenAus false
 #define kolbenRaus true
 #define kolbenRein false
-#define notausEin false
-#define notausAus true
+#define notausInOrdnung false
+#define notausAlarm true
 #define startPinEin true
 #define startPinAus false
 #define endePinEin true
 #define endePinAus false
-#define endschalter_VorneEin false  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert.
+#define endschalter_VorneEin false  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!!
 #define endschalter_VorneAus true
 #define endschalter_HintenEin false
 #define endschalter_HintenAus true

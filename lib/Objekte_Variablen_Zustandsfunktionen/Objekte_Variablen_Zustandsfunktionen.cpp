@@ -258,7 +258,7 @@ void en_Kalibrierung()
   void do_Error()
   {
     //Fehlerausgabe
-    Serial.print("irgendwas ist schiefgelaufen :|");  //Ansy so was besser in entry sonnst flutet es den Monitor!
+    Serial.print("irgendwas ist schiefgelaufen :|");  //Ansy so was besser in entry sonnst flutet es den Monitor! Julian: Das ist doch kein leistungsstarker ESP32!!!
     Serial.println(LastState);
   }
   void ex_Error()
@@ -275,7 +275,7 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    if(digitalRead(notaus)!=kontakt)
+    if(digitalRead(notaus)!=kontakt)  
       switch (LastState)
       {
       case 1:
