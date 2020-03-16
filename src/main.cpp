@@ -38,21 +38,18 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  if(Spuelautomat.isInState(Init) && digitalRead(endschalter_Hinten)==kontakt && digitalRead(endschalter_Zylinder)==kontakt) //State = Init, Lore=Hinten, Zylinder=drinn.
-    Spuelautomat.transitionTo(Standby); //Init to Standbye
-  else if(Spuelautomat.isInState(Standby) && digitalRead(startPin)==kontakt)
-    Spuelautomat.transitionTo(Rakeln);
-  else if(digitalRead(notaus))       //Not_Aus Prüfen und Ausführen.    Andy: Hier ist besser in der Loop der müsste sonnst bei jedem Aktion stehen!
-    Spuelautomat.transitionTo(ErrorState);
-  //Hier darf Max sich austoben...
+  // if() 
+  //   Spuelautomat.transitionTo(Not); 
+  // else if())      
+  //   Spuelautomat.transitionTo(ErrorState);
   
+
+
+
   //******************************************************************************/
   
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-
-  //State im Serial anzeigen
-  State& getCurrentState(); //Andy: Wie soll das gehen?
 
   if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian
   
