@@ -1,15 +1,25 @@
+/********************************************************************/
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
+/*                Julian Schweizerhof                               */ 
+/*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
+/*  Datei:        ObjekteUndZustandsfuntkionen.cpp                  */
+/*  Beschreibung: Header für die Objekte und die Zustandsfunktionen */
+/*  Version:      0.1                                               */                 
+/********************************************************************/
+
+
 #include <Arduino.h>
-#include "Defines.h"
-#include "ObjekteUndZustandsfunktionen.h"
+#include "Defines.h"                      // werden benötigt
+#include "ObjekteUndZustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
 
 
-//************************************   Objekte erezugen ****************************************************/
+//************************************   Objekte erezugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
   LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
 
 
-    //******************************************************************************/
+//************************************   Objekte für den Zustansautomat erzeugen *****************************
   //Zustandsautomat erstellen. Nach Plan in der Drive
   //States:
   State Init            = State (en_Init,do_Init,ex_Init);
@@ -22,9 +32,9 @@
   State ErrorState      = State (Leer);
   
   FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
-  //******************************************************************************/
 
 
+//************************************   Funktionen für den Zustansautomat ***********************************
 void en_Init()
   {
     Serial.println("Initialisierung");
@@ -117,6 +127,6 @@ void en_Init()
     //Nix die ist Leer.
     Serial.println("Welcher Trottel ruft Leer auf?");
   }
-//******************************************************************************/
+//************************************ Ende ******************************************************************
 
 

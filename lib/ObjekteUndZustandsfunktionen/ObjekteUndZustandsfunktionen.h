@@ -1,3 +1,11 @@
+/********************************************************************/
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
+/*                Julian Schweizerhof                               */ 
+/*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
+/*  Datei:        ObjekteUndZustandsfuntkionen.h                    */
+/*  Beschreibung: Header für die Objekte und die Zustandsfunktionen */
+/*  Version:      0.1                                               */                 
+/********************************************************************/
 #pragma once
 
 // Alle Headerdateien der Klassen einfügen.
@@ -23,6 +31,7 @@ extern State ErrorState;
 
 extern FiniteStateMachine Spuelautomat;
 
+// Alle Funktionen des Zustandsautomat bekannt machen
 void en_Init();
 void do_Init();
 void ex_Init();
