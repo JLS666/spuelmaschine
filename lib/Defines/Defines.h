@@ -54,7 +54,7 @@
 
 #define Error -1
 #define Ok 0
-#define kontakt HIGH //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
+#define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
 #define SollEncoderWert 444 //Encoder in Mitte

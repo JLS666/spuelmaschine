@@ -60,7 +60,7 @@ void en_Init()
 void do_Init()
   {
     if(digitalRead(endschalter_Deckel)==kontakt)
-      Spuelautomat . transitionTo(Kalibrierung);
+      Spuelautomat.transitionTo(Kalibrierung);
   }
 
 void ex_Init()
@@ -122,10 +122,10 @@ void en_Kalibrierung()
       RB_Dfr_444.setMotorStart(Lore_auf);
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
-      Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
+      Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
       derEncoder.resetZaehler();
     }
-    else if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)
+    else if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt)
     {
       Spuelautomat.transitionTo(ErrorState);
     }
