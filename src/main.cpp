@@ -90,8 +90,10 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
   if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
   {
     Zeit=millis();
-    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz)
-      return Error;
+    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
+      Serial.println(" ABS Eingriff !");
+        return Error;
+      }
     Position=derEncoder.getZaehler();
     return Ok;       
   }
