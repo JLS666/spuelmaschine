@@ -100,12 +100,12 @@
 Error Code:
 
 Aus:     Alles ist aus.
-Standby: Grün blinkt langsam.
+Standby: Grün ist an.
+Kalibrieren: Grün blinkt.
 Am Arbeiten: Grün ist an.
 Error State= Rot ist am Blinken.
 Not-Halt Rot ist an.
 Kalibirunsfehler Lore: Grün blinkt schnell.
 Druckluft aus. (Kalibrierung): Rot blinkt schnell.
-... Denkt euch was aus!!! 
 
 */

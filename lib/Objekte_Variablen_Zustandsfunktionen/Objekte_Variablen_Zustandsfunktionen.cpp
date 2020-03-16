@@ -65,12 +65,13 @@ void ex_Init()
   {
     GrueneLED.Aus();
     RoteLED.Aus();
-    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D
+    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D //Max: Die Zahl geht dich garnichts an, die ist für die Switch im Nothalt
   }
 
   //Kalibrierung
 void en_Kalibrierung()
   {
+    GrueneLED.Blinken();
   }
   void do_Kalibrierung()
   {
@@ -167,6 +168,8 @@ void en_Kalibrierung()
   {
     derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
+    GrueneLED.An();
+    RoteLED.Aus();
   }
   void do_Standby()
   {
@@ -252,14 +255,17 @@ void en_Kalibrierung()
   //Error
   void en_Error()
   {//Noch Blasen Aus!
-    RB_Dfr_444.setMotorStopp();
-    RB_Dfr_444.Fehlererkennung(); 
+    RoteLED.Blinken();
+    GrueneLED.Aus();
+    RB_Dfr_444.Not_Aus();
+    RB_Dfr_444.Fehlererkennung();
+    digitalWrite(blasen, blasenAus); 
+    Serial.print("irgendwas ist schiefgelaufen :|");
   }
   void do_Error()
   {
     //Fehlerausgabe
-    Serial.print("irgendwas ist schiefgelaufen :|");  //Ansy so was besser in entry sonnst flutet es den Monitor! Julian: Das ist doch kein leistungsstarker ESP32!!!
-    Serial.println(LastState);
+
   }
   void ex_Error()
   {
@@ -269,13 +275,15 @@ void en_Kalibrierung()
   //Nothalt
   void en_Nothalt()
   {//Noch Blasen Aus!
-    RB_Dfr_444.setMotorStopp();     // @Andy und @Max oder RB_Dfr_444.Not_Aus(); ?? Andy: Ja
-    digitalWrite(led_Gruen, 0);     //RoteLED.An(); wie oben.
-    digitalWrite(led_Rot, 1);
+    RB_Dfr_444.Not_Aus();
+    digitalWrite(blasen, blasenAus);
+    GrueneLED.Aus();
+    RoteLED.An();
   }
   void do_Nothalt()
   {
-    if(digitalRead(notaus)!=kontakt)  
+    if(digitalRead(notaus)!=kontakt)
+    {  
       switch (LastState)
       {
       case 1:
@@ -318,11 +326,12 @@ void en_Kalibrierung()
       default:
         break;
       }
+    }
   }
   void ex_Nothalt()
   {
-    digitalWrite(led_Gruen, 1); //RoteLED.An(); wie oben.
-    digitalWrite(led_Rot, 0);
+    GrueneLED.An();
+    RoteLED.Aus();
   }
 
   void Leer()

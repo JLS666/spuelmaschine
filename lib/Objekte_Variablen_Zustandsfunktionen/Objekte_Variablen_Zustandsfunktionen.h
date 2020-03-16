@@ -26,9 +26,9 @@ extern State Kalibrierung_Lore_hinten;  //Nr.:21
 extern State Kalibrierung_Lore_vorne;   //Nr.:22
 extern State Kalibrierung_Kolben_raus;  //Nr.:23
 extern State Kalibrierung_Kolben_rein;  //Nr.:24
-extern State Rakelreinigen;             //Nr.:3
-extern State Standby;                   //Nr.:4
-extern State Rakeln;                    //Nr.:5
+extern State Standby;                   //Nr.:3
+extern State Rakeln;                    //Nr.:4
+extern State Rakelreinigen;             //Nr.:5
 extern State Abstreifen;                //Nr.:6
 extern State Ausgabe;                   //Nr.:7
 extern State ErrorState;                //Nr.:8
