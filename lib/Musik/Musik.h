@@ -1,3 +1,6 @@
+#include "Objekte_Variablen_Zustandsfunktionen.h"
+#include "Defines.h"
+
 #define NOTE_B0  31
 #define NOTE_C1  33
 #define NOTE_CS1 35
@@ -87,3 +90,43 @@
 #define NOTE_CS8 4435
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
+
+#define tempoHaushalt 3287
+#define drehpunktHinten
+#define drehpunktVorne 
+
+
+unsigned long letzteZeit = 0;
+unsigned int intervall = 0;
+unsigned int zustandMusik = 0;
+unsigned long aktuelleZeit = 1;
+
+void haushalt()
+{
+    aktuelleZeit = millis();
+    if (aktuelleZeit - letzteZeit >= intervall)
+    {
+        letzteZeit = aktuelleZeit;
+        switch (zustandMusik)
+        {
+            case 0:   // 1. Takt
+            RB_Dfr_444.setFrequenz(NOTE_G5);
+            intervall = tempoHaushalt/4;
+            break;
+            default:
+
+            break;
+        }
+
+        if(derEncoder.getZaehler > drehpunktHinten)
+        {
+            RB_Dfr_444.Not_Aus(); 
+            RB_Dfr_444.setMotorStart(Lore_auf); 
+        }
+        else if(derEncoder.getZaehler < drehpunktVorne)
+        {
+            RB_Dfr_444.Not_Aus(); 
+            RB_Dfr_444.setMotorStart(Lore_ab);
+        }
+        
+}
