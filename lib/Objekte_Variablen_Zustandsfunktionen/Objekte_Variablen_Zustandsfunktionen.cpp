@@ -65,7 +65,7 @@ void ex_Init()
   {
     GrueneLED.Aus();
     RoteLED.Aus();
-    LastState = 1;
+    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D
   }
 
   //Kalibrierung
