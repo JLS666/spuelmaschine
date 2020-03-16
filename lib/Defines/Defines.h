@@ -42,7 +42,7 @@
 #define notaus A2
 #define led_Rot A3                 
 #define led_Gruen A4
-
+#define schalter_Nothalt 666    //Max: da brauch ich noch einen Pin @Julian
 
 //#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
