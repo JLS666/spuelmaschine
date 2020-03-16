@@ -60,8 +60,7 @@ Seeed Shield für Arduino:
 #define SollEncoderWert 444 //Encoder in Mitte
 #define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
-#define ErrTimeLore_ab_Kalib 3000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
-#define ErrTimeLore_auf_Kalib 3500
+#define ErrTimeLore_Kalib 3000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
 #define ErrTimeLore_ab_Abstreifen 1300
 #define ErrTimeLore_auf_Return 3000
 #define ErrTimeKolben_backagain 1000
