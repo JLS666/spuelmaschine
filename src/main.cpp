@@ -10,7 +10,7 @@
 
 #include <Arduino.h>
 #include "Defines.h"
-#include "Objekte_Variablen_Zustandsfunktionen.h"   // hier gibt es manchmal komsiche Include Fehler
+#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
 void setup() {
@@ -38,15 +38,15 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  if((Spuelautomat.isInState(Nothalt) && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt
-    Spuelautomat.transitionTo(Nothalt); 
-  
+  if((Spuelautomat.isInState(Nothalt) && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
+    Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht????????????????????
+    
   //******************************************************************************/
   
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
-  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian
+  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian Julian: bestimmt
   
     {
       LoopTime=millis()-LoopTime;
@@ -119,7 +119,7 @@ int Zyklenzaeler(bool Increment) //mit True aufrufen um Hochzuzählen.
     RAM++;
   }
   EEPROM.put(0,ROM);
-  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt.
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!!
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;
