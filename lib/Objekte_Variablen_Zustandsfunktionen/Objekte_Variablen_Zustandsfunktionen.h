@@ -29,6 +29,8 @@ extern State Kalibrierung_Kolben_rein;  //Nr.:24
 extern State Standby;                   //Nr.:3
 extern State Rakeln;                    //Nr.:4
 extern State Rakelreinigen;             //Nr.:5
+extern State Rakelreinigen_Kolben_raus; //Nr.:51
+extern State Rakelreinigen_Kolben_rein; //Nr.:52
 extern State Abstreifen;                //Nr.:6
 extern State Ausgabe;                   //Nr.:7
 extern State ErrorState;                //Nr.:8

@@ -65,7 +65,7 @@ void ex_Init()
   {
     GrueneLED.Aus();
     RoteLED.Aus();
-    LastState = 1; //Andy: sapalott jetzt haben wir so viele Defines und verwednen immernoch Geisterzahlen ;D //Max: Die Zahl geht dich garnichts an, die ist für die Switch im Nothalt Andy: ok
+    LastState = 1;
   }
 
   //Kalibrierung
@@ -75,7 +75,6 @@ void en_Kalibrierung()
   }
   void do_Kalibrierung()
   {
-    Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     if(LastState == 24)
       Spuelautomat.transitionTo(Standby);
     else 
@@ -170,7 +169,7 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
-    derEncoder.resetZaehler();  //Andy: Warum hier?
+    derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
     RoteLED.Aus();
@@ -183,7 +182,7 @@ void en_Kalibrierung()
   void ex_Standby()
   {
     LastState = 3;
-    }
+  }
 
   //Rakeln
   void en_Rakeln()
@@ -195,7 +194,9 @@ void en_Kalibrierung()
     if(derEncoder.getZaehler()==SollEncoderWert)
     {
       Spuelautomat.transitionTo(Rakelreinigen);
-    }//Andy: else Errortimer
+    }
+    else if(digitalRead(endschalter_Hinten)==kontakt||ABS())
+      Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakeln()
   {
@@ -207,23 +208,56 @@ void en_Kalibrierung()
   void en_Rakelreinigen() 
   {
     digitalWrite(blasen, blasenEin);
-    digitalWrite(kolben, kolbenRaus);
   }
   void do_Rakelreinigen() 
   {
-    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
-      digitalWrite(kolben, kolbenRein);
-    else if(digitalRead(endschalter_Zylinder)==kontakt) //Andy: klappt so nicht. if muss verschachtelt sein.
+    if(LastState == 52)
       Spuelautomat.transitionTo(Abstreifen);
-    else if(Spuelautomat.timeInCurrentState()>2*KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt) //Andy daffür gibt es ErrTimeKolbenBackAgain ;D da war ein geiler typ am benennen.
-      Spuelautomat.transitionTo(ErrorState);
+    else 
+      Spuelautomat.transitionTo(Rakelreinigen_Kolben_raus);
   }
+
   void ex_Rakelreinigen()
   {
     digitalWrite(blasen, blasenAus);
     LastState = 5;
   }
+//Rakelreinigen Kolben raus
+ void en_Rakelreinigen_Kolben_raus() 
+  {
+    digitalWrite(kolben, kolbenRaus);
+  }
+  void do_Rakelreinigen_Kolben_raus() 
+  {
+    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
+      Spuelautomat.transitionTo(Rakelreinigen_Kolben_rein);
+    
+    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)== kontakt)
+        Spuelautomat.transitionTo(ErrorState);
+  }
 
+  void ex_Rakelreinigen_Kolben_raus() 
+  {
+    LastState = 51;
+  }
+  //Rakelreinigen Kolben rein
+   void en_Rakelreinigen_Kolben_rein() 
+  {
+    digitalWrite(kolben, kolbenRein);
+  }
+  void do_Rakelreinigen_Kolben_rein() 
+  {
+    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)== kontakt)
+      Spuelautomat.transitionTo(Rakelreinigen);
+    
+    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
+        Spuelautomat.transitionTo(ErrorState);
+  }
+  void ex_Rakelreinigen_Kolben_rein() 
+  {
+    digitalWrite(blasen, blasenAus);
+    LastState = 52;
+  }
   //Abstreifen
   void en_Abstreifen()
   {
@@ -321,6 +355,12 @@ void en_Kalibrierung()
         break;
       case 5:
         Spuelautomat.transitionTo(Rakelreinigen);
+        break;
+      case 51:
+        Spuelautomat.transitionTo(Rakelreinigen_Kolben_raus);
+        break;
+      case 52:
+        Spuelautomat.transitionTo(Rakelreinigen_Kolben_rein);
         break;
       case 6:
         Spuelautomat.transitionTo(Abstreifen);
