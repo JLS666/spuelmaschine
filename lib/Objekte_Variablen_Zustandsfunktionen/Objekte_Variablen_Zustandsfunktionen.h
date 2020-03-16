@@ -20,16 +20,19 @@ extern Motor RB_Dfr_444;
 extern Encoder derEncoder;
 extern LED OnBoardLED, GrueneLED, RoteLED;
 
-extern State Init;
-extern State Kalibrierung;
-extern State Rakelreinigen;
-extern State Standby;
-extern State Rakeln;
-extern State Abstreifen;
-extern State Ausgabe;
-extern State ErrorState;
-extern State Nothalt;
-extern State LastState;
+extern State Init;                      //Nr.:1
+extern State Kalibrierung;              //Nr.:2
+extern State Kalibrierung_Lore_hinten;  //Nr.:21
+extern State Kalibrierung_Lore_vorne;   //Nr.:22
+extern State Kalibrierung_Kolben_raus;  //Nr.:23
+extern State Kalibrierung_Kolben_rein;  //Nr.:24
+extern State Rakelreinigen;             //Nr.:3
+extern State Standby;                   //Nr.:4
+extern State Rakeln;                    //Nr.:5
+extern State Abstreifen;                //Nr.:6
+extern State Ausgabe;                   //Nr.:7
+extern State ErrorState;                //Nr.:8
+extern State Nothalt;                   //Nr.:9
 
 extern FiniteStateMachine Spuelautomat;
 

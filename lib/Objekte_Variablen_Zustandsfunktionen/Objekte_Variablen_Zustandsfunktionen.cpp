@@ -25,6 +25,7 @@
   bool timerModus = false;
   int8_t Statecounter = 0;
   int timerIndex= 0;
+  int8_t LastState = 0;
 //Zustandsautomat erstellen. Nach Plan in der Drive
 //States:
 State Init                        = State (en_Init, do_Init, ex_Init);
@@ -40,7 +41,7 @@ State Abstreifen                  = State (en_Abstreifen, do_Abstreifen, ex_Abst
 State Ausgabe                     = State (en_Ausgabe, do_Ausgabe, ex_Ausgabe);
 State ErrorState                  = State (en_Error, do_Error, ex_Error);
 State Nothalt                     = State (en_Nothalt, do_Nothalt, ex_Nothalt);
-State LastState                   = State (Leer);
+
 
 FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
 
@@ -50,11 +51,8 @@ void en_Init()
 {
   Serial.println("Initialisierung");
   RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
-
-  //ylinder ein
-  digitalWrite(led_Gruen, true);
-  digitalWrite(led_Rot, true);
-  digitalWrite(kolben, kolbenRaus);
+  GrueneLED.An;
+  RoteLED.An;
   Serial.println("getting Ready...");
 }
 void do_Init()
@@ -65,9 +63,9 @@ void do_Init()
 
 void ex_Init()
   {
-    digitalWrite(led_Gruen, 0);
-    digitalWrite(led_Rot, 0);
-    LastState = Spuelautomat.getCurrentState();
+    GrueneLED.Aus;
+    RoteLED.Aus;
+    LastState = 1;
   }
 
   //Kalibrierung
@@ -87,7 +85,7 @@ void en_Kalibrierung()
   
   void ex_Kalibrierung()
   {
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 2;
   }
 
 //Kalibrieren Lore Hinten
@@ -103,14 +101,13 @@ void en_Kalibrierung()
     if(Spuelautomat.timeInCurrentState()-millis() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);
-      LastState = Spuelautomat.getCurrentState();
     }
   };
 
   void ex_Kalibrierung_Lore_hinten()
   {
     RB_Dfr_444.setMotorStopp();
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 21;
   };
 
 //Kalibrieren Lore Vorne
@@ -126,13 +123,12 @@ void en_Kalibrierung()
     if(Spuelautomat.timeInCurrentState()-millis() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);
-      LastState = Spuelautomat.getCurrentState();
     }
   };
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 22;
   };
 
 //Kalibrieren Kolben raus
@@ -150,7 +146,7 @@ void en_Kalibrierung()
   };
   void ex_Kalibrierung_Kolben_raus()
   {
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 23;
   };
   //Kalibrieren Kolben rein
   void en_Kalibrierung_Kolben_rein()
@@ -167,7 +163,7 @@ void en_Kalibrierung()
   };
   void ex_Kalibrierung_Kolben_rein()
   {
-    LastState = Spuelautomat.getCurrentState();
+    LastState =24;
   };
   //Standby
   void en_Standby()
@@ -182,7 +178,7 @@ void en_Kalibrierung()
   }
   void ex_Standby()
   {
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 3;
     }
 
   //Rakeln
@@ -200,6 +196,7 @@ void en_Kalibrierung()
   void ex_Rakeln()
   {
     RB_Dfr_444.setMotorStopp();
+    LastState = 4;
   }
 
   //Rakelreinigen
@@ -220,7 +217,7 @@ void en_Kalibrierung()
   void ex_Rakelreinigen()
   {
     digitalWrite(blasen, blasenAus);
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 5;
   }
 
   //Abstreifen
@@ -236,10 +233,10 @@ void en_Kalibrierung()
   void ex_Abstreifen()
   {
     RB_Dfr_444.setMotorStopp();
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 6;
   }
 
-  //Lore vorne
+  //Ausgabe
   void en_Ausgabe()
   {
     RB_Dfr_444.setMotorStart(Lore_auf);
@@ -252,7 +249,7 @@ void en_Kalibrierung()
   void ex_Ausgabe()
   {
     RB_Dfr_444.setMotorStopp();
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 7;
   }
 
   //Error
@@ -265,11 +262,11 @@ void en_Kalibrierung()
   {
     //Fehlerausgabe
     Serial.print("irgendwas ist schiefgelaufen :|");
-  
+    Serial.println(LastState);
   }
   void ex_Error()
   {
-    LastState = Spuelautomat.getCurrentState();
+    LastState = 8;
   }
 
   //Nothalt
@@ -281,11 +278,52 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    ;
+    if(digitalRead(schalter_Nothalt)!=kontakt)
+      switch (LastState)
+      {
+      case 1:
+        Spuelautomat.transitionTo(Init);
+        break;
+      case 2:
+        Spuelautomat.transitionTo(Kalibrierung);
+        break;
+      case 21:
+        Spuelautomat.transitionTo(Kalibrierung_Lore_hinten);
+        break;
+      case 22:
+        Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
+        break;
+      case 23:
+        Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
+        break;
+      case 24:
+        Spuelautomat.transitionTo(Kalibrierung_Kolben_rein);
+        break;
+      case 3:
+        Spuelautomat.transitionTo(Standby);
+        break;
+      case 4:
+        Spuelautomat.transitionTo(Rakeln);
+        break;
+      case 5:
+        Spuelautomat.transitionTo(Rakelreinigen);
+        break;
+      case 6:
+        Spuelautomat.transitionTo(Abstreifen);
+        break;
+      case 7:
+        Spuelautomat.transitionTo(Ausgabe);
+        break;
+      case 8:
+        Spuelautomat.transitionTo(ErrorState);
+        break;
+        //Kein case 9: da sonst eine endlosschleife entstehen kann
+      default:
+        break;
+      }
   }
   void ex_Nothalt()
   {
-    Spuelautomat.transitionTo(LastState);
     digitalWrite(led_Gruen, 1);
     digitalWrite(led_Rot, 0);
   }
