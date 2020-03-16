@@ -51,8 +51,8 @@ void en_Init()
 {
   Serial.println("Initialisierung");
   RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
-  GrueneLED.An;
-  RoteLED.An;
+  GrueneLED.An();
+  RoteLED.An();
   Serial.println("getting Ready...");
 }
 void do_Init()
@@ -63,8 +63,8 @@ void do_Init()
 
 void ex_Init()
   {
-    GrueneLED.Aus;
-    RoteLED.Aus;
+    GrueneLED.Aus();
+    RoteLED.Aus();
     LastState = 1;
   }
 
@@ -269,7 +269,7 @@ void en_Kalibrierung()
   //Nothalt
   void en_Nothalt()
   {
-    RB_Dfr_444.setMotorStopp();
+    RB_Dfr_444.setMotorStopp();     // @Andy und @Max oder RB_Dfr_444.Not_Aus(); ??
     digitalWrite(led_Gruen, 0);
     digitalWrite(led_Rot, 1);
   }
