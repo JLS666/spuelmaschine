@@ -10,17 +10,23 @@
 
 #include <Arduino.h>
 #include "Defines.h"                      // werden benötigt
-#include "ObjekteUndZustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
+#include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
 
 
 //************************************   Objekte ereugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
   LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
-
-//************************************   Objekte für den ustansautomat ereugen *****************************
-  //Zustandsautomat erstellen. Nach Plan in der Drive
-  //States:
+//************************************   Globale Variablen ***************************************************
+  int MotorStatus;
+  unsigned long LoopTime=0;
+  unsigned long LoopTimeArray[100] = {0};
+  unsigned long lastTime = 0;
+  bool timerModus = false;
+  int8_t Statecounter = 0;
+  int timerIndex= 0;
+//Zustandsautomat erstellen. Nach Plan in der Drive
+//States:
 State Init                        = State (en_Init, do_Init, ex_Init);
 State Kalibrierung                = State (en_Kalibrierung, do_Kalibrierung, ex_Kalibrierung);
 State Kalibrierung_Lore_hinten    = State (en_Kalibrierung_Lore_hinten, do_Kalibrierung_Lore_hinten, ex_Kalibrierung_Lore_hinten);

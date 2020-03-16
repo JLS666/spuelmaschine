@@ -7,7 +7,7 @@
 /*  Version:      0.1                                               */                 
 /********************************************************************/
 /*
-Seeed Shield für Arduino:
+  //Seeed Shield für Arduino:
 - UART: RX(0), DX(1) --> Start und Ende vom Stefan
 - D2: D2, D3 --> Encoder
 - D3: D3, D4 --> -
@@ -66,14 +66,14 @@ Seeed Shield für Arduino:
 #define ErrTimeKolben_backagain 1000
 #define KolbenFahrzeit 600 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
 
-//***********************************   Funktionen bekannt machen *******************************************/
+//***********************************   Funktionen bekannt machen *******************************************
 
   void encoderEvent();
   bool ABS();
   int Zyklenzaeler(bool Increment);
   
 
-//***********************************   True und False Defines  *********************************************/
+//***********************************   True und False Defines  *********************************************
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
 #define blasenEin true
 #define blasenAus false
@@ -85,7 +85,7 @@ Seeed Shield für Arduino:
 #define startPinAus false
 #define endePinEin true
 #define endePinAus false
-#define endschalter_VorneEin false
+#define endschalter_VorneEin false  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert.
 #define endschalter_VorneAus true
 #define endschalter_HintenEin false
 #define endschalter_HintenAus true
@@ -95,9 +95,7 @@ Seeed Shield für Arduino:
 #define endschalter_DeckelAus true
 #define quitierenEin false
 #define quitierenAus true
-#define led_RotAn true
+#define led_RotAn true //Das mit den LEDs ist unnötig.
 #define led_RotAus false
 #define led_GruenAn true
 #define led_GruenAus false
-
- 
