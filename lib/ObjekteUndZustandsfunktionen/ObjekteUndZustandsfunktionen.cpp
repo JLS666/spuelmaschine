@@ -41,9 +41,9 @@ void en_Init()
     RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
     Serial.println("Test");
     //Zylinder ein
-    digitalWrite(led_Gruen, true);
-    digitalWrite(led_Rot, true);
-    digitalWrite(kolben, kolbenRein);
+    GrueneLED.An();
+    RoteLED.An();
+    digitalWrite(kolben, kolbenRein); //Andy: Wieso?
 
     //Wir warten auf den Start.
     Serial.println("getting Ready...");
@@ -55,8 +55,8 @@ void en_Init()
   {;}
   void ex_Init()
   {
-    digitalWrite(led_Gruen, 0);
-    digitalWrite(led_Rot, 0);
+    GrueneLED.Aus();
+    RoteLED.Aus();
   }
 
   //Kalibrierung

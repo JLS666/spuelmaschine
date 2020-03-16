@@ -96,7 +96,7 @@
     } 
     void Motor::setFrequenz(int f)
     {
-        if (f>10000||f<800)
+        if (f>10000||f<500)
         {
              Serial.print("Frequenz außerhalb zulässigem Bereich");
              return;
