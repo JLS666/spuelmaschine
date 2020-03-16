@@ -86,7 +86,7 @@ Seeed Shield für Arduino:
 #define startPinAus false
 #define endePinEin true
 #define endePinAus false
-#define endschalter_VorneEin false
+#define endschalter_VorneEin false  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert.
 #define endschalter_VorneAus true
 #define endschalter_HintenEin false
 #define endschalter_HintenAus true
@@ -96,7 +96,7 @@ Seeed Shield für Arduino:
 #define endschalter_DeckelAus true
 #define quitierenEin false
 #define quitierenAus true
-#define led_RotAn true
+#define led_RotAn true //Das mit den LEDs ist unnötig.
 #define led_RotAus false
 #define led_GruenAn true
 #define led_GruenAus false
