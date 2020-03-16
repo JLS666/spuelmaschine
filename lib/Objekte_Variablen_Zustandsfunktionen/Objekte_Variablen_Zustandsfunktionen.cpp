@@ -75,12 +75,10 @@ void en_Kalibrierung()
   void do_Kalibrierung()
   {
     Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
-    /*
-    if(LastState == Kalibrierung_Kolben_rein)
+    if(LastState == 24)
       Spuelautomat.transitionTo(Standby);
     else 
       Spuelautomat.transitionTo(Kalibrierung_Lore_hinten);
-    */
   }
   
   void ex_Kalibrierung()
@@ -98,7 +96,7 @@ void en_Kalibrierung()
     if(digitalRead(endschalter_Hinten)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     
-    if(Spuelautomat.timeInCurrentState()-millis() > ErrTimeLore_Kalib);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -120,7 +118,7 @@ void en_Kalibrierung()
     if(digitalRead(endschalter_Vorne)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     
-    if(Spuelautomat.timeInCurrentState()-millis() > ErrTimeLore_Kalib);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -158,8 +156,7 @@ void en_Kalibrierung()
     if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
     else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)==kontakt)
-      //Spuelautomat.transitionTo(Kalibrierung);
-      Spuelautomat.transitionTo(Standby);
+      Spuelautomat.transitionTo(Kalibrierung);
   };
   void ex_Kalibrierung_Kolben_rein()
   {
