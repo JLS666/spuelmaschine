@@ -95,7 +95,17 @@
 #define endschalter_DeckelAus true
 #define quitierenEin false
 #define quitierenAus true
-#define led_RotAn true //Das mit den LEDs ist unnötig.
-#define led_RotAus false
-#define led_GruenAn true
-#define led_GruenAus false
+
+/*
+Error Code:
+
+Aus:     Alles ist aus.
+Standby: Grün blinkt langsam.
+Am Arbeiten: Grün ist an.
+Error State= Rot ist am Blinken.
+Not-Halt Rot ist an.
+Kalibirunsfehler Lore: Grün blinkt schnell.
+Druckluft aus. (Kalibrierung): Rot blinkt schnell.
+... Denkt euch was aus!!! 
+
+*/
