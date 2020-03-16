@@ -16,7 +16,7 @@ class Motor
     void setFrequenz(int f);                  //ändert die Motorfrequenz zwischen 800-10.000 Hz.
     void changeSpeed(int speed);              //anpassen der Default Geschwindigkeit.  VORSICHT!!
     int Fehlererkennung();                    //Nicht Implementiert.
-    void Bremsen();                           //Nicht Implementiert.
+    void Bremsen();                           //Nicht Implementiert. //Max: was soll der Unterschied sein zwischen Bremsen, Not_aus, setMotorStop?
     ~Motor();                    
 
     

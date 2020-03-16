@@ -95,8 +95,10 @@ void en_Kalibrierung()
   void do_Kalibrierung_Lore_hinten()
   {
     if(digitalRead(endschalter_Hinten)==kontakt)
+    {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
-    
+    }
+
     if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);
@@ -117,8 +119,10 @@ void en_Kalibrierung()
   void do_Kalibrierung_Lore_vorne()
   {
     if(digitalRead(endschalter_Vorne)==kontakt)
+    {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
-    
+      derEncoder.resetZaehler();
+    }
     if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib);
     {
       Spuelautomat.transitionTo(ErrorState);

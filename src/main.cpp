@@ -38,8 +38,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
-    Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht?? Andy: der muss neu sein. //Max: was ist denn das für eine Abfrage "wenn in Nothalt geh in Nothalt"? warum ist das noch da?
+  //if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
+   // Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht?? Andy: der muss neu sein. //Max: was ist denn das für eine Abfrage "wenn in Nothalt geh in Nothalt"? warum ist da überhaupt eine Transition in der main?
     
   //******************************************************************************/
   
