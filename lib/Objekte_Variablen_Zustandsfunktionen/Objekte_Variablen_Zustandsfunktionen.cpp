@@ -74,6 +74,7 @@ void ex_Init()
 void en_Kalibrierung()
   {
     GrueneLED.Blinken();
+    RoteLED.Aus();
   }
   void do_Kalibrierung()
   {
@@ -114,8 +115,7 @@ void en_Kalibrierung()
 
 //Kalibrieren Lore Vorne
   void en_Kalibrierung_Lore_vorne()
-  {
-  };
+  {  }
   void do_Kalibrierung_Lore_vorne()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
@@ -162,7 +162,7 @@ void en_Kalibrierung()
   {
     if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
-    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)==kontakt)
+    else if(digitalRead(endschalter_Zylinder)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
   };
   void ex_Kalibrierung_Kolben_rein()
@@ -190,8 +190,8 @@ void en_Kalibrierung()
 
   //Rakeln
   void en_Rakeln()
-  {
-  }
+  {  }
+
   void do_Rakeln()
   {  
     if(RB_Dfr_444.getMotorSpeed()==0)
@@ -283,8 +283,7 @@ void en_Kalibrierung()
 
   //Ausgabe
   void en_Ausgabe()
-  {
-  }
+  {}
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
@@ -315,10 +314,7 @@ void en_Kalibrierung()
     Serial.println(LastState);
   }
   void do_Error()
-  {
-
-
-  }
+  {  }
   void ex_Error()
   {
     LastState = 8;
@@ -335,7 +331,7 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    if(digitalRead(notaus)!=kontakt)
+    if(digitalRead(quitieren)!=kontakt)
     {  
       switch (LastState)
       {

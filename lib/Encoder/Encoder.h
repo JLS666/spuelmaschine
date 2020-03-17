@@ -12,7 +12,7 @@ class Encoder
 private:
     int zaehler;                // Zähler des Encoders
 public:
-    Encoder();                      
+    Encoder();
     ~Encoder();
     void resetZaehler();        // Zähler zurücksetzten, bei Endschalter vorne
     int getZaehler();           // Zähler als GZ zurückgeben
