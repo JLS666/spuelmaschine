@@ -60,7 +60,7 @@ void en_Init()
 void do_Init()
   {
     if(digitalRead(endschalter_Deckel)==kontakt)
-      Spuelautomat . transitionTo(Kalibrierung);
+      Spuelautomat.transitionTo(Kalibrierung);
   }
 
 void ex_Init()
