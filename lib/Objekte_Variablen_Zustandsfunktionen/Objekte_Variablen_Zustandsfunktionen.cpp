@@ -99,8 +99,8 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
-
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
+     Serial.print(kontakt);Serial.println(!kontakt);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -122,10 +122,10 @@ void en_Kalibrierung()
       RB_Dfr_444.setMotorStart(Lore_auf);
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
-      Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
+      Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
       derEncoder.resetZaehler();
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt);
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt)
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -151,7 +151,7 @@ void en_Kalibrierung()
   };
   void ex_Kalibrierung_Kolben_raus()
   {
-    LastState = 23;
+    LastState = 23;  Serial.println("Drücken");
   };
   //Kalibrieren Kolben rein
   void en_Kalibrierung_Kolben_rein()
@@ -162,7 +162,7 @@ void en_Kalibrierung()
   {
     if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
-    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)==kontakt)
+    else if(digitalRead(endschalter_Zylinder)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
   };
   void ex_Kalibrierung_Kolben_rein()
