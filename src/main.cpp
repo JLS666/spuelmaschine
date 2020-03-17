@@ -65,7 +65,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       {
         for(int j = 0; j<100; j++)
         {
-          Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
+          //Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
         }
         timerIndex= 0;    
       }

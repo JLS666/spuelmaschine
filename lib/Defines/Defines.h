@@ -56,14 +56,14 @@
 #define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 444 //Encoder in Mitte
+#define SollEncoderWert 4 //Encoder in Mitte
 #define EncoderEndeWert 888 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
-#define ErrTimeLore_Kalib 3000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
-#define ErrTimeLore_ab_Abstreifen 1300
-#define ErrTimeLore_auf_Return 3000
-#define ErrTimeKolben_backagain 1000
-#define KolbenFahrzeit 600 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
+#define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
+#define ErrTimeLore_ab_Abstreifen 13000
+#define ErrTimeLore_auf_Return 30000
+#define ErrTimeKolben_backagain 10000
+#define KolbenFahrzeit 6000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
 
 //***********************************   Funktionen bekannt machen *******************************************
 
@@ -74,26 +74,26 @@
 
 //***********************************   True und False Defines  *********************************************
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
-#define blasenEin true
-#define blasenAus false
-#define kolbenRaus true
-#define kolbenRein false
-#define notausInOrdnung false
-#define notausAlarm true
-#define startPinEin true
-#define startPinAus false
-#define endePinEin true
-#define endePinAus false
-#define endschalter_VorneEin false  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!!
-#define endschalter_VorneAus true
-#define endschalter_HintenEin false
-#define endschalter_HintenAus true
-#define endschalter_ZylinderEin false
-#define endschalter_ZylinderAus true
-#define endschalter_DeckelEin false
-#define endschalter_DeckelAus true
-#define quitierenEin false
-#define quitierenAus true
+#define blasenEin HIGH
+#define blasenAus LOW
+#define kolbenRaus HIGH
+#define kolbenRein LOW
+#define notausInOrdnung LOW
+#define notausAlarm HIGH
+#define startPinEin HIGH
+#define startPinAus LOW
+#define endePinEin HIGH
+#define endePinAus LOW
+#define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!!
+#define endschalter_VorneAus HIGH
+#define endschalter_HintenEin LOW
+#define endschalter_HintenAus HIGH
+#define endschalter_ZylinderEin LOW
+#define endschalter_ZylinderAus HIGH
+#define endschalter_DeckelEin LOW
+#define endschalter_DeckelAus HIGH
+#define quitierenEin LOW
+#define quitierenAus HIGH
 
 /*
 Error Code:
