@@ -38,11 +38,11 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  //if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt // Julian: Häh wenn er im Zustand Notaus ist, soll er in den Nothalt springen?
-   // Spuelautomat.transitionTo(Nothalt); // Julian:              ^ hierfür hab ich doch extra den Define notausAlarm gemacht?? Andy: der muss neu sein. //Max: was ist denn das für eine Abfrage "wenn in Nothalt geh in Nothalt"? warum ist da überhaupt eine Transition in der main?
+  //if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt 
+   // Spuelautomat.transitionTo(Nothalt);
     
   //******************************************************************************/
-  //Nothalt taster kommt hier noch hin
+  
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 

@@ -48,7 +48,7 @@ State Nothalt                     = State (en_Nothalt, do_Nothalt, ex_Nothalt);
 FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
 
 
-//************************************   Funktionen für den ustansautomat ***********************************
+//************************************   Funktionen für den Zustansautomat ***********************************
 void en_Init()
 {
   Serial.println("Initialisierung");
@@ -59,7 +59,7 @@ void en_Init()
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt)
+    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Hier wird der ja nur 1 mal abgefrag und dann nimmer 1!
       Spuelautomat.transitionTo(Kalibrierung);
   }
 
@@ -79,8 +79,8 @@ void en_Kalibrierung()
   void do_Kalibrierung()
   {
     if(LastState == 24)
-      Spuelautomat.transitionTo(Standby);
-    else 
+      Spuelautomat.transitionTo(Standby); // Andy: Braucht man eigentlich nicht der kann doch einfach nach dem letzten Kalib in den Stanby.
+    else                                   // Damit braucht man Kalibrieen eingentlich garnicht mehr.
       Spuelautomat.transitionTo(Kalibrierung_Lore_hinten);
   }
   
@@ -100,8 +100,8 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
-     Serial.print(kontakt);Serial.println(!kontakt);
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)
+    
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) // ||ABS()
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -123,9 +123,9 @@ void en_Kalibrierung()
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
-      derEncoder.resetZaehler();
+      derEncoder.resetZaehler();  
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt)
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) // ||ABS()
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -172,20 +172,20 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
-    derEncoder.resetZaehler();
+    derEncoder.resetZaehler(); //Dann braucht man es ja im Init nicht.
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
     RoteLED.Aus();
   }
   void do_Standby()
   {
-    if(digitalRead(startPin)==startPinEin);
+    if(digitalRead(startPin)==startPinEin); // Gogogo
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()
   {
     LastState = 3;
-    digitalWrite(endePin, endePinAus);
+    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
   }
 
   //Rakeln
@@ -195,12 +195,12 @@ void en_Kalibrierung()
   void do_Rakeln()
   {  
     if(RB_Dfr_444.getMotorSpeed()==0)
-      RB_Dfr_444.setMotorStart(Lore_ab);
+      RB_Dfr_444.setMotorStart(Lore_ab); //Jetzt wird geputzt
     else if(derEncoder.getZaehler()==SollEncoderWert)
     {
-      Spuelautomat.transitionTo(Rakelreinigen);
+      Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }
-    else if(digitalRead(endschalter_Hinten)==kontakt||ABS())
+    else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakeln()
@@ -224,8 +224,8 @@ void en_Kalibrierung()
 
   void ex_Rakelreinigen()
   {
-    digitalWrite(blasen, blasenAus);
-    LastState = 5;
+    digitalWrite(blasen, blasenAus); //Andy: Haha dat geht net. Deswegen keine ifs im State.
+    LastState = 5;                    // Würde den State wie oben weglassen und dann Rekelreinigen 1 und 2 einführen.
   }
 //Rakelreinigen Kolben raus
  void en_Rakelreinigen_Kolben_raus() 
@@ -238,7 +238,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Rakelreinigen_Kolben_rein);
     
     else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)== kontakt)
-        Spuelautomat.transitionTo(ErrorState);
+        Spuelautomat.transitionTo(ErrorState); //Diagonse: Kein Druck auf dem Schlauch.
   }
 
   void ex_Rakelreinigen_Kolben_raus() 
@@ -293,7 +293,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Standby);
       digitalWrite(endePin, endePinEin);
     }
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return && digitalRead(endschalter_Vorne)!=kontakt)
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Ausgabe()
