@@ -59,14 +59,12 @@ void en_Init()
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Hier wird der ja nur 1 mal abgefrag und dann nimmer 1!
+    if(digitalRead(endschalter_Deckel)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
   }
 
 void ex_Init()
   {
-    GrueneLED.Aus();
-    RoteLED.Aus();
     LastState = 1;
   }
 
@@ -123,7 +121,6 @@ void en_Kalibrierung()
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
-      derEncoder.resetZaehler();  
     }
     if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) // ||ABS()
     {
@@ -172,7 +169,7 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
-    derEncoder.resetZaehler(); //Dann braucht man es ja im Init nicht.
+    derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
     RoteLED.Aus();
@@ -224,7 +221,6 @@ void en_Kalibrierung()
 
   void ex_Rakelreinigen()
   {
-    digitalWrite(blasen, blasenAus); //Andy: Haha dat geht net. Deswegen keine ifs im State.
     LastState = 5;                    // Würde den State wie oben weglassen und dann Rekelreinigen 1 und 2 einführen.
   }
 //Rakelreinigen Kolben raus

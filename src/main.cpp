@@ -38,8 +38,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
   //******************************************************************************/
   //Transitionen:
-  //if((Spuelautomat.isInState(Nothalt)!=true && digitalRead(notaus)!=kontakt) || digitalRead(endschalter_Deckel)!=kontakt)     //Wenn Notaus (Öffner) betätigt =>Nothalt 
-   // Spuelautomat.transitionTo(Nothalt);
+  if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)!=kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
+    Spuelautomat.transitionTo(Nothalt);
     
   //******************************************************************************/
   
