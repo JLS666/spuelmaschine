@@ -114,7 +114,7 @@ void ex_Kalibrierung_Kolben_raus();
 void en_Kalibrierung_Kolben_rein();
 void do_Kalibrierung_Kolben_rein();
 void ex_Kalibrierung_Kolben_rein();
-//Abselute Leere
+//Absolute Leere
 void Leer();
 
 //Nothalt
