@@ -22,7 +22,7 @@ void setup() {
   pinMode(endschalter_Hinten, INPUT_PULLUP);
   pinMode(endschalter_Zylinder, INPUT_PULLUP);
   pinMode(endschalter_Deckel, INPUT_PULLUP);
-  pinMode(quitieren, INPUT_PULLUP);
+  pinMode(quittieren, INPUT_PULLUP);
   pinMode(kolben, OUTPUT);
   pinMode(blasen, OUTPUT);
   pinMode(notaus, INPUT_PULLUP);

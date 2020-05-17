@@ -36,7 +36,7 @@
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
 #define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
-#define quitieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
+#define quittieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
 #define kolben A0
 #define blasen A1
 #define notaus A2

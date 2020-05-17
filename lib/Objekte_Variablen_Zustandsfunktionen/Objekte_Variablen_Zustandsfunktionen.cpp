@@ -77,8 +77,8 @@ void en_Kalibrierung()
   void do_Kalibrierung()
   {
     if(LastState == 24)
-      Spuelautomat.transitionTo(Standby); // Andy: Braucht man eigentlich nicht der kann doch einfach nach dem letzten Kalib in den Stanby.
-    else                                   // Damit braucht man Kalibrieen eingentlich garnicht mehr.
+      Spuelautomat.transitionTo(Standby);
+    else                                   
       Spuelautomat.transitionTo(Kalibrierung_Lore_hinten);
   }
   
@@ -143,13 +143,15 @@ void en_Kalibrierung()
   {
       if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
         Spuelautomat.transitionTo(Kalibrierung_Kolben_rein);
-      else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit &&digitalRead(endschalter_Zylinder)==kontakt)
+      else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit || (digitalRead(endschalter_Zylinder)==kontakt && Spuelautomat.timeInCurrentState()>KolbenFahrzeit))
         Spuelautomat.transitionTo(ErrorState);
   };
   void ex_Kalibrierung_Kolben_raus()
   {
-    LastState = 23;  Serial.println("Drücken");
+    LastState = 23;  
+    Serial.println("Drücken");
   };
+
   //Kalibrieren Kolben rein
   void en_Kalibrierung_Kolben_rein()
   {
@@ -248,7 +250,7 @@ void en_Kalibrierung()
   }
   void do_Rakelreinigen_Kolben_rein() 
   {
-    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)== kontakt)
+    if(digitalRead(endschalter_Zylinder)== kontakt)
       Spuelautomat.transitionTo(Rakelreinigen);
     
     else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
@@ -289,7 +291,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Standby);
       digitalWrite(endePin, endePinEin);
     }
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return || ABS())
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Ausgabe()
@@ -297,6 +299,7 @@ void en_Kalibrierung()
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
     Zyklenzaehler(true);
+    digitalWrite(endePin, endePinEin);
   }
 
   //Error
@@ -327,7 +330,7 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    if(digitalRead(quitieren)!=kontakt)
+    if(digitalRead(quittieren)!=kontakt)
     {  
       switch (LastState)
       {
