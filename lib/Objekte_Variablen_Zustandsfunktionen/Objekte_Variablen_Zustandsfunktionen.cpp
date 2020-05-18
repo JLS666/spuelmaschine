@@ -59,8 +59,13 @@ void en_Init()
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt)
+    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt.
       Spuelautomat.transitionTo(Kalibrierung);
+    else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
+    {
+      Serial.println("Skip the Intro");
+      Spuelautomat.transitionTo(Standby); 
+    }
   }
 
 void ex_Init()
@@ -334,8 +339,9 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    if(digitalRead(quittieren)!=kontakt)
+    if(digitalRead(quittieren)==kontakt || Serial.read()=='q') //Andy ändert != zu == habe aber kein Plan. Das darf nicht durchlaufen nur weil kein Schalter angeschlossen ist!
     {  
+      Serial.println("Quittierung...");
       switch (LastState)
       {
       case 1:

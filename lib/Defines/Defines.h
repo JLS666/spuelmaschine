@@ -84,7 +84,7 @@
 #define startPinAus LOW
 #define endePinEin HIGH
 #define endePinAus LOW
-#define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!!
+#define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!! Andy: ich bin au verwiert. Kontakt wäre mir klarer.
 #define endschalter_VorneAus HIGH
 #define endschalter_HintenEin LOW
 #define endschalter_HintenAus HIGH
