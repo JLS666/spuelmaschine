@@ -9,7 +9,7 @@
 /*
   //Seeed Shield für Arduino:
 - UART: RX(0), DX(1) --> Start und Ende vom Stefan
-- D2: D2, D3 --> Encoder
+- D2: D2, D3 --> Encoder Frabkodierung: grün: gnd, blau: Vcc, gelb: Ausgang A, weiß: Ausgang B
 - D3: D3, D4 --> -
 - D4: D4, D5 --> Motortreiber
 - D5: D5, D6 --> Endschalter Vorne
@@ -27,8 +27,8 @@
 //Pins
 #define startPin 0
 #define endePin 1
-#define encoderA 2              //Interrupt Pin
-#define encoderB 3              //Interrupt Pin
+#define encoderA 3              //Interrupt Pin
+#define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
 #define motortreiberDIR_A 8     //Dir Pin H=>CW
 #define motortreiberDIR_B 4     //Dir Pin H=>CCW

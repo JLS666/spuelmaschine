@@ -73,6 +73,7 @@ void en_Kalibrierung()
   {
     GrueneLED.Blinken();
     RoteLED.Aus();
+    Serial.println("Kalibierung");
   }
   void do_Kalibrierung()
   {
@@ -149,13 +150,13 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Kolben_raus()
   {
     LastState = 23;  
-    Serial.println("Drücken");
   };
 
   //Kalibrieren Kolben rein
   void en_Kalibrierung_Kolben_rein()
   {
     digitalWrite(kolben, kolbenRein);
+    Serial.println("Druecken");
   };
   void do_Kalibrierung_Kolben_rein()
   {
@@ -171,6 +172,7 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
+    Serial.println("Standby");
     derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
@@ -178,7 +180,7 @@ void en_Kalibrierung()
   }
   void do_Standby()
   {
-    if(digitalRead(startPin)==startPinEin); // Gogogo
+    if(digitalRead(startPin)==startPinEin) // Gogogo
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()
@@ -189,7 +191,9 @@ void en_Kalibrierung()
 
   //Rakeln
   void en_Rakeln()
-  {  }
+  { 
+  Serial.println("Rakeln");
+   }
 
   void do_Rakeln()
   {  

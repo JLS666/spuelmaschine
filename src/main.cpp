@@ -33,9 +33,17 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 
 }
-
+ int zaehlerAlt = 0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
+  // Encoder Test
+ 
+  if (zaehlerAlt != derEncoder.getZaehler())
+  {
+    Serial.println(derEncoder.getZaehler());
+    zaehlerAlt = derEncoder.getZaehler();
+  }
 
+  // Endoder Test Ende
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)!=kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
@@ -77,8 +85,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
 
 void encoderEvent() //ISR
 {
-    if(encoderB)
-      derEncoder.inkrementZaehler();
+    if(digitalRead(encoderB))
+        derEncoder.inkrementZaehler();
     else
       derEncoder.dekrementZaehler();
 }

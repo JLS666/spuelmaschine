@@ -1,6 +1,6 @@
 #include "Encoder.h"
 #include "Defines.h"
-//#include "Arduino.h"
+#include "Arduino.h"
 
 Encoder::Encoder()
 {

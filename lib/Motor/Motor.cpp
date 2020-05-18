@@ -78,7 +78,7 @@
     void Motor::setMotorStopp()
     {
         Stopp=true;
-        Serial.println("Motor wurde gesoppt.");
+        Serial.println("Motor wurde gestoppt.");
     }
     int Motor::getMotorSpeed()  
     {
