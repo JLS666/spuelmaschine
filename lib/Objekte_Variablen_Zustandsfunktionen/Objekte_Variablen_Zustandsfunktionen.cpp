@@ -59,7 +59,7 @@ void en_Init()
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt.
+    if(digitalRead(endschalter_Deckel)!=kontakt) //Andy: Wird doch eh in der main abgeragt. 
       Spuelautomat.transitionTo(Kalibrierung);
     else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
     {
@@ -161,7 +161,7 @@ void en_Kalibrierung()
   void en_Kalibrierung_Kolben_rein()
   {
     digitalWrite(kolben, kolbenRein);
-    Serial.println("Druecken");
+    Serial.println("Druecken"); //Andy: Was Drücken???
   };
   void do_Kalibrierung_Kolben_rein()
   {
@@ -204,12 +204,13 @@ void en_Kalibrierung()
   {  
     if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_ab); //Jetzt wird geputzt
-    else if(derEncoder.getZaehler()==SollEncoderWert)
+    else if(derEncoder.getZaehler()>=SollEncoderWert)
     {
       Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }
     else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
+       
   }
   void ex_Rakeln()
   {
@@ -220,6 +221,7 @@ void en_Kalibrierung()
   //Rakelreinigen
   void en_Rakelreinigen() 
   {
+    Serial.println("Rakelreinigen");
     digitalWrite(blasen, blasenEin);
   }
   void do_Rakelreinigen() 
@@ -237,6 +239,7 @@ void en_Kalibrierung()
 //Rakelreinigen Kolben raus
  void en_Rakelreinigen_Kolben_raus() 
   {
+    Serial.println("Kolben Raus");
     digitalWrite(kolben, kolbenRaus);
   }
   void do_Rakelreinigen_Kolben_raus() 
@@ -255,6 +258,7 @@ void en_Kalibrierung()
   //Rakelreinigen Kolben rein
    void en_Rakelreinigen_Kolben_rein() 
   {
+    Serial.println("Kolben Rein");
     digitalWrite(kolben, kolbenRein);
   }
   void do_Rakelreinigen_Kolben_rein() 
@@ -273,6 +277,7 @@ void en_Kalibrierung()
   //Abstreifen
   void en_Abstreifen()
   {
+    Serial.println("Abstreifen");
     RB_Dfr_444.setMotorStart(Lore_ab);
   }
   void do_Abstreifen()
@@ -290,7 +295,9 @@ void en_Kalibrierung()
 
   //Ausgabe
   void en_Ausgabe()
-  {}
+  {
+    Serial.println("Ausgabe");
+  }
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
