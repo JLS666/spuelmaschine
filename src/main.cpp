@@ -93,8 +93,6 @@ void encoderEvent() //ISR
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
-return Ok; // Wird später gemacht.
-
   static int Position=0;
   static unsigned long Zeit=0;
   if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
