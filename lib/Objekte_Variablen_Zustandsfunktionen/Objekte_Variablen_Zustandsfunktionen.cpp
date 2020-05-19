@@ -284,13 +284,15 @@ void en_Kalibrierung()
   }
   void ex_Abstreifen()
   {
-    RB_Dfr_444.setMotorStopp();
+ 
     LastState = 6;
   }
 
   //Ausgabe
   void en_Ausgabe()
-  {}
+  {
+    RB_Dfr_444.setMotorStopp();
+  }
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
