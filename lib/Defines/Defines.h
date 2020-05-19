@@ -56,9 +56,9 @@
 #define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 4 //Encoder in Mitte
-#define EncoderEndeWert 888 //Encoder am Ende
-#define Tolleranz 66 //Tolleranz des Encoders +-
+#define SollEncoderWert 700 //Encoder in Mitte
+#define EncoderEndeWert 1400 //Encoder am Ende
+#define Tolleranz 166 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
 #define ErrTimeLore_ab_Abstreifen 13000
 #define ErrTimeLore_auf_Return 30000
