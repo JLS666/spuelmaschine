@@ -13,8 +13,6 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
-int zaehlerAlt = 0;
-
 void setup() {
   pinMode(startPin, INPUT);       
   pinMode(endePin, OUTPUT);
@@ -35,7 +33,7 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 
 }
-
+ int zaehlerAlt = 0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
   // Encoder Test
  
