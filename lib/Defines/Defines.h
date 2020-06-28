@@ -30,9 +30,9 @@
 #define encoderA 3              //Interrupt Pin
 #define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
-#define motortreiberDIR_A 8     //Dir Pin H=>CW
+#define motortreiberDIR_A 5     //Dir Pin H=>CW
 #define motortreiberDIR_B 4     //Dir Pin H=>CCW
-#define endschalter_Vorne 5
+#define endschalter_Vorne 8   //Achtung Pin change 5-8
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
 #define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
