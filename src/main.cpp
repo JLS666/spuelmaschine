@@ -93,7 +93,7 @@ void encoderEvent() //ISR
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
-return Ok;
+return Ok; // Wird später gemacht.
 
   static int Position=0;
   static unsigned long Zeit=0;
@@ -115,7 +115,7 @@ return Ok;
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   OnBoardLED.Flashen();
-  OnBoardLED.refresh();  
+  OnBoardLED.refresh();     //Kann auch in die loop
   RoteLED.Flashen();
   RoteLED.refresh();        
   GrueneLED.Flashen();
@@ -131,7 +131,7 @@ int Zyklenzaehler(bool Increment) //mit True aufrufen um Hochzuzählen.
     RAM++;
   }
   EEPROM.put(0,ROM);
-  delay(100); 
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!! //Andy: beweiß es ;)
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;

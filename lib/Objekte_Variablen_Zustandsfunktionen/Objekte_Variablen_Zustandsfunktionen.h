@@ -1,5 +1,6 @@
 /********************************************************************/
-/*  Autoren:      Anselm Maximilian Lehmann                         */
+/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
+/*                Julian Schweizerhof                               */ 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        Objekte_Variablen_Zustandsfunktionen.h            */
 /*  Beschreibung: Header für die Objekte und die Zustandsfunktionen */
