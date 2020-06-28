@@ -42,11 +42,11 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     Serial.println(derEncoder.getZaehler());
     zaehlerAlt = derEncoder.getZaehler();
   }
-  // if
-  Serial.print("Der DIR_A vom Motortreiber ist: ");
-  Serial.println(digitalRead(motortreiberDIR_A));
-  Serial.print("Der DIR_B vom Motortreiber ist: ");
-  Serial.println(digitalRead(motortreiberDIR_B));  
+  // if()
+  //Serial.print("Der DIR_A vom Motortreiber ist: ");
+  //Serial.println(digitalRead(motortreiberDIR_A));
+  //Serial.print("Der DIR_B vom Motortreiber ist: ");
+  //Serial.println(digitalRead(motortreiberDIR_B));  
   // Endoder Test Ende
   //******************************************************************************/
   //Transitionen:

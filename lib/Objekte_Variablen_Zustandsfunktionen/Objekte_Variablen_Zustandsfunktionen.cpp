@@ -79,6 +79,7 @@ void en_Kalibrierung()
     GrueneLED.Blinken();
     RoteLED.Aus();
     Serial.println("Kalibierung");
+    Serial.println(digitalRead(startPin));
   }
   void do_Kalibrierung()
   {
@@ -204,7 +205,7 @@ void en_Kalibrierung()
   {  
     if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_ab); //Jetzt wird geputzt
-    else if(derEncoder.getZaehler()==SollEncoderWert)
+    else if(derEncoder.getZaehler()>=SollEncoderWert)
     {
       Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }

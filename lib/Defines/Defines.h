@@ -8,7 +8,7 @@
 /********************************************************************/
 /*
   //Seeed Shield für Arduino:
-- UART: RX(0), DX(1) --> Start und Ende vom Stefan
+- UART: RX(0), DX(1) --> -
 - D2: D2, D3 --> Encoder Frabkodierung: grün: gnd, blau: Vcc, gelb: Ausgang A, weiß: Ausgang B
 - D3: D3, D4 --> -
 - D4: D4, D5 --> Motortreiber
@@ -20,18 +20,19 @@
 - A1: A1, A2 --> Notaus
 - A2: A2, A3 --> -
 - A3: A3, A4 --> LEDs
-- 4 x I2C: SDA, SCL --> 
+- 1 x I2C: SDA, SCL --> Start und Ende vom Stefan
+- 3 x I2C: SDA, SCL --> 
 - noch Offen: 1 x Stromversorgung, 1 x Endschalter Deckel, 1 x Taster Start, 1 x Taster-Reset
 */
 #pragma once
 //Pins
-#define startPin 0
-#define endePin 1
+#define startPin 19          //getauscht mit 0,1
+#define endePin 18
 #define encoderA 3              //Interrupt Pin
 #define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
-#define motortreiberDIR_A 5     //Dir Pin H=>CW
-#define motortreiberDIR_B 4     //Dir Pin H=>CCW
+#define motortreiberDIR_A 4     //Dir Pin H=>CW
+#define motortreiberDIR_B 5     //Dir Pin H=>CCW
 #define endschalter_Vorne 8   //Achtung Pin change 5-8
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
@@ -49,7 +50,7 @@
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit 
-#define MotSpeed 30             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define MotSpeed 15             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
 #define Error -1
 #define Ok 0
