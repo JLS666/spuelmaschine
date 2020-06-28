@@ -96,7 +96,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt ||ABS())
+    if((Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) ||ABS())
     {
       Spuelautomat.transitionTo(ErrorState);
     }
