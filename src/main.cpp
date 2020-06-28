@@ -42,11 +42,15 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     Serial.println(derEncoder.getZaehler());
     zaehlerAlt = derEncoder.getZaehler();
   }
-
+  // if
+  Serial.print("Der DIR_A vom Motortreiber ist: ");
+  Serial.println(digitalRead(motortreiberDIR_A));
+  Serial.print("Der DIR_B vom Motortreiber ist: ");
+  Serial.println(digitalRead(motortreiberDIR_B));  
   // Endoder Test Ende
   //******************************************************************************/
   //Transitionen:
-  if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)!=kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
+  if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
     Spuelautomat.transitionTo(Nothalt);
     
   //******************************************************************************/
