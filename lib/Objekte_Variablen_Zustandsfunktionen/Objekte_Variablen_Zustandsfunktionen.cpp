@@ -1,16 +1,15 @@
 /********************************************************************/
-/*  Autoren:      Andreas Bank, Anselm Maximilian Lehmann           */
-/*                Julian Schweierhof                               */ 
+/*  Autoren:      Anselm Maximilian Lehmann                         */ 
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
-/*  Datei:        ObjekteUndustandsfuntkionen.cpp                  */
-/*  Beschreibung: Header für die Objekte und die ustandsfunktionen */
+/*  Datei:        ObjekteUndZustandsfuntkionen.cpp                  */
+/*  Beschreibung: Definition der Objekte und der Zustandsfunktionen */
 /*  Version:      0.1                                               */                 
 /********************************************************************/
 
 
 #include <Arduino.h>
-#include "Defines.h"                      // werden benötigt
-#include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
+#include "Defines.h"                 
+#include "Objekte_Variablen_Zustandsfunktionen.h"
 
 
 //************************************   Objekte ereugen ****************************************************
@@ -26,7 +25,7 @@
   int8_t Statecounter = 0;
   int timerIndex= 0;
   int8_t LastState = 0;
-//Zustandsautomat erstellen. Nach Plan in der Drive
+//Zustandsautomat erstellen.
 //States:
 State Init                        = State (en_Init, do_Init, ex_Init);
 State Kalibrierung                = State (en_Kalibrierung, do_Kalibrierung, ex_Kalibrierung);
@@ -51,21 +50,14 @@ FiniteStateMachine Spuelautomat = FiniteStateMachine(Init); //Eingangsschritt
 //************************************   Funktionen für den Zustansautomat ***********************************
 void en_Init()
 {
-  Serial.println("Initialisierung");
-  RB_Dfr_444.setMotorStopp();         //erstmal soll sich nichts bewegen
+  RB_Dfr_444.setMotorStopp();        
   GrueneLED.An();
   RoteLED.An();
-  Serial.println("getting Ready...");
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt.
+    if(digitalRead(endschalter_Deckel)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
-    else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
-    {
-      Serial.println("Skip the Intro");
-      Spuelautomat.transitionTo(Standby); 
-    }
   }
 
 void ex_Init()
@@ -78,7 +70,6 @@ void en_Kalibrierung()
   {
     GrueneLED.Blinken();
     RoteLED.Aus();
-    Serial.println("Kalibierung");
   }
   void do_Kalibrierung()
   {
@@ -105,7 +96,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) // ||ABS()
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt ||ABS())
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -128,7 +119,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) // ||ABS()
+    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt ||ABS())
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -161,7 +152,6 @@ void en_Kalibrierung()
   void en_Kalibrierung_Kolben_rein()
   {
     digitalWrite(kolben, kolbenRein);
-    Serial.println("Druecken");
   };
   void do_Kalibrierung_Kolben_rein()
   {
@@ -177,7 +167,6 @@ void en_Kalibrierung()
   //Standby
   void en_Standby()
   {
-    Serial.println("Standby");
     derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
     GrueneLED.An();
@@ -185,13 +174,13 @@ void en_Kalibrierung()
   }
   void do_Standby()
   {
-    if(digitalRead(startPin)==startPinEin) // Gogogo
+    if(digitalRead(startPin)==startPinEin)
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()
   {
     LastState = 3;
-    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
+    digitalWrite(endePin, endePinAus);
   }
 
   //Rakeln
@@ -203,10 +192,10 @@ void en_Kalibrierung()
   void do_Rakeln()
   {  
     if(RB_Dfr_444.getMotorSpeed()==0)
-      RB_Dfr_444.setMotorStart(Lore_ab); //Jetzt wird geputzt
+      RB_Dfr_444.setMotorStart(Lore_ab);
     else if(derEncoder.getZaehler()==SollEncoderWert)
     {
-      Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
+      Spuelautomat.transitionTo(Rakelreinigen);
     }
     else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
@@ -232,7 +221,7 @@ void en_Kalibrierung()
 
   void ex_Rakelreinigen()
   {
-    LastState = 5;                    // Würde den State wie oben weglassen und dann Rekelreinigen 1 und 2 einführen.
+    LastState = 5;
   }
 //Rakelreinigen Kolben raus
  void en_Rakelreinigen_Kolben_raus() 
@@ -245,7 +234,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Rakelreinigen_Kolben_rein);
     
     else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)== kontakt)
-        Spuelautomat.transitionTo(ErrorState); //Diagonse: Kein Druck auf dem Schlauch.
+        Spuelautomat.transitionTo(ErrorState);
   }
 
   void ex_Rakelreinigen_Kolben_raus() 
@@ -320,7 +309,6 @@ void en_Kalibrierung()
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus); 
-    Serial.print("irgendwas ist schiefgelaufen :| "); 
     Serial.println(LastState);
   }
   void do_Error()
@@ -337,13 +325,11 @@ void en_Kalibrierung()
     digitalWrite(blasen, blasenAus);
     GrueneLED.Aus();
     RoteLED.An();
-    Serial.println("Not Halt");
   }
   void do_Nothalt()
   {
-    if(digitalRead(quittieren)==kontakt || Serial.read()=='q') //Andy ändert != zu == habe aber kein Plan. Das darf nicht durchlaufen nur weil kein Schalter angeschlossen ist!
+    if(digitalRead(quittieren)==kontakt || Serial.read()=='q')
     {  
-      Serial.println("Quittierung...");
       switch (LastState)
       {
       case 1:
@@ -398,12 +384,6 @@ void en_Kalibrierung()
   {
     GrueneLED.An();
     RoteLED.Aus();
-  }
-
-  void Leer()
-  {
-    //Nix die ist Leer.
-    Serial.println("Welcher Trottel ruft Leer auf?");
   }
 //************************************ Ende ******************************************************************
 
