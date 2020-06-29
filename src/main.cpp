@@ -4,7 +4,7 @@
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
 /*  Beschreibung: main für Spülmaschine                             */
-/*  Version:      0.1                                               */                 
+/*  Version:      0.2                                              */                 
 /********************************************************************/
 
 
