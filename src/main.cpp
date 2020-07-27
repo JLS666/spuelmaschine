@@ -93,8 +93,6 @@ void encoderEvent() //ISR
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
-return Ok; // Wird später gemacht.
-
   static int Position=0;
   static unsigned long Zeit=0;
   if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
@@ -102,13 +100,15 @@ return Ok; // Wird später gemacht.
     Zeit=millis();
     if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
       Serial.println(" ABS Eingriff !");
-        return Error;
+        return Ok;// Wird später gemacht. return Error;
       }
     Position=derEncoder.getZaehler();
     return Ok;       
   }
   else
   {
+    if(RB_Dfr_444.getMotorSpeed()>1)
+      Zeit=millis();
     return Ok;
   }
 }
