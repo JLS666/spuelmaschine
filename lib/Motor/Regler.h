@@ -22,11 +22,11 @@ class Regler
     long oldTime=0;
     int maxReglerwert=10; //In Prozent
     double Eingabe=0;
-    double Außgabe=0;
+    double Ausgabe=0;
     PID Motorregler;
 };
 
-Regler::Regler():Motorregler(&Eingabe, &Außgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
+Regler::Regler():Motorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
 {
     Motorregler.SetMode(AUTOMATIC);
 }
@@ -36,7 +36,10 @@ bool Regler::Regeln(int pReglerwert)
     Eingabe=WieSchnellBinIch();
     Regelwert=pReglerwert;
     Motorregler.Compute();
-    RB_Dfr_444.changeSpeed(Außgabe);
+    unsigned int Power=int(Ausgabe/pReglerwert)*RB_Dfr_444.getMotorSpeed();
+    RB_Dfr_444.changeSpeed(Power);
+    Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Power);
+    return Ok;
 }
 
 int Regler::WieSchnellBinIch()
@@ -49,7 +52,7 @@ int Regler::WieSchnellBinIch()
     if(Zeit>500 || Weg*StreckeProEncoderWert>10)
     {
         Serial.println("Regler neustart");
-        return(Außgabe);
+        return(Ausgabe);
     }
     else
     return((Weg*StreckeProEncoderWert) / (Zeit/1000));

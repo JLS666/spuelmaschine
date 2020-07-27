@@ -2,6 +2,7 @@
 Motor Klasse Optimiert für BB-VNH3SP30 DC Treiber. Auf Arduino UNO.
 Autor: Andy 
 */
+#include "Regler.h"
 
 class Motor
 {
@@ -29,4 +30,6 @@ class Motor
     bool istRichtung;
     unsigned int maxSpeed;
     int Frequenz;
+    Regler Motorregler;
+    int pRealSpeed;
 };

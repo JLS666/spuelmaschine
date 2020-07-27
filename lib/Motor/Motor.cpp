@@ -22,9 +22,13 @@
         {
             Stopp=true;
         }
-
+        
         if(istSpeed==maxSpeed)
+        {
+        Motorregler.Regeln(pRealSpeed); //Ramp fertig jetzt halten.
+        //maxSpeed wird geändert wodurch == nicht mehr passt.
         return Ok; //Volle Fahrt
+        }
 
         //Serial.println(istSpeed);
         if(istSpeed==0) //Entscheidung Geschw. Bereich
