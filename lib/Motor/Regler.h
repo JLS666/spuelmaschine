@@ -29,14 +29,17 @@ class Regler
 Regler::Regler():Motorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
 {
     Motorregler.SetMode(AUTOMATIC);
+    Motorregler.SetOutputLimits(0,MotSpeed);
 }
 
 bool Regler::Regeln(int pReglerwert)
 {
     Eingabe=WieSchnellBinIch();
+    Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     Regelwert=pReglerwert;
-    Motorregler.Compute();
-    unsigned int Power=int(Ausgabe/pReglerwert)*RB_Dfr_444.getMotorSpeed();
+    Motorregler.Compute(); //Magic
+    unsigned int Power=int((Ausgabe/pReglerwert)*RB_Dfr_444.getMotorSpeed());
+    Power=Ausgabe; //So glaub besser
     RB_Dfr_444.changeSpeed(Power);
     Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Power);
     return Ok;

@@ -22,11 +22,9 @@
         {
             Stopp=true;
         }
-        
+        Motorregler.Regeln(pRealSpeed);
         if(istSpeed==maxSpeed)
         {
-        Motorregler.Regeln(pRealSpeed); //Ramp fertig jetzt halten.
-        //maxSpeed wird geändert wodurch == nicht mehr passt.
         return Ok; //Volle Fahrt
         }
 
@@ -115,8 +113,12 @@
     }           
     void Motor::changeSpeed(int speed)
     {
-        Serial.println("Motor Speed wurde angepasst.");
         maxSpeed=speed;
+    }
+    void Motor::changeRealSpeed(int speed)
+    {
+        Serial.println("Motor RealSpeed wurde angepasst.");
+        pRealSpeed=speed;
     }
     void Motor::AusgangsPower(int Pin, int Power)
     {
