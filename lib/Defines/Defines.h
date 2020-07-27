@@ -65,6 +65,7 @@
 #define ErrTimeLore_auf_Return 30000
 #define ErrTimeKolben_backagain 10000
 #define KolbenFahrzeit 6000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
+#define StreckeProEncoderWert 2100/600 //Encoder ganz hinten / Fahrweg Lore in mm
 
 //***********************************   Funktionen bekannt machen *******************************************
 
