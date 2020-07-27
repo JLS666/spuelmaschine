@@ -300,8 +300,9 @@ void en_Kalibrierung()
       RB_Dfr_444.setMotorStart(Lore_auf);
     else if(digitalRead(endschalter_Vorne)==kontakt)
     {
-      Spuelautomat.transitionTo(Standby);
-      digitalWrite(endePin, endePinEin);
+      Spuelautomat.transitionTo(Standby); //Von Vorne
+      digitalWrite(endePin, endePinEin); //Singnal Fertig
+      Zyklenzaehler(true); //EEPROM mit zählen
     }
     else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return || ABS())
       Spuelautomat.transitionTo(ErrorState);
