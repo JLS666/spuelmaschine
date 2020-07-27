@@ -8,6 +8,8 @@ Autor: Andy
 #include "PID_v1.h"
 #include "Defines.h"
 
+#define Regleristda true;
+
 class Regler
 {
     public:

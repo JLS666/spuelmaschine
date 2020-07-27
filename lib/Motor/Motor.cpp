@@ -22,7 +22,9 @@
         {
             Stopp=true;
         }
+        #ifdef Regleristda;
         Motorregler.Regeln(pRealSpeed);
+        #endif
         if(istSpeed==maxSpeed)
         {
         return Ok; //Volle Fahrt
