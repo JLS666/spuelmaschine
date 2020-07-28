@@ -1,5 +1,5 @@
 
-//#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
+#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Regler.h"
 #include <Arduino.h>
 Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
@@ -21,6 +21,7 @@ double Regler::Regeln(int pReglerwert)
 
 int Regler::WieSchnellBinIch()
 {
+    //derEncoder.getZaehler();
     int Weg=Encoderstand-oldEncoder;
     oldEncoder=Encoderstand;
     long Zeit=millis()-oldTime;
