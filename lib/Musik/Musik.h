@@ -257,12 +257,12 @@ void haushalt()
             break;
         }
 
-        if(derEncoder.getZaehler > drehpunktHinten && pause == false)
+        if(derEncoder.getZaehler() > drehpunktHinten && pause == false)
         {
             RB_Dfr_444.Not_Aus(); 
             RB_Dfr_444.setMotorStart(Lore_auf); 
         }
-        else if(derEncoder.getZaehler < drehpunktVorne && pause == false)
+        else if(derEncoder.getZaehler() < drehpunktVorne && pause == false)
         {
             RB_Dfr_444.Not_Aus(); 
             RB_Dfr_444.setMotorStart(Lore_ab);

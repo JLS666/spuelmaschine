@@ -41,8 +41,8 @@
 #define kolben A0
 #define blasen A1
 #define notaus A2
-#define led_Rot A3                 
-#define led_Gruen A4
+#define led_Rot A4      // wurde umgetauscht                 
+#define led_Gruen A3    // wurde umgetauscht
 
 //#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.

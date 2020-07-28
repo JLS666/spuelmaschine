@@ -1,6 +1,6 @@
 
-//#include "Motor.h"
-#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
+#include "Motor.h"
+//#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Defines.h"
 #include <Arduino.h>
 //#include "Regler.h"
