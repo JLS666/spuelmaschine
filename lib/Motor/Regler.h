@@ -2,13 +2,21 @@
 Regler für konst Fahren. ohne am Motor zu pfuschen.
 Autor: Andy 
 */
-
+#pragma once
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 //Braucht den Enoder und den Motor
 #include "PID_v1.h"
 #include "Defines.h"
 
 #define Regleristda true;
+
+int testfkt(int hallo)
+{
+    Motor V12(1,2,3);
+    MotorStatus++;
+    Motor V8(5,4,3);
+    return hallo;
+}
 
 class Regler
 {
@@ -25,13 +33,14 @@ class Regler
     int maxReglerwert=10; //In Prozent
     double Eingabe=0;
     double Ausgabe=0;
-    PID Motorregler;
+    PID pMotorregler;
 };
 
-Regler::Regler():Motorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
 {
-    Motorregler.SetMode(AUTOMATIC);
-    Motorregler.SetOutputLimits(0,MotSpeed);
+    pMotorregler.SetMode(AUTOMATIC);
+    pMotorregler.SetOutputLimits(0,MotSpeed);
+    
 }
 
 bool Regler::Regeln(int pReglerwert)
@@ -39,7 +48,7 @@ bool Regler::Regeln(int pReglerwert)
     Eingabe=WieSchnellBinIch();
     Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     Regelwert=pReglerwert;
-    Motorregler.Compute(); //Magic
+    pMotorregler.Compute(); //Magic
     unsigned int Power=int((Ausgabe/pReglerwert)*RB_Dfr_444.getMotorSpeed());
     Power=Ausgabe; //So glaub besser
     RB_Dfr_444.changeSpeed(Power);

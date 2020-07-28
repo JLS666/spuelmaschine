@@ -22,7 +22,7 @@
         {
             Stopp=true;
         }
-        #ifdef Regleristda;
+        #ifdef Regleristda
         Motorregler.Regeln(pRealSpeed);
         #endif
         if(istSpeed==maxSpeed)
