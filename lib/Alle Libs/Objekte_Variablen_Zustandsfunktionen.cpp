@@ -11,12 +11,18 @@
 #include <Arduino.h>
 #include "Defines.h"                      // werden benötigt
 #include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
+#include "Encoder.h"
+#include "Motor.h"
+#include "FiniteStateMachine.h"
+#include "LED.h"
+#include "Regler.h"
 
 
 //************************************   Objekte ereugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
-  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
+  LED OnBoardLED(13), GrueneLED(led_Gruen,125), RoteLED(led_Rot);
+  Regler meinRegler;
 //************************************   Globale Variablen ***************************************************
   int MotorStatus;
   unsigned long LoopTime=0;
@@ -24,8 +30,9 @@
   unsigned long lastTime = 0;
   bool timerModus = false;
   int8_t Statecounter = 0;
-  int timerIndex= 0;
+  int timerIndex = 0;
   int8_t LastState = 0;
+  int Encoderstand = 0;
 //Zustandsautomat erstellen. Nach Plan in der Drive
 //States:
 State Init                        = State (en_Init, do_Init, ex_Init);
@@ -303,8 +310,9 @@ void en_Kalibrierung()
       RB_Dfr_444.setMotorStart(Lore_auf);
     else if(digitalRead(endschalter_Vorne)==kontakt)
     {
-      Spuelautomat.transitionTo(Standby);
-      digitalWrite(endePin, endePinEin);
+      Spuelautomat.transitionTo(Standby); //Von Vorne
+      digitalWrite(endePin, endePinEin); //Singnal Fertig
+      Zyklenzaehler(true); //EEPROM mit zählen
     }
     else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return || ABS())
       Spuelautomat.transitionTo(ErrorState);

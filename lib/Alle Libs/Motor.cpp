@@ -1,14 +1,16 @@
 
 #include "Motor.h"
+#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Defines.h"
 #include <Arduino.h>
+//#include "Regler.h"
 
 
     Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
     {
         sollRichtung=Lore_auf;
         istRichtung=sollRichtung;
-        maxSpeed=MotSpeed;
+        maxSpeed=MotSpeed; // Teiler 2 bei 24V
         pinMode(PWM_Pin,OUTPUT);
         pinMode(DIR_Pin_A,OUTPUT);
         pinMode(DIR_Pin_B,OUTPUT);
@@ -22,9 +24,13 @@
         {
             Stopp=true;
         }
-
+        //#ifdef Regleristda
+        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        //#endif
         if(istSpeed==maxSpeed)
+        {
         return Ok; //Volle Fahrt
+        }
 
         //Serial.println(istSpeed);
         if(istSpeed==0) //Entscheidung Geschw. Bereich
@@ -111,8 +117,12 @@
     }           
     void Motor::changeSpeed(int speed)
     {
-        Serial.println("Motor Speed wurde angepasst.");
         maxSpeed=speed;
+    }
+    void Motor::changeRealSpeed(int speed)
+    {
+        Serial.println("Motor RealSpeed wurde angepasst.");
+        pRealSpeed=speed;
     }
     void Motor::AusgangsPower(int Pin, int Power)
     {

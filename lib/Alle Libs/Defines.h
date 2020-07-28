@@ -41,8 +41,8 @@
 #define kolben A0
 #define blasen A1
 #define notaus A2
-#define led_Rot A3                 
-#define led_Gruen A4
+#define led_Rot A4      // wurde umgetauscht                 
+#define led_Gruen A3    // wurde umgetauscht
 
 //#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
@@ -50,7 +50,10 @@
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit 
+
 #define MotSpeed 16             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define RealSpeed 100           //in mm/s Geschwindichkeit.
+#define RealBesch 100           //in mm/s^2  soll Beschleunigung der Lore.
 
 #define Error -1
 #define Ok 0
@@ -65,6 +68,7 @@
 #define ErrTimeLore_auf_Return 30000
 #define ErrTimeKolben_backagain 10000
 #define KolbenFahrzeit 6000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
+#define StreckeProEncoderWert 2100/600 //Encoder ganz hinten / Fahrweg Lore in mm
 
 //***********************************   Funktionen bekannt machen *******************************************
 

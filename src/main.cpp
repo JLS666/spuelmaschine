@@ -13,6 +13,8 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+//Regler meinRegler;
+
 void setup() {
   pinMode(startPin, INPUT);       
   pinMode(endePin, OUTPUT);
@@ -42,12 +44,8 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     Serial.println(derEncoder.getZaehler());
     zaehlerAlt = derEncoder.getZaehler();
   }
-  // if()
-  //Serial.print("Der DIR_A vom Motortreiber ist: ");
-  //Serial.println(digitalRead(motortreiberDIR_A));
-  //Serial.print("Der DIR_B vom Motortreiber ist: ");
-  //Serial.println(digitalRead(motortreiberDIR_B));  
   // Endoder Test Ende
+  
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
@@ -82,7 +80,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         timerIndex= 0;    
       }
     }
-  
+ 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
@@ -97,8 +95,6 @@ void encoderEvent() //ISR
 
 bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
-return Ok; // Wird später gemacht.
-
   static int Position=0;
   static unsigned long Zeit=0;
   if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
@@ -106,13 +102,15 @@ return Ok; // Wird später gemacht.
     Zeit=millis();
     if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
       Serial.println(" ABS Eingriff !");
-        return Error;
+        return Ok;// Wird später gemacht. return Error;
       }
     Position=derEncoder.getZaehler();
     return Ok;       
   }
   else
   {
+    if(RB_Dfr_444.getMotorSpeed()>1)
+      Zeit=millis();
     return Ok;
   }
 }
