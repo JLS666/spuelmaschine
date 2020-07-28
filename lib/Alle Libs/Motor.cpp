@@ -24,9 +24,9 @@
         {
             Stopp=true;
         }
-        #ifdef Regleristda
-        changeSpeed(Motorregler.Regeln(pRealSpeed));
-        #endif
+        //#ifdef Regleristda
+        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        //#endif
         if(istSpeed==maxSpeed)
         {
         return Ok; //Volle Fahrt

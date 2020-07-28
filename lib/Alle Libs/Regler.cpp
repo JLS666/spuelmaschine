@@ -22,8 +22,8 @@ double Regler::Regeln(int pReglerwert)
 int Regler::WieSchnellBinIch()
 {
     //derEncoder.getZaehler();
-    int Weg=Encoderstand-oldEncoder;
-    oldEncoder=Encoderstand;
+    int Weg=derEncoder.getZaehler()-oldEncoder;
+    oldEncoder=derEncoder.getZaehler();
     long Zeit=millis()-oldTime;
     oldTime=millis();
 
