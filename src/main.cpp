@@ -13,6 +13,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+
 void setup() {
   pinMode(startPin, INPUT);       
   pinMode(endePin, OUTPUT);
@@ -78,7 +79,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         timerIndex= 0;    
       }
     }
-  
+ 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 

@@ -47,6 +47,7 @@ extern unsigned long lastTime;
 extern bool timerModus;
 extern int8_t Statecounter;
 extern int timerIndex;
+extern int Encoderstand;
 
 
 // Alle Funktionen des Zustandsautomat bekannt machen

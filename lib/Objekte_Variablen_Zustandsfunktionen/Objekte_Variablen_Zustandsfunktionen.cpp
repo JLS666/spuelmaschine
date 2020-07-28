@@ -11,6 +11,11 @@
 #include <Arduino.h>
 #include "Defines.h"                      // werden benötigt
 #include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
+#include "Encoder.h"
+#include "Motor.h"
+#include "FiniteStateMachine.h"
+#include "LED.h"
+#include "Regler.h"
 
 
 //************************************   Objekte ereugen ****************************************************
@@ -24,8 +29,9 @@
   unsigned long lastTime = 0;
   bool timerModus = false;
   int8_t Statecounter = 0;
-  int timerIndex= 0;
+  int timerIndex = 0;
   int8_t LastState = 0;
+  int Encoderstand = 0;
 //Zustandsautomat erstellen. Nach Plan in der Drive
 //States:
 State Init                        = State (en_Init, do_Init, ex_Init);

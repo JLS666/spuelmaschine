@@ -2,27 +2,26 @@
 Regler für konst Fahren. ohne am Motor zu pfuschen.
 Autor: Andy 
 */
-#pragma once
+#ifndef REGLER_H
+#define REGLER_H
+
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 //Braucht den Enoder und den Motor
 #include "PID_v1.h"
 #include "Defines.h"
 
-#define Regleristda true;
+#define Regleristda 
+/* class Motor;
+extern Motor RB_Dfr_444; //Geht beim Motor irgendwie nicht.
+extern Encoder derEncoder; */
+extern int Encoderstand; //muss halt in der Loop geupdatet werden.
 
-int testfkt(int hallo)
-{
-    Motor V12(1,2,3);
-    MotorStatus++;
-    Motor V8(5,4,3);
-    return hallo;
-}
 
 class Regler
 {
     public:
     Regler(); // Erstellt Pid und wird am besten von der Motor Klasse in 2. instruktur erstellt.
-    bool Regeln(int pReglewert); //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
+    double Regeln(int pReglewert); //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
     ~Regler();
     double Regelwert=0;
 
@@ -43,23 +42,20 @@ Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIREC
     
 }
 
-bool Regler::Regeln(int pReglerwert)
+double Regler::Regeln(int pReglerwert)
 {
     Eingabe=WieSchnellBinIch();
     Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     Regelwert=pReglerwert;
     pMotorregler.Compute(); //Magic
-    unsigned int Power=int((Ausgabe/pReglerwert)*RB_Dfr_444.getMotorSpeed());
-    Power=Ausgabe; //So glaub besser
-    RB_Dfr_444.changeSpeed(Power);
-    Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Power);
-    return Ok;
+    Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
+    return Ausgabe;
 }
 
 int Regler::WieSchnellBinIch()
 {
-    int Weg=derEncoder.getZaehler()-oldEncoder;
-    oldEncoder=derEncoder.getZaehler();
+    int Weg=Encoderstand-oldEncoder;
+    oldEncoder=Encoderstand;
     long Zeit=millis()-oldTime;
     oldTime=millis();
 
@@ -71,3 +67,4 @@ int Regler::WieSchnellBinIch()
     else
     return((Weg*StreckeProEncoderWert) / (Zeit/1000));
 }
+#endif
