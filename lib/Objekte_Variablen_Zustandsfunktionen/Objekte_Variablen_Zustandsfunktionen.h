@@ -13,12 +13,14 @@
 #include "Motor.h"
 #include "FiniteStateMachine.h"
 #include "LED.h"
+#include "Regler.h"
 
 
 // alle Objekte mit extern bekannt machen
 extern Motor RB_Dfr_444;
 extern Encoder derEncoder;
 extern LED OnBoardLED, GrueneLED, RoteLED;
+extern Regler meinRegler;
 
 extern State Init;                      //Nr.:1
 extern State Kalibrierung;              //Nr.:2

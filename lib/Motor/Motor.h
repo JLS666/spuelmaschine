@@ -36,9 +36,9 @@ class Motor
     bool istRichtung;
     unsigned int maxSpeed;
     int Frequenz;
-    #ifdef Regleristda
-    Regler Motorregler;
-    #endif
+    //#ifdef Regleristda
+    //Regler Motorregler;
+    //#endif
     int pRealSpeed;
 };
 #endif

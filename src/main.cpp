@@ -13,6 +13,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+//Regler meinRegler;
 
 void setup() {
   pinMode(startPin, INPUT);       
