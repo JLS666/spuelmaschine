@@ -50,7 +50,7 @@
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit 
-#define MotSpeed 15             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define MotSpeed 16             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
 
 #define Error -1
 #define Ok 0
