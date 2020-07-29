@@ -127,7 +127,9 @@ void en_Kalibrierung()
 
 //Kalibrieren Lore Vorne
   void en_Kalibrierung_Lore_vorne()
-  {  }
+  { 
+      RB_Dfr_444.changeSpeed(MotSpeed+3);
+   }
   void do_Kalibrierung_Lore_vorne()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
@@ -144,6 +146,7 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
+    RB_Dfr_444.changeSpeed(MotSpeed);
     LastState = 22;
   };
 
