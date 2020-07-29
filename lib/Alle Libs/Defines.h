@@ -38,8 +38,8 @@
 #define endschalter_Zylinder 7
 #define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
 #define quittieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
-#define kolben A0
-#define blasen A1
+#define kolben A1
+#define blasen A0
 #define notaus A2
 #define led_Rot A4      // wurde umgetauscht                 
 #define led_Gruen A3    // wurde umgetauscht
@@ -49,25 +49,25 @@
 #define MotorLinks !MotorRechts 
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
-#define Ramp 300                //in ms bis MotSpeed Rampenzeit 
-#define MotSpeed 18             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
-#define RealSpeed 1500           //in mm/s Geschwindichkeit.
-#define RealBesch 100           //in mm/s^2  soll Beschleunigung der Lore.
+#define Ramp 100                //in ms bis MotSpeed Rampenzeit 
+#define MotSpeed 25             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define RealSpeed 2000           //in mm/s Geschwindichkeit.
+#define RealBesch 1000           //in mm/s^2  soll Beschleunigung der Lore.
 
 #define Error -1
 #define Ok 0
 #define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 700 //Encoder in Mitte
-#define EncoderEndeWert 1400 //Encoder am Ende
+#define SollEncoderWert 1100 //Encoder in Mitte
+#define EncoderEndeWert 2260 //Encoder am Ende
 #define Tolleranz 166 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
 #define ErrTimeLore_ab_Abstreifen 13000
 #define ErrTimeLore_auf_Return 30000
 #define ErrTimeKolben_backagain 10000
-#define KolbenFahrzeit 6000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
-#define StreckeProEncoderWert 2100/600 //Encoder ganz hinten / Fahrweg Lore in mm
+#define KolbenFahrzeit 3000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
+#define StreckeProEncoderWert 2200/600 //Encoder ganz hinten / Fahrweg Lore in mm
 
 //***********************************   Funktionen bekannt machen *******************************************
 

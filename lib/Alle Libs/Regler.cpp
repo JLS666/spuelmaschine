@@ -2,7 +2,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Regler.h"
 #include <Arduino.h>
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIRECT) //Ah cool so geht das.
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.005, 0.001, 0.001, DIRECT) //Ah cool so geht das.
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
@@ -20,8 +20,8 @@ double Regler::Regeln(int pReglerwert)
 double Regler::WieSchnellBinIch()
 {
     unsigned long Zeit=millis()-oldTime;
-    if(Zeit<200)
-    return Eingabe;
+    if(Zeit<50)
+        return Eingabe;
     oldTime=millis();
     double Zeit2=Zeit;
     //Serial.println("Debug");
@@ -38,7 +38,7 @@ double Regler::WieSchnellBinIch()
         return(Ausgabe);
     }
     else
-    return((Weg*StreckeProEncoderWert) / (Zeit2/1000));
+        return((Weg*StreckeProEncoderWert) / (Zeit2/1000));
 }
 void Regler::Notiz()
 {

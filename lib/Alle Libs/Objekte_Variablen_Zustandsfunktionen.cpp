@@ -231,7 +231,7 @@ void en_Kalibrierung()
   //Rakelreinigen
   void en_Rakelreinigen() 
   {
-    digitalWrite(blasen, blasenEin);
+    Serial.println("Haupt-Rakelreinigung");
   }
   void do_Rakelreinigen() 
   {
@@ -249,6 +249,7 @@ void en_Kalibrierung()
  void en_Rakelreinigen_Kolben_raus() 
   {
     digitalWrite(kolben, kolbenRaus);
+    digitalWrite(blasen, blasenEin);
   }
   void do_Rakelreinigen_Kolben_raus() 
   {
@@ -278,7 +279,7 @@ void en_Kalibrierung()
   }
   void ex_Rakelreinigen_Kolben_rein() 
   {
-    digitalWrite(blasen, blasenAus);
+    digitalWrite(blasen,blasenAus);
     LastState = 52;
   }
   //Abstreifen
@@ -312,7 +313,6 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
       digitalWrite(endePin, endePinEin); //Singnal Fertig
-      Zyklenzaehler(true); //EEPROM mit zählen
     }
     else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return || ABS())
       Spuelautomat.transitionTo(ErrorState);
@@ -321,7 +321,7 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
-    Zyklenzaehler(true);
+    Zyklenzaehler(true); //EEPROM mit zählen
     digitalWrite(endePin, endePinEin);
   }
 
