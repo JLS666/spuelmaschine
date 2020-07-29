@@ -24,9 +24,10 @@ class Regler
     double Regeln(int pReglewert); //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
     //~Regler();
     double Regelwert=0;
+    void Notiz(); //Gibt nachrichten aus.
 
     private:
-    int WieSchnellBinIch();
+    double WieSchnellBinIch();
     int oldEncoder=0;
     long oldTime=0;
     int maxReglerwert=10; //In Prozent

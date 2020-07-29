@@ -50,8 +50,8 @@
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 300                //in ms bis MotSpeed Rampenzeit 
-#define MotSpeed 15             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
-#define RealSpeed 100           //in mm/s Geschwindichkeit.
+#define MotSpeed 18             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
+#define RealSpeed 1500           //in mm/s Geschwindichkeit.
 #define RealBesch 100           //in mm/s^2  soll Beschleunigung der Lore.
 
 #define Error -1

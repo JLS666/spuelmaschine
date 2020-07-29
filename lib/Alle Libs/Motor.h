@@ -39,6 +39,6 @@ class Motor
     //#ifdef Regleristda
     //Regler Motorregler;
     //#endif
-    int pRealSpeed;
+    int pRealSpeed=0;
 };
 #endif

@@ -12,26 +12,39 @@ Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 1, 0.1, 0.1, DIREC
 double Regler::Regeln(int pReglerwert)
 {
     Eingabe=WieSchnellBinIch();
-    Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     Regelwert=pReglerwert;
     pMotorregler.Compute(); //Magic
-    Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
     return Ausgabe;
 }
 
-int Regler::WieSchnellBinIch()
+double Regler::WieSchnellBinIch()
 {
-    //derEncoder.getZaehler();
-    int Weg=derEncoder.getZaehler()-oldEncoder;
-    oldEncoder=derEncoder.getZaehler();
-    long Zeit=millis()-oldTime;
+    unsigned long Zeit=millis()-oldTime;
+    if(Zeit<200)
+    return Eingabe;
     oldTime=millis();
-
-    if(Zeit>500 || Weg*StreckeProEncoderWert>10)
+    double Zeit2=Zeit;
+    //Serial.println("Debug");
+    //Serial.println(Zeit);
+    //Serial.println(Zeit2);
+    int Encoder=derEncoder.getZaehler();
+    long Weg=abs(Encoder-oldEncoder);
+    oldEncoder=Encoder;
+    //Serial.println(Weg);
+    //Serial.println((Weg*StreckeProEncoderWert) / (Zeit2/1000));
+    if(Zeit>500 || Weg*StreckeProEncoderWert>500)
     {
         Serial.println("Regler neustart");
         return(Ausgabe);
     }
     else
-    return((Weg*StreckeProEncoderWert) / (Zeit/1000));
+    return((Weg*StreckeProEncoderWert) / (Zeit2/1000));
+}
+void Regler::Notiz()
+{
+    //Serial.print("Soll Gesch. = "); Serial.println(Regelwert);
+    //Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
+    //Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
+    //CSV
+    Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
 }

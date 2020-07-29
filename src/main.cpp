@@ -41,8 +41,9 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
  
   if (zaehlerAlt != derEncoder.getZaehler())
   {
-    Serial.println(derEncoder.getZaehler());
+    //Serial.println(derEncoder.getZaehler());
     zaehlerAlt = derEncoder.getZaehler();
+    meinRegler.Notiz();
   }
   // Endoder Test Ende
   

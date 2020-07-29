@@ -10,6 +10,7 @@
     {
         sollRichtung=Lore_auf;
         istRichtung=sollRichtung;
+        pRealSpeed=RealSpeed;
         maxSpeed=MotSpeed; // Teiler 2 bei 24V
         pinMode(PWM_Pin,OUTPUT);
         pinMode(DIR_Pin_A,OUTPUT);
