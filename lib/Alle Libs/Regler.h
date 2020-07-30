@@ -24,7 +24,7 @@ class Regler
     double Regeln(int pReglewert); //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
     //~Regler();
     double Regelwert=0;
-    void Notiz(); //Gibt nachrichten aus.
+    double Notiz(); //Gibt nachrichten aus.
 
     private:
     double WieSchnellBinIch();
@@ -36,7 +36,7 @@ class Regler
     PID pMotorregler;
     double Glatten(double IN);
     static const int Lange=10;
-    double Arr[Lange]={0};
+    double Arr[Lange+1]={0};
 };
 
 #endif

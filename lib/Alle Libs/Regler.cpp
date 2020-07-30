@@ -2,7 +2,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Regler.h"
 #include <Arduino.h>
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.007, 0.001, 0.001, DIRECT) //Ah cool so geht das.
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.006, 0.0005, 0.001, DIRECT) //Ah cool so geht das.
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
@@ -43,11 +43,12 @@ double Regler::WieSchnellBinIch()
         return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000)));
     }
 }
-void Regler::Notiz()
+double Regler::Notiz()
 {
     //Serial.print("Soll Gesch. = "); Serial.println(Regelwert);
     //Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     //Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
+    return Eingabe;
     //CSV
     Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
 }
@@ -60,7 +61,7 @@ double Regler::Glatten(double IN)
     //int Lange=sizeof(Arr);
     double Sum=0;
     //Serial.println(Lange);
-    for(int i=0; i<Lange;i++)
+    for(int i=0; i<(Lange);i++)
     {
         Arr[i]=Arr[i+1];
         //Serial.println(Arr[i]);

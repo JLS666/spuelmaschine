@@ -36,15 +36,39 @@ void setup() {
 
 }
  int zaehlerAlt = 0;
+ unsigned long alteZeit = 0;
+ float GeschArr[100];
+ int i=0;
+ bool ausgabefertig = false;
+ #define anzahlWerte 100
+
+ //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
   // Encoder Test
- 
-  if (zaehlerAlt != derEncoder.getZaehler())
+ /*
+  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
   {
-    //Serial.println(derEncoder.getZaehler());
-    zaehlerAlt = derEncoder.getZaehler();
-    meinRegler.Notiz();
-  }
+      //Serial.println(i);
+      //Serial.println(derEncoder.getZaehler());
+      zaehlerAlt = derEncoder.getZaehler();
+      if (i<anzahlWerte)
+      {
+      GeschArr[i]=(float)meinRegler.Notiz();
+      i++;
+      }
+      else if(ausgabefertig == false)
+      {
+        Spuelautomat.transitionTo(Nothalt);
+        delay(1000);
+        for(int x=0;x<anzahlWerte;x++)
+        {
+          Serial.println(GeschArr[x]);
+        }
+        ausgabefertig = true;
+      }
+      
+      alteZeit = millis();
+  }*/
   // Endoder Test Ende
   
   //******************************************************************************/
@@ -60,15 +84,17 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian Julian: bestimmt
   
     {
-      LoopTime=millis()-LoopTime;
+      LoopTime=micros()-LoopTime;
       Serial.print("Loop bearbeitet in (ms): ");
       Serial.println(LoopTime);
+      LoopTime = micros();
     }
     else
     {
       if(timerIndex < 100)
       {
-        LoopTimeArray[timerIndex] = micros() - lastTime;
+        //LoopTimeArray[timerIndex] = micros() - lastTime;
+        
         lastTime = micros();
         timerIndex++;
       }

@@ -28,7 +28,7 @@
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
-  bool timerModus = false;
+  bool timerModus = true;
   int8_t Statecounter = 0;
   int timerIndex = 0;
   int8_t LastState = 0;
@@ -248,6 +248,7 @@ void en_Kalibrierung()
 //Rakelreinigen Kolben raus
  void en_Rakelreinigen_Kolben_raus() 
   {
+    Serial.println("blasen ein");
     digitalWrite(kolben, kolbenRaus);
     digitalWrite(blasen, blasenEin);
   }
@@ -280,6 +281,7 @@ void en_Kalibrierung()
   void ex_Rakelreinigen_Kolben_rein() 
   {
     digitalWrite(blasen,blasenAus);
+    Serial.println("blasen aus");
     LastState = 52;
   }
   //Abstreifen
@@ -332,6 +334,7 @@ void en_Kalibrierung()
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus); 
+    Serial.println("blasen aus");
     Serial.print("irgendwas ist schiefgelaufen :| "); 
     Serial.println(LastState);
   }
@@ -347,6 +350,7 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus);
+    Serial.println("blasen aus");
     GrueneLED.Aus();
     RoteLED.An();
     Serial.println("Not Halt");
