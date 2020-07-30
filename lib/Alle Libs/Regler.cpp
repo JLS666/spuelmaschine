@@ -20,7 +20,7 @@ double Regler::Regeln(int pReglerwert)
 double Regler::WieSchnellBinIch()
 {
     unsigned long Zeit=millis()-oldTime;
-    if(Zeit<50)
+    if(Zeit<1)     //50
         return Eingabe;
     oldTime=millis();
     double Zeit2=Zeit;
@@ -38,7 +38,10 @@ double Regler::WieSchnellBinIch()
         return(Ausgabe);
     }
     else
-        return((Weg*StreckeProEncoderWert) / (Zeit2/1000));
+    {
+        //return 5;
+        return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000)));
+    }
 }
 void Regler::Notiz()
 {
@@ -47,4 +50,25 @@ void Regler::Notiz()
     //Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
     //CSV
     Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
+}
+
+double Regler::Glatten(double IN)
+{
+    /* static bool Flag=0;
+    if(Flag)
+    Arr[]=... */
+    //int Lange=sizeof(Arr);
+    double Sum=0;
+    //Serial.println(Lange);
+    for(int i=0; i<Lange;i++)
+    {
+        Arr[i]=Arr[i+1];
+        //Serial.println(Arr[i]);
+        Sum+=Arr[i];
+    }
+    Arr[Lange]=IN;
+    Sum+=IN;
+    //Serial.println(Sum);
+    return(Sum/Lange);
+
 }

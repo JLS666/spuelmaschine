@@ -21,7 +21,7 @@
 //************************************   Objekte ereugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
-  LED OnBoardLED(13), GrueneLED(led_Gruen,125), RoteLED(led_Rot);
+  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
   Regler meinRegler;
 //************************************   Globale Variablen ***************************************************
   int MotorStatus;
