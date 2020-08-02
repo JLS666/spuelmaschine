@@ -20,7 +20,7 @@ double Regler::Regeln(int pReglerwert)
 double Regler::WieSchnellBinIch()
 {
     unsigned long Zeit=millis()-oldTime;
-    if(Zeit<1)     //50
+    if(Zeit<50)     //1
         return Eingabe;
     oldTime=millis();
     double Zeit2=Zeit;

@@ -76,6 +76,13 @@
   int Zyklenzaehler(bool Increment);
   
 
+//***********************************   Speed Einstellungen *******************************************
+#define Norm_Leistung 15
+#define Rakel_Leistung 21
+#define Relkel_Beginn_Weg 777
+#define Relkel_Ende_Weg 888
+
+
 //***********************************   True und False Defines  *********************************************
 // Logik: Pinname+Aus oder +Ein oder +Rein oder +Raus
 #define blasenEin HIGH

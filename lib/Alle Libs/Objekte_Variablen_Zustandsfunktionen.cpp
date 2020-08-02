@@ -15,14 +15,14 @@
 #include "Motor.h"
 #include "FiniteStateMachine.h"
 #include "LED.h"
-#include "Regler.h"
+// Damit ist regler weg. #include "Regler.h"
 
 
 //************************************   Objekte ereugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
   LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
-  Regler meinRegler;
+  //Regler meinRegler; //Gesch der Lore. Wird über Leistung in den Zuständen gelößt-
 //************************************   Globale Variablen ***************************************************
   int MotorStatus;
   unsigned long LoopTime=0;

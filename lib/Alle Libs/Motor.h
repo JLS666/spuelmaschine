@@ -6,7 +6,7 @@ Autor: Andy
 #define MOTOR_H
 
 //#include "Regler.h"
-//extern class Regler;
+
 
 
 class Motor

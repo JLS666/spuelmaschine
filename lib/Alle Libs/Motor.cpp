@@ -3,7 +3,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Defines.h"
 #include <Arduino.h>
-//#include "Regler.h"
+
 
 
     Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
@@ -26,7 +26,7 @@
             Stopp=true;
         }
         //#ifdef Regleristda
-        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        //changeSpeed(meinRegler.Regeln(pRealSpeed));
         //#endif
         if(istSpeed==maxSpeed)
         {
