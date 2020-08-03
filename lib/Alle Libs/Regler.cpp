@@ -2,7 +2,7 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Regler.h"
 #include <Arduino.h>
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.006, 0.0005, 0.001, DIRECT) //Ah cool so geht das.
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.006, 0.0005, 0.0001, DIRECT) //Ah cool so geht das.
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
@@ -35,12 +35,11 @@ double Regler::WieSchnellBinIch()
     if(Zeit>500 || Weg*StreckeProEncoderWert>500)
     {
         Serial.println("Regler neustart");
-        return(Ausgabe);
+        return 0;
     }
     else
     {
-        //return 5;
-        return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000)));
+        return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000))); //To Do
     }
 }
 double Regler::Notiz()
@@ -48,9 +47,14 @@ double Regler::Notiz()
     //Serial.print("Soll Gesch. = "); Serial.println(Regelwert);
     //Serial.print("Gemessene Gesch. = "); Serial.println(Eingabe);
     //Serial.print("Debug: Es wird geregelt mit: "); Serial.println(Ausgabe);
-    return Eingabe;
+
     //CSV
-    Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
+    if(Serial.availableForWrite()<20)
+    return Eingabe;
+    //Zeit, Soll, Ist, Regler; Sprungantwort plotten.
+    Serial.print(millis());Serial.print(";");
+    Serial.print(Regelwert);Serial.print(";");Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
+    return Eingabe;
 }
 
 double Regler::Glatten(double IN)
