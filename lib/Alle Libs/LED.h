@@ -3,9 +3,9 @@ LED Blinken.
 Autor: Andy 
 
 Anleitung:
-LED Objetk erstellen
-Timerfuktion erstellen sie ganz unten.
-Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
+-LED Objetk erstellen
+-Timerfuktion erstellen sie ganz unten.!!!
+-Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
 */
 #pragma once
 //#ifndef <Arduino.h>

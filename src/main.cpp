@@ -30,7 +30,7 @@ void setup() {
   pinMode(notaus, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); // Interrupt für den Encoder, bei einer steigenden Flanke am Eingang A wird eine ISR ausgelöst
-  Serial.begin(9600);
+  Serial.begin(115200); // haben ja keine Zeit zum trödeln!
   OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
 
