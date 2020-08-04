@@ -50,35 +50,10 @@ void setup() {
  bool ausgabefertig = false;
  #define anzahlWerte 100
 
- //bool timerModus = true;
+ int TestNr=0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-  // Encoder Test
- /*
-  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
-  {
-      //Serial.println(i);
-      //Serial.println(derEncoder.getZaehler());
-      zaehlerAlt = derEncoder.getZaehler();
-      if (i<anzahlWerte)
-      {
-      GeschArr[i]=(float)meinRegler.Notiz();
-      i++;
-      }
-      else if(ausgabefertig == false)
-      {
-        Spuelautomat.transitionTo(Nothalt);
-        delay(1000);
-        for(int x=0;x<anzahlWerte;x++)
-        {
-          Serial.println(GeschArr[x]);
-        }
-        ausgabefertig = true;
-      }
-      
-      alteZeit = millis();
-  }*/
-  // Endoder Test Ende
-  int TestNr=0;
+
+  
   if(Serial.available())
   TestNr=Serial.read();
   switch (TestNr)
@@ -86,17 +61,32 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     case 0:
         //Nix
         break;
-    case 1: //Const Fahren
+    case 1: //Const Fahren ans Ende
       RB_Dfr_444.changeSpeed(18);
       RB_Dfr_444.setMotorStart(Lore_ab);
-      if(derEncoder.getZaehler()>EndPos)
-      RB_Dfr_444.setMotorStopp();
-      Serial.println("Const Test Ende");
+      if(derEncoder.getZaehler()>EndPos){
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Const Test Ende");
+        TestNr=0;
+      }
         break;
     case 2: //Const mit Gesch Messung
     case 3: //Sprungantwort ohne Regler
     case 4: //Geglerantwort
-  
+    case 5: //Hand Gesch. Messung
+    case 6: //Const Fahren vor +zurück.
+    RB_Dfr_444.changeSpeed(18);
+      RB_Dfr_444.setMotorStart(Lore_ab);
+      if(derEncoder.getZaehler()>EndPos)
+        RB_Dfr_444.setMotorStopp();
+    if(RB_Dfr_444.getMotorSpeed()==0 && derEncoder.getZaehler()>EndPos)
+    RB_Dfr_444.setMotorStart(Lore_auf);
+      if(derEncoder.getZaehler()<=StartPos){
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Const Test Vor/Zurueck Ende");
+        TestNr=0;
+      }
+        break;
     default:
     Serial.println("Ungueltig");
         break;
