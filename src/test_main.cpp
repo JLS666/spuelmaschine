@@ -18,7 +18,8 @@ Zu beginn muss die Lore in den Vorderen anschlag gedrückt werden zum Kalibieren
 #include "LED.h"
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 
-
+#define StartPos 55 //Hier soll die Lore Starten   
+#define EndPos 1888 //Hier macht die Lore stopp damit wir nicht diese blöden enden mit drinn haben.
 
 void setup() {
   pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
@@ -77,15 +78,28 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       alteZeit = millis();
   }*/
   // Endoder Test Ende
-  switch (1)
+  int TestNr=0;
+  if(Serial.available())
+  TestNr=Serial.read();
+  switch (TestNr)
   {
-  case 1: //Const Fahren
+    case 0:
+        //Nix
+        break;
+    case 1: //Const Fahren
       RB_Dfr_444.changeSpeed(18);
       RB_Dfr_444.setMotorStart(Lore_ab);
-      break;
+      if(derEncoder.getZaehler()>EndPos)
+      RB_Dfr_444.setMotorStopp();
+      Serial.println("Const Test Ende");
+        break;
+    case 2: //Const mit Gesch Messung
+    case 3: //Sprungantwort ohne Regler
+    case 4: //Geglerantwort
   
-  default:
-      break;
+    default:
+    Serial.println("Ungueltig");
+        break;
   }
 
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
