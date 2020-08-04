@@ -37,12 +37,13 @@ void setup() {
 
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); // Interrupt für den Encoder, bei einer steigenden Flanke am Eingang A wird eine ISR ausgelöst
   Serial.begin(115200); // haben ja keine Zeit zum trödeln!
-  OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
-//Encoder Resett erzwingen (While)
+  OnBoardLED.SchnellBlinken(); 
+  GrueneLED.Blinken();
+//Encoder Reset erzwingen (While)
 
   Serial.println("Setup Abgeschlossen !");
-
 }
+
  int zaehlerAlt = 0;
  unsigned long alteZeit = 0;
  float GeschArr[100];
@@ -72,6 +73,15 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         break;
     case 2: //Const mit Gesch Messung
     case 3: //Sprungantwort ohne Regler
+    RB_Dfr_444.changeSpeed(16);
+      RB_Dfr_444.setMotorStart(Lore_ab);
+      if(derEncoder.getZaehler()>EndPos/2)
+        RB_Dfr_444.changeSpeed(19);
+      if(derEncoder.getZaehler()>EndPos){
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Sprung Test Ende");
+        TestNr=0;
+      }
     case 4: //Geglerantwort
     case 5: //Hand Gesch. Messung
     case 6: //Const Fahren vor +zurück.
@@ -88,6 +98,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     default:
+    RoteLED.An();
     Serial.println("Ungueltig");
         break;
   }

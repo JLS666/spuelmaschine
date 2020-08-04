@@ -22,7 +22,7 @@
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
   LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
-  //Regler meinRegler; //Gesch der Lore. Wird über Leistung in den Zuständen gelößt-
+  Regler meinRegler; 
 //************************************   Globale Variablen ***************************************************
   int MotorStatus;
   unsigned long LoopTime=0;
