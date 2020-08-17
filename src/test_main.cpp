@@ -54,9 +54,10 @@ void setup() {
  int TestNr=0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
 
-  
-  if(Serial.available())
-  TestNr=Serial.read();
+  //delay(1000);
+  //while(Serial.available())
+  //  TestNr=Serial.read();
+  TestNr = 5;
   switch (TestNr)
   {
     case 0:
@@ -72,6 +73,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     case 2: //Const mit Gesch Messung
+    
     case 3: //Sprungantwort ohne Regler
     RB_Dfr_444.changeSpeed(16);
       RB_Dfr_444.setMotorStart(Lore_ab);
@@ -82,8 +84,13 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         Serial.println("Sprung Test Ende");
         TestNr=0;
       }
+      break;
     case 4: //Geglerantwort
+      break;
     case 5: //Hand Gesch. Messung
+      //Serial.println("Handmessung");
+      Serial.print(derEncoder.getGeschwindigkeit());
+      break;
     case 6: //Const Fahren vor +zurück.
     RB_Dfr_444.changeSpeed(18);
       RB_Dfr_444.setMotorStart(Lore_ab);
@@ -99,10 +106,11 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         break;
     default:
     RoteLED.An();
-    Serial.println("Ungueltig");
+    //Serial.println("Ungueltig");
+    Serial.println(TestNr);
+    //delay(1000);
         break;
   }
-
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
  
