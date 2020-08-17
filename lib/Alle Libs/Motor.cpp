@@ -18,6 +18,7 @@
         pinMode(DIR_Pin_B,OUTPUT);
         setFrequenz(1000); //PWM auf 1kHz zu Beginn
     }                  
+    
     int Motor::Run() //Ramp + Dir
     {
         unsigned long lastTime=0;
@@ -139,7 +140,7 @@
             //Power=map(Power,0,100,0,Frequenz); //Power in Prozent to Duty
             Power=(Frequenz/100)*Power;
             //Serial.println(Power);
-            analogWrite(Pin,Power);
+            analogWrite(Pin,Power); //Analog output Werte zwischen 0-1023
         }     
     }
     int Motor::Fehlererkennung(){return Ok;}      //Nicht Implementiert.

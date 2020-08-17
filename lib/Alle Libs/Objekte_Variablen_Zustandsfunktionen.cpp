@@ -66,7 +66,7 @@ void en_Init()
 }
 void do_Init()
   {
-    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt.
+    if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
       Spuelautomat.transitionTo(Kalibrierung);
     else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
     {
@@ -128,7 +128,7 @@ void en_Kalibrierung()
 //Kalibrieren Lore Vorne
   void en_Kalibrierung_Lore_vorne()
   { 
-      RB_Dfr_444.changeSpeed(MotSpeed+3);
+      RB_Dfr_444.changeSpeed(MotSpeed+3); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
    }
   void do_Kalibrierung_Lore_vorne()
   {
@@ -146,7 +146,7 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
-    RB_Dfr_444.changeSpeed(MotSpeed);
+    RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
     LastState = 22;
   };
 
