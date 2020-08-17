@@ -20,23 +20,23 @@ extern int Encoderstand; //muss halt in der Loop geupdatet werden.
 class Regler
 {
     public:
-    Regler(); // Erstellt Pid und wird am besten von der Motor Klasse in 2. instruktur erstellt.
-    double Regeln(int pReglewert); //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
-    //~Regler();
-    double Regelwert=0;
-    double Notiz(); //Gibt nachrichten aus.
+        Regler();                       // Erstellt Pid und wird am besten von der Motor Klasse in 2. instruktur erstellt.
+        double Regeln(int pReglewert);  //Kontinuierlicher Aufruf wenn Regler aktiv sein soll. Eingabe ist Geschw in mm/s
+        //~Regler();
+        double Regelwert=0;
+        double Notiz(); //Gibt nachrichten aus.
 
-    private:
-    double WieSchnellBinIch();
-    int oldEncoder=0;
-    long oldTime=0;
-    int maxReglerwert=10; //In Prozent
-    double Eingabe=0;
-    double Ausgabe=0;
-    PID pMotorregler;
-    double Glatten(double IN);
-    static const int Lange=10;
-    double Arr[Lange+1]={0};
+    private: //Max: soviel Speicherplatz wie du mit deinen double belegst ist der Arduinospeicher bald voll, ohne das uns die Kommazahlen helfen.
+        double WieSchnellBinIch();
+        int oldEncoder=0;
+        long oldTime=0;
+        int maxReglerwert=10; //In Prozent
+        double Eingabe=0;
+        double Ausgabe=0;
+        PID pMotorregler;
+        double Glatten(double IN);
+        static const int Lange=10;
+        double Arr[Lange+1]={0};
 };
 
 #endif
