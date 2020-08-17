@@ -2,11 +2,10 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Regler.h"
 #include <Arduino.h>
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.006, 0.0005, 0.0001, DIRECT) 
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.06, 0.005, 0.001, DIRECT) 
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
-    
 }
 
 double Regler::Regeln(int pReglerwert)
