@@ -8,7 +8,7 @@
 /********************************************************************/
 /*
   //Seeed Shield für Arduino:
-- UART: RX(0), DX(1) --> -
+- UART: RX(0), DX(1) -->
 - D2: D2, D3 --> Encoder Frabkodierung: grün: gnd, blau: Vcc, gelb: Ausgang A, weiß: Ausgang B
 - D3: D3, D4 --> -
 - D4: D4, D5 --> Motortreiber

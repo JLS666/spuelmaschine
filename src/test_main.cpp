@@ -51,13 +51,23 @@ void setup() {
  bool ausgabefertig = false;
  #define anzahlWerte 100
 
- int TestNr=0;
+int TestNr = 0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
 
   //delay(1000);
   //while(Serial.available())
   //  TestNr=Serial.read();
-  TestNr = 5;
+  //TestNr = 5;
+  
+  while(Serial.available()) 
+   {
+       String Eingabe =  Serial.readStringUntil('\n');
+        if (Eingabe.substring(0, 1) == "S")
+        {
+          TestNr = Eingabe.substring(1, Eingabe.length()).toInt();
+        }
+   }
+
   switch (TestNr)
   {
     case 0:
