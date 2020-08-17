@@ -39,3 +39,14 @@ float Encoder::getGeschwindigkeit()
     }
     return geschwindigkeit;
 }
+float Encoder::getGeschwindigkeitMicros()
+{
+    if(micros() >= letzteZeit + 10000)        // Sicherheitsfunktion um eine durch 0 Teilung zu verhindern
+    {
+        //geschwindigkeit = ( (zaehler - letzterZaehler) / (1.0 * (micros() - letzteZeit)) ) * 1000;
+        geschwindigkeit = ( (zaehler - letzterZaehler) / (1.0 * (micros() - letzteZeit)) ) * 1000 * 1000 * StreckeProEncoderWert;
+        letzterZaehler = zaehler;
+        letzteZeit = micros();
+    }
+    return geschwindigkeit;
+}

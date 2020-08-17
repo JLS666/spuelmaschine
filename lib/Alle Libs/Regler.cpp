@@ -19,7 +19,8 @@ double Regler::Regeln(int pReglerwert)
 
 double Regler::WieSchnellBinIch()
 {
-    unsigned long Zeit=millis()-oldTime;
+    return derEncoder.getGeschwindigkeitMicros();
+    /*unsigned long Zeit=millis()-oldTime;
     if(Zeit<50)     //1
         return Eingabe;
     oldTime=millis();
@@ -40,7 +41,7 @@ double Regler::WieSchnellBinIch()
     else
     {
         return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000)));
-    }
+    } */
 }
 double Regler::Notiz()
 {

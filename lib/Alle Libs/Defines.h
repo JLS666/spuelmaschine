@@ -51,7 +51,7 @@
 #define Lore_auf MotorLinks      
 #define Ramp 100                //in ms bis MotSpeed Rampenzeit 
 #define MotSpeed 25             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse
-#define RealSpeed 1600           //in mm/s Geschwindichkeit.
+#define RealSpeed 160           //in mm/s Geschwindichkeit.  160
 #define RealBesch 1000           //in mm/s^2  soll Beschleunigung der Lore.
 
 #define Error -1
@@ -67,7 +67,7 @@
 #define ErrTimeLore_auf_Return 30000
 #define ErrTimeKolben_backagain 10000
 #define KolbenFahrzeit 3000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
-#define StreckeProEncoderWert 2200/600 //Encoder ganz hinten / Fahrweg Lore in mm
+#define StreckeProEncoderWert  405 / 2240  // Fahrweg Lore in mm / Encoder ganz hinten  ehemals: 2200/600
 
 //***********************************   Funktionen bekannt machen *******************************************
 

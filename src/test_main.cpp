@@ -65,6 +65,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         if (Eingabe.substring(0, 1) == "S")
         {
           TestNr = Eingabe.substring(1, Eingabe.length()).toInt();
+          Serial.println("Eingabe ist " + (String)TestNr);
         }
    }
 
@@ -96,10 +97,12 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
       break;
     case 4: //Geglerantwort
+      Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() );
+
       break;
     case 5: //Hand Gesch. Messung
       //Serial.println("Handmessung");
-      Serial.print(derEncoder.getGeschwindigkeit());
+      Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() );
       break;
     case 6: //Const Fahren vor +zurück.
     RB_Dfr_444.changeSpeed(18);
@@ -114,6 +117,18 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         TestNr=0;
       }
         break;
+    case 7:
+      Serial.println(derEncoder.getZaehler());
+      break;
+    case 8:   // Geschwindigkeitausgabe + Reglerausgabe
+      RB_Dfr_444.setMotorStart(true);
+      break;
+    case 9:
+      
+      RB_Dfr_444.Run();
+      //Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() + ";" + (String) RB_Dfr_444.getMotorSpeed());
+      meinRegler.Notiz();
+      break;
     default:
     RoteLED.An();
     //Serial.println("Ungueltig");

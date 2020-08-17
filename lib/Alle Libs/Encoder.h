@@ -22,4 +22,5 @@ public:
     void inkrementZaehler();    // Zähler um eins erhöhen 
     void dekrementZaehler();    // Zähler um eins erniedrigen
     float getGeschwindigkeit(); // Gibt die Geschwindigkeit in ... zurück
+    float getGeschwindigkeitMicros();   // Gibt die Geschwindigkeit in mm / s der Lore zurück
 };

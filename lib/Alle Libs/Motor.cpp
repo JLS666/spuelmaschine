@@ -4,6 +4,7 @@
 #include "Defines.h"
 #include <Arduino.h>
 
+#define Regleristda true;
 
 
     Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
@@ -25,9 +26,9 @@
         {
             Stopp=true;
         }
-        //#ifdef Regleristda
-        //changeSpeed(meinRegler.Regeln(pRealSpeed));
-        //#endif
+        #ifdef Regleristda
+        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        #endif
         if(istSpeed==maxSpeed)
         {
         return Ok; //Volle Fahrt
