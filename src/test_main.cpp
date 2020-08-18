@@ -117,17 +117,22 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         TestNr=0;
       }
         break;
-    case 7:
+    case 7:   // Encoder Ausgabe
       Serial.println(derEncoder.getZaehler());
       break;
     case 8:   // Geschwindigkeitausgabe + Reglerausgabe
       RB_Dfr_444.setMotorStart(true);
+      TestNr = 0;
       break;
     case 9:
       
       RB_Dfr_444.Run();
       //Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() + ";" + (String) RB_Dfr_444.getMotorSpeed());
-      meinRegler.Notiz();
+      //meinRegler.Notiz();
+      break;
+    case 10:
+      RB_Dfr_444.setMotorStopp();
+      TestNr = 0;
       break;
     default:
     RoteLED.An();
