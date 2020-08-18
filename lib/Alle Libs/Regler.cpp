@@ -21,28 +21,7 @@ double Regler::WieSchnellBinIch()
 {
     //return derEncoder.getGeschwindigkeitMicros();
     return Glatten(derEncoder.getGeschwindigkeitMicros());
-    /*unsigned long Zeit=millis()-oldTime;
-    if(Zeit<50)     //1
-        return Eingabe;
-    oldTime=millis();
-    double Zeit2=Zeit;
-    //Serial.println("Debug");
-    //Serial.println(Zeit);
-    //Serial.println(Zeit2);
-    int Encoder=derEncoder.getZaehler();
-    long Weg=abs(Encoder-oldEncoder);
-    oldEncoder=Encoder;
-    //Serial.println(Weg);
-    //Serial.println((Weg*StreckeProEncoderWert) / (Zeit2/1000));
-    if(Zeit>500 || Weg*StreckeProEncoderWert>500)
-    {
-        Serial.println("Regler neustart");
-        return 0;
-    }
-    else
-    {
-        return(Glatten((Weg*StreckeProEncoderWert) / (Zeit2/1000)));
-    } */
+
 }
 double Regler::Notiz()
 {
