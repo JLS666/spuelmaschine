@@ -28,7 +28,7 @@
   unsigned long LoopTime=0;
   unsigned long LoopTimeArray[100] = {0};
   unsigned long lastTime = 0;
-  bool timerModus = true;
+  bool timerModus = false;
   int8_t Statecounter = 0;
   int timerIndex = 0;
   int8_t LastState = 0;
@@ -128,7 +128,7 @@ void en_Kalibrierung()
 //Kalibrieren Lore Vorne
   void en_Kalibrierung_Lore_vorne()
   { 
-      RB_Dfr_444.changeSpeed(MotSpeed+3); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
+      //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!! + 3
    }
   void do_Kalibrierung_Lore_vorne()
   {
@@ -146,7 +146,7 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
-    RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
+    //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
     LastState = 22;
   };
 

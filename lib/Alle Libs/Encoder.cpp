@@ -48,5 +48,5 @@ float Encoder::getGeschwindigkeitMicros()
         letzterZaehler = zaehler;
         letzteZeit = micros();
     }
-    return geschwindigkeit;
+    return abs(geschwindigkeit);
 }

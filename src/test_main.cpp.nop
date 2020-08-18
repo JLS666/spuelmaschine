@@ -9,6 +9,7 @@ Zu beginn muss die Lore in den Vorderen anschlag gedrückt werden zum Kalibieren
 
 //KP wie man die main zwingt vor der anderen zu laufen.
 
+
 #include <Arduino.h>
 #include "Defines.h"
 #include "Motor.h"
@@ -51,6 +52,8 @@ void setup() {
  bool ausgabefertig = false;
  #define anzahlWerte 100
 
+ bool once = true;
+
 int TestNr = 0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
 
@@ -84,7 +87,20 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     case 2: //Const mit Gesch Messung
-    
+      if(once)
+      {
+        RB_Dfr_444.changeSpeed(18);
+        RB_Dfr_444.setMotorStart(Lore_ab);
+        once = false;
+      }
+      Serial.println( (String) millis() + ";" + (String) derEncoder.getGeschwindigkeitMicros());
+      if(derEncoder.getZaehler()>EndPos){
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Const Test Ende");
+        TestNr=0;
+        once = true;
+      }
+        break;
     case 3: //Sprungantwort ohne Regler
     RB_Dfr_444.changeSpeed(16);
       RB_Dfr_444.setMotorStart(Lore_ab);
@@ -124,11 +140,22 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       RB_Dfr_444.setMotorStart(true);
       TestNr = 0;
       break;
-    case 9:
-      
+    case 9:   // Reglertest
+      if(once)
+      {
+        RB_Dfr_444.setMotorStart(Lore_ab);
+        once = false;
+      }
       RB_Dfr_444.Run();
       //Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() + ";" + (String) RB_Dfr_444.getMotorSpeed());
-      //meinRegler.Notiz();
+      meinRegler.Notiz();
+      if(derEncoder.getZaehler()>EndPos)
+      {
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Regler Test Ende");
+        TestNr=0;
+        once = true;
+      }
       break;
     case 10:
       RB_Dfr_444.setMotorStopp();
@@ -218,3 +245,4 @@ int Zyklenzaehler(bool Increment) //mit True aufrufen um Hochzuzählen.
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;
 };
+
