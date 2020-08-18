@@ -19,7 +19,8 @@ double Regler::Regeln(int pReglerwert)
 
 double Regler::WieSchnellBinIch()
 {
-    return derEncoder.getGeschwindigkeitMicros();
+    //return derEncoder.getGeschwindigkeitMicros();
+    return Glatten(derEncoder.getGeschwindigkeitMicros());
     /*unsigned long Zeit=millis()-oldTime;
     if(Zeit<50)     //1
         return Eingabe;
