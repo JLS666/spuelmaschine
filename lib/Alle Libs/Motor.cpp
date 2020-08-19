@@ -27,9 +27,10 @@
         {
             Stopp=true;
         }
-        #ifdef Regleristda
+        //#ifdef Regleristda
+        if(Stopp==false)
         changeSpeed(meinRegler.Regeln(pRealSpeed));
-        #endif
+        //#endif
         if(istSpeed==maxSpeed)
         {
         return Ok; //Volle Fahrt

@@ -130,7 +130,7 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
     Zeit=millis();
     if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
       Serial.println(" ABS Eingriff !");
-        return Ok;// Wird später gemacht. return Error;
+        return Error;
       }
     Position=derEncoder.getZaehler();
     return Ok;       
