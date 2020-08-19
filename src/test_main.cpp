@@ -103,8 +103,9 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     case 3: //Sprungantwort ohne Regler
-    Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicros()); // + ";" + (String) sollWert);
-    //meinRegler.Notiz();
+    //Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicros()); // + ";" + (String) sollWert);
+    meinRegler.Notiz();
+    //Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicrosSuperduper()); // + ";" + (String) sollWert)
     if(once)
       {
         sollWert = 25;
