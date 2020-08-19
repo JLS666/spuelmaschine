@@ -35,7 +35,7 @@ class Regler
         double Ausgabe=0;
         PID pMotorregler;
         double Glatten(double IN);
-        static const int Lange=7;
+        static const int Lange=20;
         double Arr[Lange+1]={0};
 };
 

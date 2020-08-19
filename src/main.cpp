@@ -44,6 +44,7 @@ void setup() {
 
  //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
+  //Serial.println("Erg ist: " + (String) derEncoder.getGeschwindigkeitMicrosSuperduper());
   //meinRegler.Notiz();
   // Encoder Test
  /*
