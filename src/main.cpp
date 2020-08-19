@@ -44,6 +44,7 @@ void setup() {
 
  //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
+  meinRegler.Notiz();
   // Encoder Test
  /*
   if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
