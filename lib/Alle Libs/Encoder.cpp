@@ -58,7 +58,7 @@ float Encoder::getGeschwindigkeitMicrosSuperduper()
     Serial.println("time ist: " + (String)Time);
     if(Time != altTime)
     {
-        float erg = (zaehler-letzterZaehler) * StreckeProEncoderWert * 10000000 / (1.0 * (Time-altTime));
+        float erg = (zaehler-letzterZaehler) * StreckeProEncoderWert * 1000000 / (1.0 * (Time-altTime));
         //erg=erg/abs(zaehler-letzterZaehler+1);
         letzterZaehler=zaehler;
         
