@@ -3,7 +3,7 @@
 #include "Regler.h"
 #include <Arduino.h>
 //Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.06, 0.005, 0.001, DIRECT)
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.3, 0.0000, 0.0000, DIRECT) 
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.3, 0.01, 0.001, DIRECT) 
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
@@ -20,7 +20,8 @@ double Regler::Regeln(int pReglerwert)
 double Regler::WieSchnellBinIch()
 {
     //return derEncoder.getGeschwindigkeitMicros();
-    return Glatten(derEncoder.getGeschwindigkeitMicros());
+    //return Glatten(derEncoder.getGeschwindigkeitMicros());
+    return Glatten(derEncoder.getGeschwindigkeitMicrosSuperduper() );
 
 }
 double Regler::Notiz()

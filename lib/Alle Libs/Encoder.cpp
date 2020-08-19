@@ -55,9 +55,19 @@ float Encoder::getGeschwindigkeitMicros()
 }
 float Encoder::getGeschwindigkeitMicrosSuperduper()
 {
-    float erg=(Time-altTime)*StreckeProEncoderWert/1000000;
-    erg=erg/abs(zaehler-letzterZaehler+1);
-    letzterZaehler=zaehler;
-    altTime=Time;
-    return erg;
+    Serial.println("time ist: " + (String)Time);
+    if(Time != altTime)
+    {
+        float erg = (zaehler-letzterZaehler) * StreckeProEncoderWert * 10000000 / (1.0 * (Time-altTime));
+        //erg=erg/abs(zaehler-letzterZaehler+1);
+        letzterZaehler=zaehler;
+        
+        altTime=Time;
+        return erg;
+    }
+    else
+    {
+        return 0;
+    }
+    
 }
