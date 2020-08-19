@@ -44,7 +44,33 @@ void setup() {
 
  //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-
+  meinRegler.Notiz();
+  // Encoder Test
+ /*
+  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
+  {
+      //Serial.println(i);
+      //Serial.println(derEncoder.getZaehler());
+      zaehlerAlt = derEncoder.getZaehler();
+      if (i<anzahlWerte)
+      {
+      GeschArr[i]=(float)meinRegler.Notiz();
+      i++;
+      }
+      else if(ausgabefertig == false)
+      {
+        Spuelautomat.transitionTo(Nothalt);
+        delay(1000);
+        for(int x=0;x<anzahlWerte;x++)
+        {
+          Serial.println(GeschArr[x]);
+        }
+        ausgabefertig = true;
+      }
+      
+      alteZeit = millis();
+  }*/
+  // Endoder Test Ende
   
   //******************************************************************************/
   //Transitionen:
