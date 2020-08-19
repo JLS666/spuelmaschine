@@ -67,10 +67,10 @@ void en_Init()
 void do_Init()
   {
     if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
-      {
-        if(startPin==kontakt)
-        Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
-      }
+    {
+      if(startPin==kontakt)
+      Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
+    }
     else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
     {
       Serial.println("Skip the Intro");
