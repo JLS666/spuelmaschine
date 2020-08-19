@@ -53,6 +53,7 @@ void setup() {
  #define anzahlWerte 100
 
  bool once = true;
+int sollWert = 0;
 
 int TestNr = 0;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -102,14 +103,22 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     case 3: //Sprungantwort ohne Regler
-    RB_Dfr_444.changeSpeed(15);
-      RB_Dfr_444.setMotorStart(Lore_ab);
-      if(derEncoder.getZaehler()>EndPos/3)
-        RB_Dfr_444.changeSpeed(25);
-      if(derEncoder.getZaehler()>EndPos){
+    Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicros()); // + ";" + (String) sollWert);
+    //meinRegler.Notiz();
+    if(once)
+      {
+        sollWert = 25;
+        RB_Dfr_444.changeSpeed(sollWert);
+        RB_Dfr_444.setMotorStart(Lore_ab);
+        once = false;
+      }
+      if(derEncoder.getZaehler()>900)
+      {
         RB_Dfr_444.setMotorStopp();
         Serial.println("Sprung Test Ende");
         TestNr=0;
+        once = true;
+        sollWert = 0;
       }
       break;
     case 4: //Geglerantwort
