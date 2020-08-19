@@ -102,10 +102,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       }
         break;
     case 3: //Sprungantwort ohne Regler
-    RB_Dfr_444.changeSpeed(16);
+    RB_Dfr_444.changeSpeed(15);
       RB_Dfr_444.setMotorStart(Lore_ab);
-      if(derEncoder.getZaehler()>EndPos/2)
-        RB_Dfr_444.changeSpeed(19);
+      if(derEncoder.getZaehler()>EndPos/3)
+        RB_Dfr_444.changeSpeed(25);
       if(derEncoder.getZaehler()>EndPos){
         RB_Dfr_444.setMotorStopp();
         Serial.println("Sprung Test Ende");
