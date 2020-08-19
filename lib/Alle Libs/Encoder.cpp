@@ -16,10 +16,12 @@ Encoder::~Encoder()
 void Encoder::inkrementZaehler()
 {
     zaehler++;
+    Time=micros();
 }
 void Encoder::dekrementZaehler()
 {
     zaehler--;
+    Time=micros();
 }
 void Encoder::resetZaehler()
 {
@@ -50,4 +52,11 @@ float Encoder::getGeschwindigkeitMicros()
         letzteZeit = micros();
     }
     return abs(geschwindigkeit);
+}
+float Encoder::getGeschwindigkeitMicrosSuperduper()
+{
+    float erg=(Time-altTime)*StreckeProEncoderWert/abs(zaehler-letzterZaehler);
+    letzterZaehler=zaehler;
+    altTime=Time;
+    return erg;
 }
