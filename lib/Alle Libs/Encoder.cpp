@@ -56,6 +56,7 @@ float Encoder::getGeschwindigkeitMicros()
 float Encoder::getGeschwindigkeitMicrosSuperduper()
 {
     float erg=(Time-altTime)*StreckeProEncoderWert/abs(zaehler-letzterZaehler);
+    erg=erg/1000000;
     letzterZaehler=zaehler;
     altTime=Time;
     return erg;
