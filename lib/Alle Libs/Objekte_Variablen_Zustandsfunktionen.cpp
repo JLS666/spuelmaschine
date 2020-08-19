@@ -108,6 +108,7 @@ void en_Kalibrierung()
   };
   void do_Kalibrierung_Lore_hinten()
   {
+    meinRegler.Notiz();
     if(digitalRead(endschalter_Hinten)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
