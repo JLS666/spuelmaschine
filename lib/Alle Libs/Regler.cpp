@@ -3,7 +3,7 @@
 #include "Regler.h"
 #include <Arduino.h>
 //Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.06, 0.005, 0.001, DIRECT)
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.3, 0.01, 0.001, DIRECT) 
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.25, 0.3, 0.001, DIRECT) 
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
