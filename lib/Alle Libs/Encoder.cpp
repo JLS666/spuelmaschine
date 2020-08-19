@@ -70,4 +70,9 @@ float Encoder::getGeschwindigkeitMicrosSuperduper()
         return 0;
     }
     
+    float erg=float(Time-altTime)*StreckeProEncoderWert/1000000.0;
+    erg=erg/abs(zaehler-letzterZaehler+1);
+    letzterZaehler=zaehler;
+    altTime=Time;
+    return erg;
 }
