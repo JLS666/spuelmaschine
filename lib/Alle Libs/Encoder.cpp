@@ -66,12 +66,16 @@ float Encoder::getGeschwindigkeitMicrosSuperduper()
         altTime=Time;
 
         //Serial.println(" Erg ist: " + (String) erg);
+        geschwindigkeit=abs(erg);
+        altertum=1;
         return abs(erg);
     }
     
     else
     {
-        return 0;
+        if (altertum>10)
+            return 0;
+        return geschwindigkeit/altertum++;
     }
     /*
     float erg=float(Time-altTime)*StreckeProEncoderWert/1000000.0;

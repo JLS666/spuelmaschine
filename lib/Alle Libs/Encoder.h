@@ -15,6 +15,7 @@ private:
     unsigned long letzteZeit;
     unsigned long Time=0, altTime=0;
     float geschwindigkeit;
+    int altertum=1;
 public:
     Encoder();
     ~Encoder();
