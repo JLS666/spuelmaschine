@@ -52,7 +52,10 @@ void setup() {
  bool ausgabefertig = false;
  #define anzahlWerte 100
 
- bool once = true;
+bool once = true;
+bool once2 = true;
+bool once3 = true;
+bool once4 = true;
 int sollWert = 0;
 
 int TestNr = 0;
@@ -90,11 +93,13 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     case 2: //Const mit Gesch Messung
       if(once)
       {
-        RB_Dfr_444.changeSpeed(18);
+        //RB_Dfr_444.changeSpeed(15);
         RB_Dfr_444.setMotorStart(Lore_ab);
         once = false;
       }
-      Serial.println( (String) millis() + ";" + (String) derEncoder.getGeschwindigkeitMicros());
+      //Serial.println( (String) millis() + ";" + (String) derEncoder.getGeschwindigkeitMicros());
+      meinRegler.Notiz();
+      //Serial.println(RB_Dfr_444.getMotorSpeed());
       if(derEncoder.getZaehler()>EndPos){
         RB_Dfr_444.setMotorStopp();
         Serial.println("Const Test Ende");
@@ -108,7 +113,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     //Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicrosSuperduper()); // + ";" + (String) sollWert)
     if(once)
       {
-        sollWert = 25;
+        sollWert = 20;
         RB_Dfr_444.changeSpeed(sollWert);
         RB_Dfr_444.setMotorStart(Lore_ab);
         once = false;
@@ -122,9 +127,69 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         sollWert = 0;
       }
       break;
-    case 4: //Geglerantwort
-      Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() );
-
+    case 4: //Reglerantwort Sprünge
+    #define sprungSpeed1 100
+    #define sprungSpeed2 160
+    #define laengeSprung 200
+    int time1, time2, time3, time4;
+    meinRegler.Notiz();
+    //Serial.println(";" + (String) sollWert);
+    //Serial.println( (String) micros() + ";" +  (String) derEncoder.getGeschwindigkeitMicrosSuperduper()); // + ";" + (String) sollWert)
+    if(once)
+      {
+        time1 = millis();
+        sollWert = sprungSpeed1;
+        RB_Dfr_444.changeRealSpeed(sollWert);
+        RB_Dfr_444.setMotorStart(Lore_ab);
+        once = false;
+      }
+      if(derEncoder.getZaehler() > laengeSprung && derEncoder.getZaehler() < (2 * laengeSprung) )
+      {
+        
+        if(once2)
+        {
+          time2 = millis();
+          sollWert = sprungSpeed2;
+          RB_Dfr_444.changeRealSpeed(sollWert);
+          once2 = false;
+        }
+      }
+      if(derEncoder.getZaehler() > 2 * laengeSprung && derEncoder.getZaehler() < (3 * laengeSprung) )
+      {
+        if(once3)
+        {
+          time3 = millis();
+          sollWert = sprungSpeed1;
+          RB_Dfr_444.changeRealSpeed(sollWert);
+          once3 = false;
+        }
+      }
+      if(derEncoder.getZaehler() > 3 * laengeSprung && derEncoder.getZaehler() < (4 * laengeSprung) )
+      {
+        if(once4)
+        {
+          time4 = millis();
+          sollWert = sprungSpeed2;
+          RB_Dfr_444.changeRealSpeed(sollWert);
+          once4 = false;
+        }
+      }
+      if(derEncoder.getZaehler() > (4 * laengeSprung) )
+      {
+        RB_Dfr_444.setMotorStopp();
+        Serial.println("Sprung Test Ende");
+        TestNr=0;
+        once = true;
+        once2 = true;
+        once3 = true;
+        once4 = true;
+        sollWert = 0;
+        Serial.println("Zeiten: "+ (String) time1 + " " + (String)time2 + " " + (String)time3 + " " +(String) time4);
+        time1 = 0;
+        time2 = 0;
+        time3 = 0;
+        time4 = 0;
+      }
       break;
     case 5: //Hand Gesch. Messung
       //Serial.println("Handmessung");
@@ -159,7 +224,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       RB_Dfr_444.Run();
       //Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() + ";" + (String) RB_Dfr_444.getMotorSpeed());
       meinRegler.Notiz();
-      if(derEncoder.getZaehler()>EndPos)
+      if(derEncoder.getZaehler() > 1200)    // EndPos
       {
         RB_Dfr_444.setMotorStopp();
         Serial.println("Regler Test Ende");
@@ -177,6 +242,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     Serial.println(TestNr);
     //delay(1000);
         break;
+
   }
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 

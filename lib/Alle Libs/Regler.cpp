@@ -3,7 +3,7 @@
 #include "Regler.h"
 #include <Arduino.h>
 //Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert, 0.06, 0.005, 0.001, DIRECT)
-Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.25, 0.3, 0.001, DIRECT) 
+Regler::Regler():pMotorregler(&Eingabe, &Ausgabe, &Regelwert,  0.4, 0.3, 0.01, DIRECT) //0.25, 0.3, 0.001
 {
     pMotorregler.SetMode(AUTOMATIC);
     pMotorregler.SetOutputLimits(0,MotSpeed);
@@ -20,6 +20,7 @@ double Regler::Regeln(int pReglerwert)
 double Regler::WieSchnellBinIch()
 {
     //return derEncoder.getGeschwindigkeitMicros();
+    //return derEncoder.getGeschwindigkeitMicrosSuperduper();
     //return Glatten(derEncoder.getGeschwindigkeitMicros());
     return Glatten(derEncoder.getGeschwindigkeitMicrosSuperduper() );
 
@@ -32,10 +33,11 @@ double Regler::Notiz()
 
     //CSV
     if(Serial.availableForWrite()<20)
-    return Eingabe;
+        return Eingabe;
     //Zeit, Soll, Ist, Regler; Sprungantwort plotten.
     Serial.print(millis());Serial.print(";");
     Serial.print(Regelwert);Serial.print(";");Serial.print(Eingabe);Serial.print(";");Serial.println(Ausgabe);
+    //Serial.println(Eingabe);
     return Eingabe;
 }
 
