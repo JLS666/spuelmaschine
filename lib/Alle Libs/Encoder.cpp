@@ -75,7 +75,7 @@ float Encoder::getGeschwindigkeitMicrosSuperduper()
     {
         if (altertum>10)
             return 0;
-        return geschwindigkeit/altertum++;
+        return geschwindigkeit*((11-altertum++)/10);
     }
     /*
     float erg=float(Time-altTime)*StreckeProEncoderWert/1000000.0;
