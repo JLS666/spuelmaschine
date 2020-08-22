@@ -51,7 +51,7 @@
 #define Lore_auf MotorLinks      
 #define Ramp 100                //in ms bis MotSpeed Rampenzeit 
 #define MotSpeed 35             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse ehemals 25
-#define RealSpeed 160           //in mm/s Geschwindichkeit.  160
+#define RealSpeed 160         //in mm/s Geschwindichkeit.  160
 #define RealBesch 1000           //in mm/s^2  soll Beschleunigung der Lore.
 
 #define Error -1
@@ -59,7 +59,7 @@
 #define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
 
 // Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
-#define SollEncoderWert 1100 //Encoder in Mitte
+#define SollEncoderWert 1050 //Encoder in Mitte //1100
 #define EncoderEndeWert 2260 //Encoder am Ende
 #define Tolleranz 166 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.

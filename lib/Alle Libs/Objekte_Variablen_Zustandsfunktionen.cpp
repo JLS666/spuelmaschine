@@ -111,7 +111,7 @@ void en_Kalibrierung()
   };
   void do_Kalibrierung_Lore_hinten()
   {
-    meinRegler.Notiz();
+    //meinRegler.Notiz();
     if(digitalRead(endschalter_Hinten)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
@@ -296,9 +296,16 @@ void en_Kalibrierung()
   void do_Abstreifen()
   {
     if(digitalRead(endschalter_Hinten)== kontakt)
+    {
+      Serial.println("Springen zur Ausgabe");
       Spuelautomat.transitionTo(Ausgabe); 
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen || ABS())
+    }
+      
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen) //|| ABS())
+    {
+      Serial.println("Fehler beim Absteifen!");
       Spuelautomat.transitionTo(ErrorState);
+    }
   }
   void ex_Abstreifen()
   {
@@ -320,8 +327,11 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Standby); //Von Vorne
       digitalWrite(endePin, endePinEin); //Singnal Fertig
     }
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return || ABS())
+    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)// || ABS())
+    {
+      Serial.println("Fehler beim Ausgabe!");
       Spuelautomat.transitionTo(ErrorState);
+    }
   }
   void ex_Ausgabe()
   {
