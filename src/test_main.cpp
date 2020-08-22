@@ -93,7 +93,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     case 2: //Const mit Gesch Messung
       if(once)
       {
-        //RB_Dfr_444.changeSpeed(15);
+        RB_Dfr_444.changeSpeed(15);
         RB_Dfr_444.setMotorStart(Lore_ab);
         once = false;
       }
@@ -224,7 +224,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
       RB_Dfr_444.Run();
       //Serial.println( (String) micros() + ";" + (String) derEncoder.getGeschwindigkeitMicros() + ";" + (String) RB_Dfr_444.getMotorSpeed());
       meinRegler.Notiz();
-      if(derEncoder.getZaehler() > 1200)    // EndPos
+      if(derEncoder.getZaehler() > 2000)    // EndPos
       {
         RB_Dfr_444.setMotorStopp();
         Serial.println("Regler Test Ende");
