@@ -126,7 +126,7 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
   static unsigned long Zeit=0;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) 
   {
     Zeit=millis();
     if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
