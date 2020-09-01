@@ -140,6 +140,7 @@ void en_Kalibrierung()
   void do_Kalibrierung_Lore_vorne()
   {
     if(RB_Dfr_444.getMotorInBewegung()==0)
+    {
       RB_Dfr_444.setMotorStart(Lore_auf);
       Serial.println("Kalibrieren Lore Vorne Motor Start");
     }
