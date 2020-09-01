@@ -117,7 +117,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) // ||ABS()
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) ||ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -142,7 +142,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
-    if(Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) // ||ABS()
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) ||ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -301,7 +301,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Ausgabe); 
     }
       
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen) //|| ABS())
+    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen) )//|| ABS() )
     {
       Serial.println("Fehler beim Absteifen!");
       Spuelautomat.transitionTo(ErrorState);
@@ -327,7 +327,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Standby); //Von Vorne
       digitalWrite(endePin, endePinEin); //Singnal Fertig
     }
-    else if(Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)// || ABS())
+    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return) ) // || ABS() )
     {
       Serial.println("Fehler beim Ausgabe!");
       Spuelautomat.transitionTo(ErrorState);

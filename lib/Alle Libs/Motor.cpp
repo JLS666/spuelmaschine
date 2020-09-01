@@ -30,8 +30,8 @@
         //#ifdef Regleristda
         if(Stopp==false)
 
-        //changeSpeed(meinRegler.Regeln(pRealSpeed));
-        meinRegler.Regeln(pRealSpeed);
+        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        //meinRegler.Regeln(pRealSpeed);
         //#endif
         if(istSpeed==maxSpeed)
         {
