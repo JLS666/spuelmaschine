@@ -33,7 +33,7 @@
         changeSpeed(meinRegler.Regeln(pRealSpeed));
         //meinRegler.Regeln(pRealSpeed);
         //#endif
-        if(istSpeed==maxSpeed)
+        if(istSpeed==maxSpeed && Stopp==false)
         {
         return Ok; //Volle Fahrt
         }
