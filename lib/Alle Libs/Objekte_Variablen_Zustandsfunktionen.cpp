@@ -136,7 +136,7 @@ void en_Kalibrierung()
    }
   void do_Kalibrierung_Lore_vorne()
   {
-    if(RB_Dfr_444.getMotorSpeed()==0)
+    if(RB_Dfr_444.getMotorInBewegung()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
@@ -217,7 +217,7 @@ void en_Kalibrierung()
 
   void do_Rakeln()
   {  
-    if(RB_Dfr_444.getMotorSpeed()==0)
+    if(RB_Dfr_444.getMotorInBewegung()==0)
       RB_Dfr_444.setMotorStart(Lore_ab); //Jetzt wird geputzt
     else if(derEncoder.getZaehler()>=SollEncoderWert)
     {
@@ -320,7 +320,7 @@ void en_Kalibrierung()
   }
   void do_Ausgabe()
   {
-    if(RB_Dfr_444.getMotorSpeed()==0)
+    if(RB_Dfr_444.getMotorInBewegung()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
     else if(digitalRead(endschalter_Vorne)==kontakt)
     {

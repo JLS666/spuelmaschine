@@ -17,6 +17,7 @@ class Motor
     void setMotorStart(bool mRichtung);       //Startet den Motor. Richtungswechsel nur mit vorigen Halt möglich! Halt kann mit getMotorSpeed()==0 ermittelt werden.
     void setMotorStopp();                     //Anhalten
     int getMotorSpeed();                      //gibt die Geschwindigkeit in % zurück.
+    bool getMotorInBewegung();
     bool getMotoristRichtung();               //gibt die aktuelle Drehrichtung
     void Not_Aus();                           //sofort Abschalten.
     void setFrequenz(int f);                  //ändert die Motorfrequenz zwischen 800-10.000 Hz.

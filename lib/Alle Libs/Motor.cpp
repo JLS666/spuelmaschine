@@ -152,3 +152,7 @@
     {
         //machen wir nicht.
     }  
+    bool Motor::getMotorInBewegung()
+    {
+        return !Stopp;
+    }
