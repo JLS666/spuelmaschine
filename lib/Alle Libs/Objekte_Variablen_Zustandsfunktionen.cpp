@@ -118,7 +118,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) || ABS() )
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt))// || ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -148,7 +148,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) ||ABS() )
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt))// ||ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -231,7 +231,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }
-    else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
+    else if(digitalRead(endschalter_Hinten)==kontakt)//||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakeln()

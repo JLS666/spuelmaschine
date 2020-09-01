@@ -122,7 +122,7 @@ void encoderEvent() //ISR
       derEncoder.dekrementZaehler();
 }
 
-bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+/* bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
   static unsigned long Zeit=0;
@@ -142,7 +142,7 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
       Zeit=millis();
     return Ok;
   }
-}
+} */
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   OnBoardLED.Flashen();
