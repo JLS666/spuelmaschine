@@ -11,6 +11,7 @@ Zu beginn muss die Lore in den Vorderen anschlag gedrückt werden zum Kalibieren
 
 
 #include <Arduino.h>
+#include "Musik.h"
 #include "Defines.h"
 #include "Motor.h"
 #include "Encoder.h"
@@ -235,6 +236,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     case 10:
       RB_Dfr_444.setMotorStopp();
       TestNr = 0;
+      break;
+    case 11:      // Musik
+      RB_Dfr_444.changeSpeed(10);
+      haushalt();
       break;
     default:
     RoteLED.An();
