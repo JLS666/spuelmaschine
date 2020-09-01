@@ -126,6 +126,7 @@ void en_Kalibrierung()
 
   void ex_Kalibrierung_Lore_hinten()
   {
+    Serial.println("Exit Kalibrieren Lore Hinten");
     RB_Dfr_444.setMotorStopp();
     LastState = 21;
   }
@@ -139,7 +140,11 @@ void en_Kalibrierung()
   void do_Kalibrierung_Lore_vorne()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
+    {
       RB_Dfr_444.setMotorStart(Lore_auf);
+      Serial.println("Kalibrieren Lore Vorne Motor Start");
+    }
+      
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
