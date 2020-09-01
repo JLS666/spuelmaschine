@@ -50,9 +50,9 @@
                 //nix
                 AusgangsPower(motortreiberPWM,0);
             }
-            else if(istSpeed>maxSpeed/2) //Maxwert festlegen % !! nicht über 100!!
+            else if(istSpeed>maxSpeed) //Maxwert festlegen % !! nicht über 100!!
             {
-                istSpeed=maxSpeed/2; //Maximal 
+                istSpeed=maxSpeed; //Maximal 
             }
             else
             {
