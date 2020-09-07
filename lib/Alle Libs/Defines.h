@@ -91,10 +91,10 @@
 #define kolbenRein LOW
 #define notausInOrdnung LOW
 #define notausAlarm HIGH
-#define startPinEin HIGH
-#define startPinAus LOW
-#define endePinEin HIGH
-#define endePinAus LOW
+#define startPinEin LOW
+#define startPinAus HIGH
+#define endePinEin LOW
+#define endePinAus HIGH
 #define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!! Andy: ich bin au verwiert. Kontakt wäre mir klarer.
 #define endschalter_VorneAus HIGH
 #define endschalter_HintenEin LOW

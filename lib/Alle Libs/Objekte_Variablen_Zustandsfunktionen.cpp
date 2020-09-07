@@ -63,13 +63,43 @@ void en_Init()
   GrueneLED.An();
   RoteLED.An();
   Serial.println("getting Ready...");
+  digitalWrite(endePin, endePinAus); // Nicht bereitet
+  /*
+  Serial.println("davor I setup " + String( digitalRead(startPin)) );
+  digitalWrite(endePin, endePinAus); //Singnal Fertig
+  Serial.println("danach I aus setup " + String( digitalRead(startPin)) );
+
+  delay(1000);
+
+  Serial.println("davor II aus setup " + String( digitalRead(startPin)) );
+  digitalWrite(endePin, endePinEin); //Singnal Fertig
+  Serial.println("danach II an setup " + String( digitalRead(startPin)) );
+
+    delay(1000);
+
+  Serial.println("davor III an setup " + String( digitalRead(startPin)) );
+  digitalWrite(endePin, endePinAus); //Singnal Fertig
+  Serial.println("danach III aus setup " + String( digitalRead(startPin)) );
+
+    delay(1000);
+
+  Serial.println("davor IV aus setup " + String( digitalRead(startPin)) );
+  digitalWrite(endePin, endePinEin); //Singnal Fertig
+  Serial.println("danach IV an setup " + String( digitalRead(startPin)) );
+  */
+
 }
 void do_Init()
 {
   if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
   {
-    if( digitalRead(startPin)== startPinEin)
-    Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
+    //Serial.println("davor " + String( digitalRead(startPin)) );
+    if( digitalRead(quittieren) == quitierenEin)
+    {
+      Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
+      //Serial.println("drinnen " + String( digitalRead(startPin)) );
+    }
+      
   }
   else if(Serial.read()=='s') //Wenn Deckel offen und s gedrückt.
   {
@@ -118,7 +148,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) || ABS() )
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)) // || ABS() ) // auskommentier sonst schwerer Fehler beim öffnen vom Deckel
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -148,7 +178,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) ||ABS() )
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) ) // ||ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -231,7 +261,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }
-    else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
+    else if(digitalRead(endschalter_Hinten)==kontakt ) // ||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakeln()
@@ -346,7 +376,6 @@ void en_Kalibrierung()
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
     Zyklenzaehler(true); //EEPROM mit zählen
-    digitalWrite(endePin, endePinEin);
   }
 
   //Error
