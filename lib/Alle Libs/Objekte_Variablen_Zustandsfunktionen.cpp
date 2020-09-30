@@ -194,7 +194,7 @@ void en_Kalibrierung()
   }
   void do_Kalibrierung_Kolben_rein()
   {
-    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
+    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit*2 && digitalRead(endschalter_Zylinder)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
     else if(digitalRead(endschalter_Zylinder)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
