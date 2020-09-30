@@ -69,11 +69,9 @@ void do_Init()
 {
   if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
   {
-    //Serial.println("davor " + String( digitalRead(startPin)) );
     if( digitalRead(quittieren) == quitierenEin)
     {
       Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
-      //Serial.println("drinnen " + String( digitalRead(startPin)) );
     }
       
   }
@@ -95,7 +93,6 @@ void en_Kalibrierung()
     GrueneLED.Blinken();
     RoteLED.Aus();
     Serial.println("Kalibierung");
-    Serial.println(digitalRead(startPin));
   }
   void do_Kalibrierung()
   {
@@ -190,7 +187,6 @@ void en_Kalibrierung()
   {
     Serial.println("Kalibrieren Kolben rein");
     digitalWrite(kolben, kolbenRein);
-    Serial.println("Druecken");
   }
   void do_Kalibrierung_Kolben_rein()
   {
@@ -336,7 +332,7 @@ void en_Kalibrierung()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
-    else if(digitalRead(endschalter_Vorne)==kontakt)
+    else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
       digitalWrite(endePin, endePinEin); //Singnal Fertig
@@ -361,7 +357,6 @@ void en_Kalibrierung()
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus); 
-    Serial.println("blasen aus");
     Serial.print("irgendwas ist schiefgelaufen :| "); 
     Serial.println(LastState);
   }
@@ -377,7 +372,6 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus);
-    Serial.println("blasen aus");
     GrueneLED.Aus();
     RoteLED.An();
     Serial.println("Not Halt");
