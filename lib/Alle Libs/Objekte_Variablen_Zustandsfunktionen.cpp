@@ -220,14 +220,14 @@ void en_Kalibrierung()
   void ex_Standby()
   {
     LastState = 3;
-    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
   }
 
   //Rakeln
   void en_Rakeln()
   { 
   Serial.println("Rakeln");
-   }
+  digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
+  }
 
   void do_Rakeln()
   {  
