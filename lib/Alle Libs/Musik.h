@@ -92,15 +92,17 @@
 #define NOTE_DS8 4978
 
 #define tempoHaushalt 3287
-#define drehpunktHinten 3000
-#define drehpunktVorne 1000
+#define drehpunktHinten 1000        //3000
+#define drehpunktVorne 0         // 1000
 #define pausenZeit 32
 
 unsigned long letzteZeit = 0;
 unsigned int intervall = 0;
 unsigned int zustandMusik = 0;
 unsigned long aktuelleZeit = 1;
+bool aktuelleRichtung = Lore_ab;
 bool pause = false;
+bool ende = false;
 
 
 // Zustand: Init zum Startpunkt in der Mitte fahren!
@@ -253,27 +255,30 @@ void haushalt()
 
 
             default:
+                ende = true;
 
             break;
         }
-
-        if(derEncoder.getZaehler > drehpunktHinten && pause == false)
+        zustandMusik++;
+        if(derEncoder.getZaehler() > drehpunktHinten && pause == false && ende == false)
         {
             RB_Dfr_444.Not_Aus(); 
-            RB_Dfr_444.setMotorStart(Lore_auf); 
+            aktuelleRichtung = Lore_auf;
+            RB_Dfr_444.setMotorStart(aktuelleRichtung); 
         }
-        else if(derEncoder.getZaehler < drehpunktVorne && pause == false)
+        else if(derEncoder.getZaehler() < drehpunktVorne && pause == false && ende == false)
         {
             RB_Dfr_444.Not_Aus(); 
-            RB_Dfr_444.setMotorStart(Lore_ab);
+            aktuelleRichtung = Lore_ab;
+            RB_Dfr_444.setMotorStart(aktuelleRichtung); 
         }
-        else if(pause==false)
+        else if(pause==false && ende == false)
         {
-            RB_Dfr_444.setMotorStart(Lore_ab);
+            RB_Dfr_444.setMotorStart(aktuelleRichtung);
         }
         
     }
-    if(digitalRead(endschalter_Hinten) == endschalter_DeckelEin)
+    if(digitalRead(endschalter_Hinten) == endschalter_HintenEin)
     {
          RB_Dfr_444.Not_Aus(); 
     }

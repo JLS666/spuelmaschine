@@ -1,19 +1,24 @@
 
 #include "Motor.h"
+#include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include "Defines.h"
 #include <Arduino.h>
+
+#define Regleristda true;
 
 
     Motor::Motor(int PWM_Pin, int DIR_Pin_A, int DIR_Pin_B)
     {
         sollRichtung=Lore_auf;
         istRichtung=sollRichtung;
-        maxSpeed=MotSpeed;
+        pRealSpeed=RealSpeed;
+        maxSpeed=MotSpeed; // Teiler 2 bei 24V
         pinMode(PWM_Pin,OUTPUT);
         pinMode(DIR_Pin_A,OUTPUT);
         pinMode(DIR_Pin_B,OUTPUT);
         setFrequenz(1000); //PWM auf 1kHz zu Beginn
     }                  
+    
     int Motor::Run() //Ramp + Dir
     {
         unsigned long lastTime=0;
@@ -22,9 +27,16 @@
         {
             Stopp=true;
         }
+        //#ifdef Regleristda
+        if(Stopp==false)
 
-        if(istSpeed==maxSpeed)
+        changeSpeed(meinRegler.Regeln(pRealSpeed));
+        //meinRegler.Regeln(pRealSpeed);
+        //#endif
+        if(istSpeed==maxSpeed && Stopp==false)
+        {
         return Ok; //Volle Fahrt
+        }
 
         //Serial.println(istSpeed);
         if(istSpeed==0) //Entscheidung Geschw. Bereich
@@ -38,9 +50,9 @@
                 //nix
                 AusgangsPower(motortreiberPWM,0);
             }
-            else if(istSpeed>maxSpeed/2) //Maxwert festlegen % !! nicht über 100!!
+            else if(istSpeed>maxSpeed) //Maxwert festlegen % !! nicht über 100!!
             {
-                istSpeed=maxSpeed/2; //Maximal 
+                istSpeed=maxSpeed; //Maximal 
             }
             else
             {
@@ -111,8 +123,12 @@
     }           
     void Motor::changeSpeed(int speed)
     {
-        Serial.println("Motor Speed wurde angepasst.");
         maxSpeed=speed;
+    }
+    void Motor::changeRealSpeed(int speed)
+    {
+        //Serial.println("Motor RealSpeed wurde angepasst.");   // asdf
+        pRealSpeed=speed;
     }
     void Motor::AusgangsPower(int Pin, int Power)
     {
@@ -127,7 +143,7 @@
             //Power=map(Power,0,100,0,Frequenz); //Power in Prozent to Duty
             Power=(Frequenz/100)*Power;
             //Serial.println(Power);
-            analogWrite(Pin,Power);
+            analogWrite(Pin,Power); //Analog output Werte zwischen 0-1023
         }     
     }
     int Motor::Fehlererkennung(){return Ok;}      //Nicht Implementiert.
@@ -136,3 +152,7 @@
     {
         //machen wir nicht.
     }  
+    bool Motor::getMotorInBewegung()
+    {
+        return !Stopp;
+    }

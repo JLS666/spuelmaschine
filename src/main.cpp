@@ -13,8 +13,10 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+
+
 void setup() {
-  pinMode(startPin, INPUT);       
+  pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
@@ -28,26 +30,52 @@ void setup() {
   pinMode(notaus, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(encoderA), encoderEvent, RISING); // Interrupt für den Encoder, bei einer steigenden Flanke am Eingang A wird eine ISR ausgelöst
-  Serial.begin(9600);
+  Serial.begin(115200); // haben ja keine Zeit zum trödeln!
   OnBoardLED.SchnellBlinken();  //Andy: Kleines Beispiel für ne LED
   Serial.println("Setup Abgeschlossen !");
 
 }
  int zaehlerAlt = 0;
+ unsigned long alteZeit = 0;
+ float GeschArr[100];
+ int i=0;
+ bool ausgabefertig = false;
+ #define anzahlWerte 100
+
+ //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
+  
+  
+  
+  //Serial.println("Erg ist: " + (String) derEncoder.getGeschwindigkeitMicrosSuperduper());
+  //meinRegler.Notiz();
   // Encoder Test
- 
-  if (zaehlerAlt != derEncoder.getZaehler())
+ /*
+  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
   {
-    Serial.println(derEncoder.getZaehler());
-    zaehlerAlt = derEncoder.getZaehler();
-  }
-  // if()
-  //Serial.print("Der DIR_A vom Motortreiber ist: ");
-  //Serial.println(digitalRead(motortreiberDIR_A));
-  //Serial.print("Der DIR_B vom Motortreiber ist: ");
-  //Serial.println(digitalRead(motortreiberDIR_B));  
+      //Serial.println(i);
+      //Serial.println(derEncoder.getZaehler());
+      zaehlerAlt = derEncoder.getZaehler();
+      if (i<anzahlWerte)
+      {
+      GeschArr[i]=(float)meinRegler.Notiz();
+      i++;
+      }
+      else if(ausgabefertig == false)
+      {
+        Spuelautomat.transitionTo(Nothalt);
+        delay(1000);
+        for(int x=0;x<anzahlWerte;x++)
+        {
+          Serial.println(GeschArr[x]);
+        }
+        ausgabefertig = true;
+      }
+      
+      alteZeit = millis();
+  }*/
   // Endoder Test Ende
+  
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
@@ -61,15 +89,17 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian Julian: bestimmt
   
     {
-      LoopTime=millis()-LoopTime;
+      LoopTime=micros()-LoopTime;
       Serial.print("Loop bearbeitet in (ms): ");
       Serial.println(LoopTime);
+      LoopTime = micros();
     }
     else
     {
       if(timerIndex < 100)
       {
-        LoopTimeArray[timerIndex] = micros() - lastTime;
+        //LoopTimeArray[timerIndex] = micros() - lastTime;
+        
         lastTime = micros();
         timerIndex++;
       }
@@ -82,7 +112,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
         timerIndex= 0;    
       }
     }
-  
+ 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
@@ -95,13 +125,11 @@ void encoderEvent() //ISR
       derEncoder.dekrementZaehler();
 }
 
-bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+/* bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
-return Ok; // Wird später gemacht.
-
   static int Position=0;
   static unsigned long Zeit=0;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp/2) 
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) 
   {
     Zeit=millis();
     if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
@@ -113,9 +141,11 @@ return Ok; // Wird später gemacht.
   }
   else
   {
+    if(RB_Dfr_444.getMotorSpeed()>1)
+      Zeit=millis();
     return Ok;
   }
-}
+} */
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   OnBoardLED.Flashen();

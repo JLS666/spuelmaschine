@@ -2,6 +2,12 @@
 Motor Klasse Optimiert für BB-VNH3SP30 DC Treiber. Auf Arduino UNO.
 Autor: Andy 
 */
+#ifndef MOTOR_H
+#define MOTOR_H
+
+//#include "Regler.h"
+
+
 
 class Motor
 {
@@ -11,10 +17,12 @@ class Motor
     void setMotorStart(bool mRichtung);       //Startet den Motor. Richtungswechsel nur mit vorigen Halt möglich! Halt kann mit getMotorSpeed()==0 ermittelt werden.
     void setMotorStopp();                     //Anhalten
     int getMotorSpeed();                      //gibt die Geschwindigkeit in % zurück.
+    bool getMotorInBewegung();
     bool getMotoristRichtung();               //gibt die aktuelle Drehrichtung
     void Not_Aus();                           //sofort Abschalten.
     void setFrequenz(int f);                  //ändert die Motorfrequenz zwischen 800-10.000 Hz.
-    void changeSpeed(int speed);              //anpassen der Default Geschwindigkeit.  VORSICHT!!
+    void changeSpeed(int speed);              //anpassen der Default Geschwindigkeit.  VORSICHT!! Andy:DO NOT USE Regler ist jetzt dafür zuständig. alternative ChangeRealSpeed.
+    void changeRealSpeed(int speed);          //Wie oben in mm/s mit Regler.
     int Fehlererkennung();                    //Nicht Implementiert.
     void Bremsen();                           //Nicht Implementiert. //Max: was soll der Unterschied sein zwischen Bremsen, Not_aus, setMotorStop?
     ~Motor();                    
@@ -29,4 +37,9 @@ class Motor
     bool istRichtung;
     unsigned int maxSpeed;
     int Frequenz;
+    //#ifdef Regleristda
+    //Regler Motorregler;
+    //#endif
+    int pRealSpeed=0;
 };
+#endif

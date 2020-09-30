@@ -3,10 +3,11 @@ LED Blinken.
 Autor: Andy 
 
 Anleitung:
-LED Objetk erstellen
-Timerfuktion erstellen sie ganz unten.
-Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
+-LED Objetk erstellen
+-Timerfuktion erstellen sie ganz unten.!!!
+-Aufruf mit Obj.An();   ({Aus,An,Blinken,SchnellBlinken})
 */
+#pragma once
 //#ifndef <Arduino.h>
 #include <Arduino.h>
 
@@ -19,6 +20,14 @@ class LED
         LEDPin=Pin;
         pinMode(LEDPin,OUTPUT);
         TimerSetup();
+    }
+    LED(int Pin, int pPower) //Leistung von 0-255.
+    {
+        State=sAus;
+        LEDPin=Pin;
+        pinMode(LEDPin,OUTPUT);
+        TimerSetup();
+        Power=pPower;
     }
     void An() //Macht die LED An.
     {
@@ -45,29 +54,29 @@ class LED
         switch (State)
         {
         case sAus:
-            digitalWrite(LEDPin,false);
+            analogWrite(LEDPin,0);
             break;
         case sAn:
-            digitalWrite(LEDPin,true);
+            analogWrite(LEDPin,Power);
             break;
         case sBlinken:
             if((Flash>Blinkfrequenz*SchnellFaktor/2)) //Geilon
             {
-                digitalWrite(LEDPin,true);
+                analogWrite(LEDPin,Power);
             }
             else 
             {
-                digitalWrite(LEDPin,false);
+                analogWrite(LEDPin,0);
             }
             break;
         case sSchnellBlinken:
             if(Flash/(Blinkfrequenz/2)%2)
             {
-                digitalWrite(LEDPin,true);
+                analogWrite(LEDPin,Power);
             }
             else
             {
-                digitalWrite(LEDPin,false);
+                analogWrite(LEDPin,0);
             }
             break;
         
@@ -92,6 +101,7 @@ class LED
     int SchnellFaktor=3; //x mal so langsam
     int State=0;
     int Flash=1;
+    int Power=255;
     void TimerSetup() // UNO Spezifisch 
     {   
         //https://www.simsso.de/?type=arduino/timer-interrupts
