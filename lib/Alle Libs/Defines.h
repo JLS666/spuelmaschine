@@ -26,25 +26,24 @@
 */
 #pragma once
 //Pins
-#define startPin 19          //getauscht mit 0,1
-#define endePin 18
+#define startPin 19          
+#define endePin 18              //Analog?
 #define encoderA 3              //Interrupt Pin
 #define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
 #define motortreiberDIR_A 4     //Dir Pin H=>CW
 #define motortreiberDIR_B 5     //Dir Pin H=>CCW
-#define endschalter_Vorne 8   //Achtung Pin change 5-8
+#define endschalter_Vorne 8   
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
-#define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
-#define quittieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
+#define endschalter_Deckel 10   
+#define quittieren 11           
 #define kolben A1
 #define blasen A0
 #define notaus A2
-#define led_Rot A4      // wurde umgetauscht                 
-#define led_Gruen A3    // wurde umgetauscht
+#define led_Rot A4                     
+#define led_Gruen A3    
 
-//#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts 
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
@@ -56,9 +55,9 @@
 
 #define Error -1
 #define Ok 0
-#define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
+#define kontakt LOW 
 
-// Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
+// Zeiten und Grenzwerte    
 #define SollEncoderWert 1050 //Encoder in Mitte //1100
 #define EncoderEndeWert 2260 //Encoder am Ende
 #define AntiAnschlagWert 60 //Verhindert den Wandanschlag
@@ -96,7 +95,7 @@
 #define startPinAus HIGH
 #define endePinEin LOW
 #define endePinAus HIGH
-#define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!! Andy: ich bin au verwiert. Kontakt wäre mir klarer.
+#define endschalter_VorneEin LOW  
 #define endschalter_VorneAus HIGH
 #define endschalter_HintenEin LOW
 #define endschalter_HintenAus HIGH
