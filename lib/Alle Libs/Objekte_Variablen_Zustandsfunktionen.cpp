@@ -64,30 +64,6 @@ void en_Init()
   RoteLED.An();
   Serial.println("getting Ready...");
   digitalWrite(endePin, endePinAus); // Nicht bereitet
-  /*
-  Serial.println("davor I setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinAus); //Singnal Fertig
-  Serial.println("danach I aus setup " + String( digitalRead(startPin)) );
-
-  delay(1000);
-
-  Serial.println("davor II aus setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinEin); //Singnal Fertig
-  Serial.println("danach II an setup " + String( digitalRead(startPin)) );
-
-    delay(1000);
-
-  Serial.println("davor III an setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinAus); //Singnal Fertig
-  Serial.println("danach III aus setup " + String( digitalRead(startPin)) );
-
-    delay(1000);
-
-  Serial.println("davor IV aus setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinEin); //Singnal Fertig
-  Serial.println("danach IV an setup " + String( digitalRead(startPin)) );
-  */
-
 }
 void do_Init()
 {
