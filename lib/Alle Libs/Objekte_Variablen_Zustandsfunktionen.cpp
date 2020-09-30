@@ -210,7 +210,7 @@ void en_Kalibrierung()
   }
   void do_Standby()
   {
-    if(digitalRead(startPin)==startPinEin) // Gogogo
+    if(analogRead(startPin)<startPinEin) // Gogogo
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()

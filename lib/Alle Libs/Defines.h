@@ -26,8 +26,8 @@
 */
 #pragma once
 //Pins
-#define startPin 19          
-#define endePin 18              //Analog?
+#define startPin 19             //19= Analog A5 = SCL   
+#define endePin 18              //18= Analog A4 = SDA
 #define encoderA 3              //Interrupt Pin
 #define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
@@ -91,7 +91,7 @@
 #define kolbenRein LOW
 #define notausInOrdnung LOW
 #define notausAlarm HIGH
-#define startPinEin LOW
+#define startPinEin 300 //=1024*0.3
 #define startPinAus HIGH
 #define endePinEin LOW
 #define endePinAus HIGH

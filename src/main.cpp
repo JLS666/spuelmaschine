@@ -16,7 +16,7 @@
 
 
 void setup() {
-  pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
+  //pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
