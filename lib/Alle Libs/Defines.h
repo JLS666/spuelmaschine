@@ -63,10 +63,10 @@
 #define EncoderEndeWert 2260 //Encoder am Ende
 #define Tolleranz 66 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
-#define ErrTimeLore_ab_Abstreifen 13000
-#define ErrTimeLore_auf_Return 30000
+#define ErrTimeLore_ab_Abstreifen 10000
+#define ErrTimeLore_auf_Return 12000
 #define ErrTimeKolben_backagain 10000
-#define KolbenFahrzeit 3000 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
+#define KolbenFahrzeit 1500 //Zeit bis kolben Raus. x2=Kolben Rein und Raus.
 #define StreckeProEncoderWert  405 / 2240  // Fahrweg Lore in mm / Encoder ganz hinten  Einheit mm / Encoderwert ehemals: 2200/600
 
 //***********************************   Funktionen bekannt machen *******************************************
