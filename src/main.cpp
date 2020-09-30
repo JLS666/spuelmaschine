@@ -42,40 +42,7 @@ void setup() {
  bool ausgabefertig = false;
  #define anzahlWerte 100
 
- //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-  
-  
-  
-  //Serial.println("Erg ist: " + (String) derEncoder.getGeschwindigkeitMicrosSuperduper());
-  //meinRegler.Notiz();
-  // Encoder Test
- /*
-  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
-  {
-      //Serial.println(i);
-      //Serial.println(derEncoder.getZaehler());
-      zaehlerAlt = derEncoder.getZaehler();
-      if (i<anzahlWerte)
-      {
-      GeschArr[i]=(float)meinRegler.Notiz();
-      i++;
-      }
-      else if(ausgabefertig == false)
-      {
-        Spuelautomat.transitionTo(Nothalt);
-        delay(1000);
-        for(int x=0;x<anzahlWerte;x++)
-        {
-          Serial.println(GeschArr[x]);
-        }
-        ausgabefertig = true;
-      }
-      
-      alteZeit = millis();
-  }*/
-  // Endoder Test Ende
-  
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
@@ -86,33 +53,6 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
 
-  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian Julian: bestimmt
-  
-    {
-      LoopTime=micros()-LoopTime;
-      Serial.print("Loop bearbeitet in (ms): ");
-      Serial.println(LoopTime);
-      LoopTime = micros();
-    }
-    else
-    {
-      if(timerIndex < 100)
-      {
-        //LoopTimeArray[timerIndex] = micros() - lastTime;
-        
-        lastTime = micros();
-        timerIndex++;
-      }
-      else
-      {
-        for(int j = 0; j<100; j++)
-        {
-          //Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
-        }
-        timerIndex= 0;    
-      }
-    }
- 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
