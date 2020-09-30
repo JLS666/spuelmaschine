@@ -52,7 +52,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-
+  ABS(); //Hallo Ibims der ABS 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
@@ -65,7 +65,7 @@ void encoderEvent() //ISR
       derEncoder.dekrementZaehler();
 }
 
-/* bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
 {
   static int Position=0;
   static unsigned long Zeit=0;
@@ -85,7 +85,7 @@ void encoderEvent() //ISR
       Zeit=millis();
     return Ok;
   }
-} */
+}
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   OnBoardLED.Flashen();

@@ -24,7 +24,7 @@ class Motor
     void changeSpeed(int speed);              //anpassen der Default Geschwindigkeit.  VORSICHT!! Andy:DO NOT USE Regler ist jetzt dafür zuständig. alternative ChangeRealSpeed.
     void changeRealSpeed(int speed);          //Wie oben in mm/s mit Regler.
     int Fehlererkennung();                    //Nicht Implementiert.
-    void Bremsen();                           //Nicht Implementiert. //Max: was soll der Unterschied sein zwischen Bremsen, Not_aus, setMotorStop?
+    void Bremsen();                           //Nicht Implementiert. 
     ~Motor();                    
 
     
