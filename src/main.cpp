@@ -4,7 +4,7 @@
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
 /*  Beschreibung: main für Spülmaschine                             */
-/*  Version:      0.1                                               */                 
+/*  Version:      1.1                                              */                 
 /********************************************************************/
 
 
@@ -13,6 +13,11 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+/* Fehler Liste:
+Der ist gerade 4 mal gefahren.
+ABS geht immer an. Er hällt aber trotzdem nicht an!
+Er fährt hemmungslos gegen die _Wand 
+Platte sprint raus, Schreibe zu hoch? */
 
 
 void setup() {
@@ -52,7 +57,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-  ABS(); //Hallo Ibims der ABS 
+  ABS();                        //Hallo Ibims der ABS Zyklusaufruf
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
@@ -76,7 +81,7 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
       Serial.println(" ABS Eingriff !");
         GrueneLED.SchnellBlinken();
         RoteLED.SchnellBlinken(); //Damit man weiß was los ist
-        return Error;
+        return Ok;//Error; Inaktiv
       }
     Position=derEncoder.getZaehler();
     return Ok;       
@@ -107,7 +112,7 @@ int Zyklenzaehler(bool Increment) //mit True aufrufen um Hochzuzählen.
     RAM++;
   }
   EEPROM.put(0,ROM);
-  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!! //Andy: beweiß es ;)
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. 
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;

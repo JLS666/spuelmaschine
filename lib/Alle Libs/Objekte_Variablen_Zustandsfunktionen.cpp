@@ -112,7 +112,7 @@ void en_Kalibrierung()
   {
     Serial.println("Kalibrieren Lore Hinten");
     RB_Dfr_444.setMotorStart(Lore_ab);
-  }     // hier stand mal ; das macht man doch so nicht?
+  }     
   void do_Kalibrierung_Lore_hinten()
   {
     //meinRegler.Notiz();
