@@ -115,7 +115,6 @@ void en_Kalibrierung()
   }     
   void do_Kalibrierung_Lore_hinten()
   {
-    //meinRegler.Notiz();
     if(digitalRead(endschalter_Hinten)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
@@ -159,7 +158,6 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
-    //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
     LastState = 22;
   }
 
@@ -205,6 +203,7 @@ void en_Kalibrierung()
     Serial.println("Standby");
     derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
+    //RB_Dfr_444.Bremsen();
     GrueneLED.An();
     RoteLED.Aus();
   }
@@ -335,7 +334,7 @@ void en_Kalibrierung()
     else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
-      digitalWrite(endePin, endePinEin); //Singnal Fertig
+      digitalWrite(endePin, endePinEin); //Signal Fertig
     }
     else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
     {
@@ -347,7 +346,7 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
-    Zyklenzaehler(true); //EEPROM mit zählen
+    Zyklenzaehler(true); //EEPROM mit zählen + Wartezeit
   }
 
   //Error
