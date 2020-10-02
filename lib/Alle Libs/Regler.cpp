@@ -61,3 +61,8 @@ double Regler::Glatten(double IN)
     return(Sum/Lange);
 
 }
+
+double Regler::getEingabe()
+{
+    return Eingabe;
+}

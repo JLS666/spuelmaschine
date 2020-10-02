@@ -81,20 +81,21 @@ void encoderEvent() //ISR
       derEncoder.dekrementZaehler();
 }
 
-bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichkeitsabhängig.
 {
-  static int Position=0;
   static unsigned long Zeit=0;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) 
+  static double altGesch=minSpeedABS+1;
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) //durch Ramp*2 anschaltschwelle begrenzen.
   {
     Zeit=millis();
-    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
+    if(meinRegler.getEingabe()<minSpeedABS && altGesch<minSpeedABS) //Doppelt falls Verzögerung beim anfahren.
+    {
+      altGesch=meinRegler.getEingabe(); //Direkt vom Reglereingang abgreifen.
       Serial.println(" ABS Eingriff !");
-        GrueneLED.SchnellBlinken();
-        RoteLED.SchnellBlinken(); //Damit man weiß was los ist
-        return Ok;//Error; Inaktiv
-      }
-    Position=derEncoder.getZaehler();
+      GrueneLED.SchnellBlinken();
+      RoteLED.SchnellBlinken(); //Damit man weiß was los ist
+      return Ok;//Error; Inaktiv
+    }
     return Ok;       
   }
   else
