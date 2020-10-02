@@ -40,11 +40,13 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 
 }
+//Testequitpment:
  int zaehlerAlt = 0;
  unsigned long alteZeit = 0;
  float GeschArr[100];
  int i=0;
  bool ausgabefertig = false;
+ bool zustandAlt=0;
  #define anzahlWerte 100
 
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
@@ -54,10 +56,19 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
     Spuelautomat.transitionTo(Nothalt);
     
   //******************************************************************************/
-  
+  //Funktionsaufrufe:
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
   ABS();                        //Hallo Ibims der ABS Zyklusaufruf
+  //******************************************************************************/
+  //Sonstiges:
+  bool zustandAlt=0;
+  bool zustand=analogRead(startPin)<startPinEin; //Test mit 200?!
+    if(zustand!=zustandAlt){
+      zustandAlt=analogRead(startPin)<startPinEin;
+      Serial.print("Start =");
+      Serial.println(zustand);
+    }
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 

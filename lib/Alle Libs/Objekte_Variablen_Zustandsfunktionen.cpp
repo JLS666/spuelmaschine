@@ -67,7 +67,7 @@ void en_Init()
 }
 void do_Init()
 {
-  if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
+  if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin Abfrage noch rein!!
   {
     if( digitalRead(quittieren) == quitierenEin)
     {

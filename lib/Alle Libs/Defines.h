@@ -91,7 +91,7 @@
 #define kolbenRein LOW
 #define notausInOrdnung LOW
 #define notausAlarm HIGH
-#define startPinEin 200 //=1024*0.2
+#define startPinEin 50 //200=1024*0.2 //Fail 2.10.2020 =>255*0.2=50
 #define startPinAus HIGH
 #define endePinEin LOW
 #define endePinAus HIGH
