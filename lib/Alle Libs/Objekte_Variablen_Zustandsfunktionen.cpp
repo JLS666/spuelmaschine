@@ -64,40 +64,14 @@ void en_Init()
   RoteLED.An();
   Serial.println("getting Ready...");
   digitalWrite(endePin, endePinAus); // Nicht bereitet
-  /*
-  Serial.println("davor I setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinAus); //Singnal Fertig
-  Serial.println("danach I aus setup " + String( digitalRead(startPin)) );
-
-  delay(1000);
-
-  Serial.println("davor II aus setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinEin); //Singnal Fertig
-  Serial.println("danach II an setup " + String( digitalRead(startPin)) );
-
-    delay(1000);
-
-  Serial.println("davor III an setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinAus); //Singnal Fertig
-  Serial.println("danach III aus setup " + String( digitalRead(startPin)) );
-
-    delay(1000);
-
-  Serial.println("davor IV aus setup " + String( digitalRead(startPin)) );
-  digitalWrite(endePin, endePinEin); //Singnal Fertig
-  Serial.println("danach IV an setup " + String( digitalRead(startPin)) );
-  */
-
 }
 void do_Init()
 {
-  if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin abfrage noch rein!!
+  if(digitalRead(endschalter_Deckel)==kontakt) //Andy: Wird doch eh in der main abgeragt. Max: hier muss Startpin Abfrage noch rein!!
   {
-    //Serial.println("davor " + String( digitalRead(startPin)) );
     if( digitalRead(quittieren) == quitierenEin)
     {
       Spuelautomat.transitionTo(Kalibrierung); //Zu beginn Start Drücken!
-      //Serial.println("drinnen " + String( digitalRead(startPin)) );
     }
       
   }
@@ -119,7 +93,6 @@ void en_Kalibrierung()
     GrueneLED.Blinken();
     RoteLED.Aus();
     Serial.println("Kalibierung");
-    Serial.println(digitalRead(startPin));
   }
   void do_Kalibrierung()
   {
@@ -139,16 +112,15 @@ void en_Kalibrierung()
   {
     Serial.println("Kalibrieren Lore Hinten");
     RB_Dfr_444.setMotorStart(Lore_ab);
-  }     // hier stand mal ; das macht man doch so nicht?
+  }     
   void do_Kalibrierung_Lore_hinten()
   {
-    //meinRegler.Notiz();
     if(digitalRead(endschalter_Hinten)==kontakt)
     {
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt)) // || ABS() ) // auskommentier sonst schwerer Fehler beim öffnen vom Deckel
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) || ABS() ) // auskommentier sonst schwerer Fehler beim öffnen vom Deckel
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -178,7 +150,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt) ) // ||ABS() )
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt)  ||ABS() )
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -186,7 +158,6 @@ void en_Kalibrierung()
   void ex_Kalibrierung_Lore_vorne()
   {
     RB_Dfr_444.setMotorStopp();
-    //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
     LastState = 22;
   }
 
@@ -214,11 +185,10 @@ void en_Kalibrierung()
   {
     Serial.println("Kalibrieren Kolben rein");
     digitalWrite(kolben, kolbenRein);
-    Serial.println("Druecken");
   }
   void do_Kalibrierung_Kolben_rein()
   {
-    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!=kontakt)
+    if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit*2 && digitalRead(endschalter_Zylinder)!=kontakt)
       Spuelautomat.transitionTo(ErrorState);
     else if(digitalRead(endschalter_Zylinder)==kontakt)
       Spuelautomat.transitionTo(Kalibrierung);
@@ -233,25 +203,26 @@ void en_Kalibrierung()
     Serial.println("Standby");
     derEncoder.resetZaehler();
     RB_Dfr_444.setMotorStopp();
+    //RB_Dfr_444.Bremsen();
     GrueneLED.An();
     RoteLED.Aus();
   }
   void do_Standby()
   {
-    if(digitalRead(startPin)==startPinEin) // Gogogo
+    if(analogRead(startPin)<startPinEin) // Gogogo
       Spuelautomat.transitionTo(Rakeln);
   }
   void ex_Standby()
   {
     LastState = 3;
-    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
   }
 
   //Rakeln
   void en_Rakeln()
   { 
   Serial.println("Rakeln");
-   }
+  digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
+  }
 
   void do_Rakeln()
   {  
@@ -261,7 +232,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Rakelreinigen); // aka Blasen
     }
-    else if(digitalRead(endschalter_Hinten)==kontakt ) // ||ABS()) 
+    else if(digitalRead(endschalter_Hinten)==kontakt||ABS()) 
       Spuelautomat.transitionTo(ErrorState);
   }
   void ex_Rakeln()
@@ -339,7 +310,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Ausgabe); 
     }
       
-    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen) )//|| ABS() )
+    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_ab_Abstreifen) || ABS() )
     {
       Serial.println("Fehler beim Absteifen!");
       Spuelautomat.transitionTo(ErrorState);
@@ -360,12 +331,12 @@ void en_Kalibrierung()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
       RB_Dfr_444.setMotorStart(Lore_auf);
-    else if(digitalRead(endschalter_Vorne)==kontakt)
+    else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
-      digitalWrite(endePin, endePinEin); //Singnal Fertig
+      digitalWrite(endePin, endePinEin); //Signal Fertig
     }
-    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return) ) // || ABS() )
+    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
     {
       Serial.println("Fehler beim Ausgabe!");
       Spuelautomat.transitionTo(ErrorState);
@@ -375,7 +346,7 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.setMotorStopp();
     LastState = 7;
-    Zyklenzaehler(true); //EEPROM mit zählen
+    Zyklenzaehler(true); //EEPROM mit zählen + Wartezeit
   }
 
   //Error
@@ -385,7 +356,6 @@ void en_Kalibrierung()
     GrueneLED.Aus();
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus); 
-    Serial.println("blasen aus");
     Serial.print("irgendwas ist schiefgelaufen :| "); 
     Serial.println(LastState);
   }
@@ -401,7 +371,6 @@ void en_Kalibrierung()
   {
     RB_Dfr_444.Not_Aus();
     digitalWrite(blasen, blasenAus);
-    Serial.println("blasen aus");
     GrueneLED.Aus();
     RoteLED.An();
     Serial.println("Not Halt");

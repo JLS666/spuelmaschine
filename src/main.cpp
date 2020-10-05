@@ -4,7 +4,7 @@
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
 /*  Beschreibung: main für Spülmaschine                             */
-/*  Version:      0.1                                               */                 
+/*  Version:      1.1                                              */                 
 /********************************************************************/
 
 
@@ -13,10 +13,15 @@
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
 
+/* Fehler Liste:
+Der ist gerade 4 mal gefahren.
+ABS geht immer an. Er hällt aber trotzdem nicht an!
+Er fährt hemmungslos gegen die _Wand 
+Platte sprint raus, Schreibe zu hoch? */
 
 
 void setup() {
-  pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
+  //pinMode(startPin, INPUT);   // INPUT Pull-Down hardwarebasiert auf Lochraster    
   pinMode(endePin, OUTPUT);
   pinMode(encoderA, INPUT_PULLUP);
   pinMode(encoderB, INPUT_PULLUP);
@@ -35,84 +40,35 @@ void setup() {
   Serial.println("Setup Abgeschlossen !");
 
 }
+//Testequitpment:
  int zaehlerAlt = 0;
  unsigned long alteZeit = 0;
  float GeschArr[100];
  int i=0;
  bool ausgabefertig = false;
+ bool zustandAlt=0;
  #define anzahlWerte 100
 
- //bool timerModus = true;
 void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplooplupi
-  
-  
-  
-  //Serial.println("Erg ist: " + (String) derEncoder.getGeschwindigkeitMicrosSuperduper());
-  //meinRegler.Notiz();
-  // Encoder Test
- /*
-  if (zaehlerAlt != derEncoder.getZaehler() && millis() > (alteZeit + 10))
-  {
-      //Serial.println(i);
-      //Serial.println(derEncoder.getZaehler());
-      zaehlerAlt = derEncoder.getZaehler();
-      if (i<anzahlWerte)
-      {
-      GeschArr[i]=(float)meinRegler.Notiz();
-      i++;
-      }
-      else if(ausgabefertig == false)
-      {
-        Spuelautomat.transitionTo(Nothalt);
-        delay(1000);
-        for(int x=0;x<anzahlWerte;x++)
-        {
-          Serial.println(GeschArr[x]);
-        }
-        ausgabefertig = true;
-      }
-      
-      alteZeit = millis();
-  }*/
-  // Endoder Test Ende
-  
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
     Spuelautomat.transitionTo(Nothalt);
     
   //******************************************************************************/
-  
+  //Funktionsaufrufe:
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-
-  if(timerModus)  //Loop Geschwindigkeit Andy: kann man das schlanker und hübscher machen? @Julian Julian: bestimmt
-  
-    {
-      LoopTime=micros()-LoopTime;
-      Serial.print("Loop bearbeitet in (ms): ");
-      Serial.println(LoopTime);
-      LoopTime = micros();
+  ABS();                        //Hallo Ibims der ABS Zyklusaufruf
+  //******************************************************************************/
+  //Sonstiges:
+  bool zustandAlt=0;
+  bool zustand=analogRead(startPin)<startPinEin; //Test mit 200?!
+    if(zustand!=zustandAlt){
+      zustandAlt=analogRead(startPin)<startPinEin;
+      Serial.print("Start =");
+      Serial.println(zustand);
     }
-    else
-    {
-      if(timerIndex < 100)
-      {
-        //LoopTimeArray[timerIndex] = micros() - lastTime;
-        
-        lastTime = micros();
-        timerIndex++;
-      }
-      else
-      {
-        for(int j = 0; j<100; j++)
-        {
-          //Serial.print(LoopTimeArray[j]);Serial.print(" ; ");
-        }
-        timerIndex= 0;    
-      }
-    }
- 
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
 
 
@@ -125,18 +81,21 @@ void encoderEvent() //ISR
       derEncoder.dekrementZaehler();
 }
 
-/* bool ABS() //Gibt ein Error zurück wenn die Lore festhängt.
+bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichkeitsabhängig.
 {
-  static int Position=0;
   static unsigned long Zeit=0;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) 
+  static double altGesch=minSpeedABS+1;
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) //durch Ramp*2 anschaltschwelle begrenzen.
   {
     Zeit=millis();
-    if(Position<=derEncoder.getZaehler()-Tolleranz || Position>=derEncoder.getZaehler()+Tolleranz){
+    if(meinRegler.getEingabe()<minSpeedABS && altGesch<minSpeedABS) //Doppelt falls Verzögerung beim anfahren.
+    {
+      altGesch=meinRegler.getEingabe(); //Direkt vom Reglereingang abgreifen.
       Serial.println(" ABS Eingriff !");
-        return Error;
-      }
-    Position=derEncoder.getZaehler();
+      GrueneLED.SchnellBlinken();
+      RoteLED.SchnellBlinken(); //Damit man weiß was los ist
+      return Ok;//Error; Inaktiv
+    }
     return Ok;       
   }
   else
@@ -145,7 +104,7 @@ void encoderEvent() //ISR
       Zeit=millis();
     return Ok;
   }
-} */
+}
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
   OnBoardLED.Flashen();
@@ -165,7 +124,7 @@ int Zyklenzaehler(bool Increment) //mit True aufrufen um Hochzuzählen.
     RAM++;
   }
   EEPROM.put(0,ROM);
-  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. // Julian: Mich stört das hier!!!! //Andy: beweiß es ;)
+  delay(100); // Zum Speichern. Sollte nix stören. Wird nur 1mal pro Zyklus aufgerufen. Und Encoder läuft über Interrupt. 
   Serial.print("Bereits "); Serial.print(ROM);Serial.println(" Zyklen insgesammt bearbeitet.");
   Serial.print("Bereits "); Serial.print(RAM);Serial.println(" Zyklen seit letztem Neustart bearbeitet.");
   return RAM;
