@@ -13,9 +13,9 @@ private:
     int zaehler;                // Zähler des Encoders
     int letzterZaehler;
     unsigned long letzteZeit;
-    unsigned long Time=0, altTime=0;
+    unsigned long aktuelleZeit;
     float geschwindigkeit;
-    int altertum=1;
+    int altertum;
 public:
     Encoder();
     ~Encoder();
