@@ -203,8 +203,10 @@ void en_Kalibrierung()
     Serial.println("Standby");
     derEncoder.resetZaehler();
     Serial.println(analogRead(startPin));
+    digitalWrite(endePin, endePinEin); //Signal Fertig (Wir sind bereit)
+    Serial.println(analogRead(startPin));
     RB_Dfr_444.setMotorStopp();
-    RB_Dfr_444.Bremsen();
+    RB_Dfr_444.Bremsen(); //oder in die do
     GrueneLED.An();
     RoteLED.Aus();
   }
@@ -215,14 +217,17 @@ void en_Kalibrierung()
   }
   void ex_Standby()
   {
+    Serial.println(analogRead(startPin));
     LastState = 3;
   }
 
   //Rakeln
   void en_Rakeln()
   { 
-  Serial.println("Rakeln");
-  digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
+    Serial.println("Rakeln");
+    Serial.println(analogRead(startPin));
+    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
+    Serial.println(analogRead(startPin));
   }
 
   void do_Rakeln()
@@ -339,7 +344,6 @@ void en_Kalibrierung()
     else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
-      digitalWrite(endePin, endePinEin); //Signal Fertig (Wir sind bereit)
     }
     else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
     {

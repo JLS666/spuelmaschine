@@ -152,6 +152,7 @@
         Stopp=true;
         if (istSpeed==0)
         {
+            Serial.println("Power Break");
             AusgangsPower(motortreiberPWM,0);
             digitalWrite(motortreiberDIR_A,0); //Low =GND
             digitalWrite(motortreiberDIR_B,0);
