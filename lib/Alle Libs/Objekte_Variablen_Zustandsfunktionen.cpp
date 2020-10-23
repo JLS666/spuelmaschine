@@ -202,8 +202,9 @@ void en_Kalibrierung()
   {
     Serial.println("Standby");
     derEncoder.resetZaehler();
+    Serial.println(analogRead(startPin));
     RB_Dfr_444.setMotorStopp();
-    //RB_Dfr_444.Bremsen();
+    RB_Dfr_444.Bremsen();
     GrueneLED.An();
     RoteLED.Aus();
   }
@@ -288,8 +289,11 @@ void en_Kalibrierung()
     if(digitalRead(endschalter_Zylinder)== kontakt)
       Spuelautomat.transitionTo(Rakelreinigen);
     
-    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit && digitalRead(endschalter_Zylinder)!= kontakt)
+    else if(Spuelautomat.timeInCurrentState()>KolbenFahrzeit*2 && digitalRead(endschalter_Zylinder)!= kontakt)
+      {
+        Serial.println("Zeit ist ueberschritten!");
         Spuelautomat.transitionTo(ErrorState);
+      }
   }
   void ex_Rakelreinigen_Kolben_rein() 
   {
@@ -300,6 +304,7 @@ void en_Kalibrierung()
   //Abstreifen
   void en_Abstreifen()
   {
+    Serial.println("Abstreifen");
     RB_Dfr_444.setMotorStart(Lore_ab);
   }
   void do_Abstreifen()
@@ -334,11 +339,11 @@ void en_Kalibrierung()
     else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
-      digitalWrite(endePin, endePinEin); //Signal Fertig
+      digitalWrite(endePin, endePinEin); //Signal Fertig (Wir sind bereit)
     }
     else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
     {
-      Serial.println("Fehler beim Ausgabe!");
+      Serial.println("Fehler bei Ausgabe!");
       Spuelautomat.transitionTo(ErrorState);
     }
   }

@@ -53,7 +53,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //******************************************************************************/
   //Transitionen:
   if(Spuelautomat.isInState(Nothalt)!=true && (digitalRead(notaus)==kontakt || digitalRead(endschalter_Deckel)!=kontakt))   //Wenn Notaus (Öffner) betätigt =>Nothalt 
-    Spuelautomat.transitionTo(Nothalt);
+    {
+      Spuelautomat.transitionTo(Nothalt);
+      Serial.println("Global Error Deckel/Not-Aus");
+    }
     
   //******************************************************************************/
   //Funktionsaufrufe:
@@ -62,11 +65,12 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   ABS();                        //Hallo Ibims der ABS Zyklusaufruf
   //******************************************************************************/
   //Sonstiges:
-  bool zustandAlt=0;
+  static bool zustandAlt=0;
   bool zustand=analogRead(startPin)<startPinEin; //Test mit 200?!
     if(zustand!=zustandAlt){
       zustandAlt=analogRead(startPin)<startPinEin;
-      Serial.print("Start =");
+      Serial.print(analogRead(startPin));
+      Serial.print(" Start =");
       Serial.println(zustand);
     }
 } // Loop Endeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeendeende
