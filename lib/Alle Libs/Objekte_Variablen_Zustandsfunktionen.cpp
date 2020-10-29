@@ -21,7 +21,7 @@
 //************************************   Objekte ereugen ****************************************************
   Motor RB_Dfr_444(motortreiberPWM,motortreiberDIR_A,motortreiberDIR_B);
   Encoder derEncoder; 
-  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(led_Rot);
+  LED OnBoardLED(13), GrueneLED(led_Gruen), RoteLED(12);//(led_Rot); //Fail A4=18=Endepin
   Regler meinRegler; 
 //************************************   Globale Variablen ***************************************************
   int MotorStatus;
@@ -213,7 +213,12 @@ void en_Kalibrierung()
   void do_Standby()
   {
     if(analogRead(startPin)<startPinEin) // Gogogo
+    {
       Spuelautomat.transitionTo(Rakeln);
+      delay(1000); //Für Histogramm. Delete!
+      Serial.print("Wir sind jetzt angehalten bei: ");
+      Serial.println(derEncoder.getZaehler());
+    }
   }
   void ex_Standby()
   {
@@ -340,12 +345,16 @@ void en_Kalibrierung()
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
-      RB_Dfr_444.setMotorStart(Lore_auf);
-    else if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()==AntiAnschlagWert)
+      RB_Dfr_444.setMotorStart(Lore_auf); //Wir öfters aufgerufen?
+    if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()<=AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
     }
-    else if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
+    else if(derEncoder.getZaehler()<=AntiAnschlagWert*18) //langsamer
+    {
+      RB_Dfr_444.changeRealSpeed(RealSpeed/2); //ruhig Brauner
+    }
+    if( (Spuelautomat.timeInCurrentState()>ErrTimeLore_auf_Return)  || ABS() )
     {
       Serial.println("Fehler bei Ausgabe!");
       Spuelautomat.transitionTo(ErrorState);
@@ -354,6 +363,7 @@ void en_Kalibrierung()
   void ex_Ausgabe()
   {
     RB_Dfr_444.setMotorStopp();
+    RB_Dfr_444.changeRealSpeed(RealSpeed); //zurücksetzen
     LastState = 7;
     Zyklenzaehler(true); //EEPROM mit zählen + Wartezeit
   }

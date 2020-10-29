@@ -89,8 +89,11 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichke
 {
   static unsigned long Zeit=0;
   static double altGesch=minSpeedABS+1;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>Zeit+Ramp) //durch Ramp*2 anschaltschwelle begrenzen.
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>(Zeit+Ramp/2)) //durch Ramp*2 anschaltschwelle begrenzen.
   {
+    Serial.print(" ABS Prüfung "); //Debug AbS Delete!
+    Serial.println(meinRegler.getEingabe());
+
     Zeit=millis();
     if(meinRegler.getEingabe()<minSpeedABS && altGesch<minSpeedABS) //Doppelt falls Verzögerung beim anfahren.
     {
