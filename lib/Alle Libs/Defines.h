@@ -60,7 +60,7 @@
 // Zeiten und Grenzwerte    
 #define SollEncoderWert 1050 //Encoder in Mitte //1100
 #define EncoderEndeWert 2260 //Encoder am Ende
-#define AntiAnschlagWert 10 //60 vor 23.10 //Verhindert den Wandanschlag
+#define AntiAnschlagWert 30 //60 vor 23.10 //Verhindert den Wandanschlag
 #define Tolleranz 66 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
 #define ErrTimeLore_ab_Abstreifen 10000
