@@ -89,7 +89,8 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichke
 {
   static unsigned long Zeit=0;
   static double altGesch=minSpeedABS+1;
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>(Zeit+Ramp/2)) //durch Ramp*2 anschaltschwelle begrenzen.
+  Serial.print(RB_Dfr_444.getMotorSpeed());
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>(Zeit+Ramp/4)) //durch Ramp*2 anschaltschwelle begrenzen.
   {
     Serial.print(" ABS Prüfung "); //Debug AbS Delete!
     Serial.println(meinRegler.getEingabe());
@@ -101,7 +102,7 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichke
       Serial.println(" ABS Eingriff !");
       GrueneLED.SchnellBlinken();
       RoteLED.SchnellBlinken(); //Damit man weiß was los ist
-      return Ok;//Error; Inaktiv
+      return Error;//Error; Inaktiv
     }
     return Ok;       
   }
