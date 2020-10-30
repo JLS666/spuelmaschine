@@ -148,6 +148,7 @@ void en_Kalibrierung()
       
     if(digitalRead(endschalter_Vorne)==kontakt)
     {
+      derEncoder.resetZaehler(); //Encoder Nullen. 
       Spuelautomat.transitionTo(Kalibrierung_Kolben_raus);
     }
     if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Vorne)!=kontakt)  ||ABS() )
@@ -201,7 +202,7 @@ void en_Kalibrierung()
   void en_Standby()
   {
     Serial.println("Standby");
-    derEncoder.resetZaehler();
+    //derEncoder.resetZaehler(); //Ja halt ist das ok???? Alarm! Enfernt von Andy am 30.10
     Serial.println(analogRead(startPin));
     digitalWrite(endePin, endePinEin); //Signal Fertig (Wir sind bereit)
     Serial.println(analogRead(startPin));
@@ -215,9 +216,6 @@ void en_Kalibrierung()
     if(analogRead(startPin)<startPinEin) // Gogogo
     {
       Spuelautomat.transitionTo(Rakeln);
-      delay(1000); //Für Histogramm. Delete!
-      Serial.print("Wir sind jetzt angehalten bei: ");
-      Serial.println(derEncoder.getZaehler());
     }
   }
   void ex_Standby()
@@ -233,6 +231,9 @@ void en_Kalibrierung()
     Serial.println(analogRead(startPin));
     digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
     Serial.println(analogRead(startPin));
+    delay(500); //Für Histogramm. Delete!!!
+    Serial.print("Histogramm Wir sind waren angehalten bei: ");
+    Serial.println(derEncoder.getZaehler());
   }
 
   void do_Rakeln()
