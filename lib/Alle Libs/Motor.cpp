@@ -84,13 +84,13 @@
     {
         Stopp=false;
         sollRichtung=mRichtung;
-        Serial.println("Motor wurde gestartet.");
+        //Serial.println("Motor wurde gestartet.");
 
     } 
     void Motor::setMotorStopp()
     {
         Stopp=true;
-        Serial.println("Motor wurde gestoppt.");
+        //Serial.println("Motor wurde gestoppt.");
     }
     int Motor::getMotorSpeed()  
     {

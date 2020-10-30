@@ -203,9 +203,7 @@ void en_Kalibrierung()
   {
     Serial.println("Standby");
     //derEncoder.resetZaehler(); //Ja halt ist das ok???? Alarm! Enfernt von Andy am 30.10
-    Serial.println(analogRead(startPin));
     digitalWrite(endePin, endePinEin); //Signal Fertig (Wir sind bereit)
-    Serial.println(analogRead(startPin));
     RB_Dfr_444.setMotorStopp();
     RB_Dfr_444.Bremsen(); //oder in die do
     GrueneLED.An();
@@ -220,7 +218,6 @@ void en_Kalibrierung()
   }
   void ex_Standby()
   {
-    Serial.println(analogRead(startPin));
     LastState = 3;
   }
 
@@ -228,12 +225,10 @@ void en_Kalibrierung()
   void en_Rakeln()
   { 
     Serial.println("Rakeln");
-    Serial.println(analogRead(startPin));
     digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
-    Serial.println(analogRead(startPin));
     delay(500); //Für Histogramm. Delete!!!
-    Serial.print("Histogramm Wir sind waren angehalten bei: ");
-    Serial.println(derEncoder.getZaehler());
+    Serial.print("Histogramm Wir sind waren angehalten bei: ");//Für Histogramm. Delete!!!
+    Serial.println(derEncoder.getZaehler());//Für Histogramm. Delete!!!
   }
 
   void do_Rakeln()
@@ -346,7 +341,7 @@ void en_Kalibrierung()
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
-      RB_Dfr_444.setMotorStart(Lore_auf); //Wir öfters aufgerufen?
+      RB_Dfr_444.setMotorStart(Lore_auf); Serial.println("Hoffentlich komme ich nur einmal.");//Wir öfters aufgerufen?
     if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()<=AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
