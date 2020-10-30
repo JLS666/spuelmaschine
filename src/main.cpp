@@ -62,7 +62,7 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //Funktionsaufrufe:
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-  ABS();                        //Hallo Ibims der ABS Zyklusaufruf
+  //ABS();                        //Hallo Ibims der ABS Zyklusaufruf
   //******************************************************************************/
   //Sonstiges:
   static bool zustandAlt=0;
@@ -89,29 +89,29 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichke
 {
   static unsigned long Zeit=0;
   static double altGesch=minSpeedABS+1;
-  Serial.print(RB_Dfr_444.getMotorSpeed());
-  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>(Zeit+Ramp/4)) //durch Ramp*2 anschaltschwelle begrenzen.
+  static int ABS_Zaeler=0;
+  if(RB_Dfr_444.getMotorSpeed()>1 && millis()>(Zeit+Ramp*2)) //durch Ramp*2 Anschaltschwelle begrenzen.
   {
-    Serial.print(" ABS Prüfung "); //Debug AbS Delete!
-    Serial.println(meinRegler.getEingabe());
-
     Zeit=millis();
-    if(meinRegler.getEingabe()<minSpeedABS && altGesch<minSpeedABS) //Doppelt falls Verzögerung beim anfahren.
+    if(meinRegler.getEingabe()<minSpeedABS && altGesch<minSpeedABS) //Doppelt falls Verzögerung beim Anfahren.
     {
       altGesch=meinRegler.getEingabe(); //Direkt vom Reglereingang abgreifen.
-      Serial.println(" ABS Eingriff !");
-      GrueneLED.SchnellBlinken();
-      RoteLED.SchnellBlinken(); //Damit man weiß was los ist
-      return Error;//Error; Inaktiv
+      Serial.println(" ABS Warnung ");
+      ABS_Zaeler++;
+      if(ABS_Zaeler>=4)
+      {
+        Serial.println(" ABS Eingriff !");
+        GrueneLED.SchnellBlinken();
+        RoteLED.SchnellBlinken(); //Damit man weiß was los ist
+        return Error; //Ok= Inaktiv Error=Aktiv
+      }
     }
-    return Ok;       
+    else
+      ABS_Zaeler=0;     
   }
-  else
-  {
-    if(RB_Dfr_444.getMotorSpeed()>1)
-      Zeit=millis();
-    return Ok;
-  }
+  else if(RB_Dfr_444.getMotorSpeed()<1)
+    altGesch=minSpeedABS+1;
+  return Ok;
 }
 
 ISR(TIMER2_COMPA_vect){    //This is the interrupt request
