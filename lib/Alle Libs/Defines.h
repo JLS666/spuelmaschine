@@ -26,41 +26,41 @@
 */
 #pragma once
 //Pins
-#define startPin 19          //getauscht mit 0,1
-#define endePin 18
+#define startPin 19             //19= Analog A5 = SCL   
+#define endePin 18              //18= Analog A4 = SDA
 #define encoderA 3              //Interrupt Pin
 #define encoderB 2              //Interrupt Pin
 #define motortreiberPWM 9       //PWM Pin 
 #define motortreiberDIR_A 4     //Dir Pin H=>CW
 #define motortreiberDIR_B 5     //Dir Pin H=>CCW
-#define endschalter_Vorne 8   //Achtung Pin change 5-8
+#define endschalter_Vorne 8   
 #define endschalter_Hinten 6
 #define endschalter_Zylinder 7
-#define endschalter_Deckel 10   // Beispiel Pin NICHT FINAL!!!!!!!!
-#define quittieren 11            // Beispiel Pin NICHT FINAL!!!!!!!!
+#define endschalter_Deckel 10   
+#define quittieren 11           
 #define kolben A1
 #define blasen A0
 #define notaus A2
-#define led_Rot A4      // wurde umgetauscht                 
-#define led_Gruen A3    // wurde umgetauscht
+#define led_Rot 12              //Früher A4 ist schon belegt
+#define led_Gruen A3    
 
-//#define Blasen_ein //Andy: was willst du? ne Funktion wie Blasen_ein(); oder machst du den digitalWrite selber?
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
 #define MotorLinks !MotorRechts 
 #define Lore_ab MotorRechts    //ab in den Berg. Rein ins dunkle Loch.
 #define Lore_auf MotorLinks      
 #define Ramp 100                //in ms bis MotSpeed Rampenzeit 
 #define MotSpeed 35             //in Prozent       Niemals über 100% gehen! sonst wird Andy böse ehemals 25
-#define RealSpeed 160         //in mm/s Geschwindichkeit.  160
-#define RealBesch 1000           //in mm/s^2  soll Beschleunigung der Lore.
+#define RealSpeed 160         //in mm/s Geschwindichkeit.  160 Regler Sollwert
+#define minSpeedABS 50          //untere Schwelle bevor ABS eingreift.
 
 #define Error -1
 #define Ok 0
-#define kontakt LOW //Was macht der Endschalter bei Kontakt. //Julian: Ich würde false sagen!!, wegen Pull-Up Wiederständen Julian: Soll weg, ein alter Zopf
+#define kontakt LOW 
 
-// Zeiten und Grenzwerte    Andy:Ramp ist auch eine Zeit!
+// Zeiten und Grenzwerte    
 #define SollEncoderWert 1050 //Encoder in Mitte //1100
 #define EncoderEndeWert 2260 //Encoder am Ende
+#define AntiAnschlagWert 20 // Neuer Keil: 20 ist geil //60 vor 23.10 //Verhindert den Wandanschlag // 5.11.: 30
 #define Tolleranz 66 //Tolleranz des Encoders +-
 #define ErrTimeLore_Kalib 30000 //Error wenn in dieser Zeit nicht am Endschalter unten. Beim Init Kalibirieren.
 #define ErrTimeLore_ab_Abstreifen 10000
@@ -91,11 +91,11 @@
 #define kolbenRein LOW
 #define notausInOrdnung LOW
 #define notausAlarm HIGH
-#define startPinEin LOW
+#define startPinEin 50 //200=1024*0.2 //Fail 2.10.2020 =>255*0.2=50
 #define startPinAus HIGH
 #define endePinEin LOW
 #define endePinAus HIGH
-#define endschalter_VorneEin LOW  // ist das bei verschiedenen Endschaltern anders? oben habe ich kontakt definiert. Julian: Ja kann man noch zusammen fassen. Ich würde aber Kontakt löschen!!! Andy: ich bin au verwiert. Kontakt wäre mir klarer.
+#define endschalter_VorneEin LOW  
 #define endschalter_VorneAus HIGH
 #define endschalter_HintenEin LOW
 #define endschalter_HintenAus HIGH

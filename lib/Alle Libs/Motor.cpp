@@ -84,13 +84,13 @@
     {
         Stopp=false;
         sollRichtung=mRichtung;
-        Serial.println("Motor wurde gestartet.");
+        //Serial.println("Motor wurde gestartet.");
 
     } 
     void Motor::setMotorStopp()
     {
         Stopp=true;
-        Serial.println("Motor wurde gestoppt.");
+        //Serial.println("Motor wurde gestoppt.");
     }
     int Motor::getMotorSpeed()  
     {
@@ -147,7 +147,18 @@
         }     
     }
     int Motor::Fehlererkennung(){return Ok;}      //Nicht Implementiert.
-    void Motor::Bremsen(){}                       //Nicht Implementiert.
+    void Motor::Bremsen()
+    {
+        Stopp=true;
+        if (istSpeed==0)
+        {
+            Serial.println("Power Break");
+            AusgangsPower(motortreiberPWM,0);
+            digitalWrite(motortreiberDIR_A,0); //Low =GND
+            digitalWrite(motortreiberDIR_B,0);
+        }
+        return;
+    }                       
     Motor::~Motor()
     {
         //machen wir nicht.

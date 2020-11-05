@@ -6,8 +6,10 @@ Encoder::Encoder()
 {
     zaehler = 0;
     letzterZaehler = 0;
+    aktuelleZeit = 0;
     letzteZeit = 0;
     geschwindigkeit = 0;
+    altertum = 1;
 }
 
 Encoder::~Encoder()
@@ -16,12 +18,12 @@ Encoder::~Encoder()
 void Encoder::inkrementZaehler()
 {
     zaehler++;
-    Time=micros();
+    aktuelleZeit=micros();
 }
 void Encoder::dekrementZaehler()
 {
     zaehler--;
-    Time=micros();
+    aktuelleZeit=micros();
 }
 void Encoder::resetZaehler()
 {
@@ -56,14 +58,14 @@ float Encoder::getGeschwindigkeitMicros()
 float Encoder::getGeschwindigkeitMicrosSuperduper()
 {
     
-    if(Time != altTime)
+    if(aktuelleZeit != letzteZeit)
     {
         //Serial.println("time ist: " + (String)Time);
-        float erg = (float) (zaehler-letzterZaehler) * StreckeProEncoderWert * 1000000 / (1.0 * (Time-altTime)) ;
+        float erg = (float) (zaehler-letzterZaehler) * StreckeProEncoderWert * 1000000 / (1.0 * (aktuelleZeit-letzteZeit)) ;
         //erg=erg/abs(zaehler-letzterZaehler+1);
         letzterZaehler=zaehler;
         
-        altTime=Time;
+        letzteZeit=aktuelleZeit;
 
         //Serial.println(" Erg ist: " + (String) erg);
         geschwindigkeit=abs(erg);
@@ -77,11 +79,4 @@ float Encoder::getGeschwindigkeitMicrosSuperduper()
             return 0;
         return geschwindigkeit*((11-altertum++)/10);
     }
-    /*
-    float erg=float(Time-altTime)*StreckeProEncoderWert/1000000.0;
-    erg=erg/abs(zaehler-letzterZaehler+1);
-    letzterZaehler=zaehler;
-    altTime=Time;
-    return erg;
-    */
 }

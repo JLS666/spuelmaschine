@@ -25,6 +25,7 @@ class Regler
         //~Regler();
         double Regelwert=0;
         double Notiz(); //Gibt nachrichten aus.
+        double getEingabe();
 
     private: //Max: soviel Speicherplatz wie du mit deinen double belegst ist der Arduinospeicher bald voll, ohne das uns die Kommazahlen helfen. // Meine Geschwindkigkeit rechnet nur in float, also die Double sind echt unnötig
         double WieSchnellBinIch();
