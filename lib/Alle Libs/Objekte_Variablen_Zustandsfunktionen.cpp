@@ -218,6 +218,8 @@ void en_Kalibrierung()
   }
   void ex_Standby()
   {
+    Serial.print("Histogramm Wir sind waren angehalten bei: ");//Für Histogramm. Delete!!!
+    Serial.println(derEncoder.getZaehler());//Für Histogramm. Delete!!!
     LastState = 3;
   }
 
@@ -226,9 +228,8 @@ void en_Kalibrierung()
   { 
     Serial.println("Rakeln");
     digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
-    delay(500); //Für Histogramm. Delete!!!
-    Serial.print("Histogramm Wir sind waren angehalten bei: ");//Für Histogramm. Delete!!!
-    Serial.println(derEncoder.getZaehler());//Für Histogramm. Delete!!!
+    //delay(500); //Für Histogramm. Delete!!!
+    
   }
 
   void do_Rakeln()
@@ -343,10 +344,14 @@ void en_Kalibrierung()
     if(RB_Dfr_444.getMotorSpeed()==0)
     { 
       RB_Dfr_444.setMotorStart(Lore_auf); 
-      Serial.println("Hoffentlich komme ich nur einmal.");//Wir öfters aufgerufen?
+      //Serial.println("Hoffentlich komme ich nur einmal.");//Wir öfters aufgerufen?
     }
     if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()<=AntiAnschlagWert)
     {
+      if(digitalRead(endschalter_Vorne)==kontakt)   // beta beta beta beta
+      {
+        derEncoder.resetZaehler(); //Encoder Nullen. 
+      }
       Spuelautomat.transitionTo(Standby); //Von Vorne
     }
     else if(derEncoder.getZaehler()<=AntiAnschlagWert*3) //langsamer

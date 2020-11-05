@@ -107,7 +107,10 @@ bool ABS() //Gibt ein Error zurück wenn die Lore festhängt. NEU Geschwindichke
       }
     }
     else
-      ABS_Zaeler=0;     
+    {
+      altGesch=meinRegler.getEingabe(); //Direkt vom Reglereingang abgreifen.
+      ABS_Zaeler=0;
+    }     
   }
   else if(RB_Dfr_444.getMotorSpeed()<1)
     altGesch=minSpeedABS+1;
