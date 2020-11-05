@@ -341,7 +341,10 @@ void en_Kalibrierung()
   void do_Ausgabe()
   {
     if(RB_Dfr_444.getMotorSpeed()==0)
-      RB_Dfr_444.setMotorStart(Lore_auf); Serial.println("Hoffentlich komme ich nur einmal.");//Wir öfters aufgerufen?
+    { 
+      RB_Dfr_444.setMotorStart(Lore_auf); 
+      Serial.println("Hoffentlich komme ich nur einmal.");//Wir öfters aufgerufen?
+    }
     if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()<=AntiAnschlagWert)
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
