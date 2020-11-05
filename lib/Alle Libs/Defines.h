@@ -41,7 +41,7 @@
 #define kolben A1
 #define blasen A0
 #define notaus A2
-#define led_Rot A4                     
+#define led_Rot 12              //Früher A4 ist schon belegt
 #define led_Gruen A3    
 
 #define MotorRechts false       //Andy: false ist durch den Motortreiber und die Klasse Motor vorgegeben.
