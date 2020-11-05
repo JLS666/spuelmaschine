@@ -4,7 +4,7 @@
 /*  Firma:        Hochschule Karlsruhe - Technik u. Wirtschaft      */
 /*  Datei:        main.cpp                                          */
 /*  Beschreibung: main für Spülmaschine                             */
-/*  Version:      1.1                                              */                 
+/*  Version:      1.2                                               */                 
 /********************************************************************/
 
 
@@ -12,12 +12,6 @@
 #include "Defines.h"
 #include "Objekte_Variablen_Zustandsfunktionen.h"   // Dekleration alle Objekte, aller globalen Variablen, alle Zustandsfunktionen
 #include <EEPROM.h>
-
-/* Fehler Liste:
-Der ist gerade 4 mal gefahren.
-ABS geht immer an. Er hällt aber trotzdem nicht an!
-Er fährt hemmungslos gegen die _Wand 
-Platte sprint raus, Schreibe zu hoch? */
 
 
 void setup() {
@@ -62,11 +56,10 @@ void loop() { //Looplooplooplooplooplooplooplooplooplooplooplooplooplooplooploop
   //Funktionsaufrufe:
   Spuelautomat.update();        //Zustandsautomat
   MotorStatus=RB_Dfr_444.Run(); //Managed den Motor und gibt den Zustand an.
-  //ABS();                        //Hallo Ibims der ABS Zyklusaufruf
   //******************************************************************************/
   //Sonstiges:
   static bool zustandAlt=0;
-  bool zustand=analogRead(startPin)<startPinEin; //Test mit 200?!
+  bool zustand=analogRead(startPin)<startPinEin;
     if(zustand!=zustandAlt){
       zustandAlt=analogRead(startPin)<startPinEin;
       Serial.print(analogRead(startPin));

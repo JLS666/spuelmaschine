@@ -9,13 +9,12 @@
 
 
 #include <Arduino.h>
-#include "Defines.h"                      // werden benötigt
+#include "Defines.h"                              // werden benötigt
 #include "Objekte_Variablen_Zustandsfunktionen.h" // hier sind auch alle Klassen H Dateien mit drin
 #include "Encoder.h"
 #include "Motor.h"
 #include "FiniteStateMachine.h"
 #include "LED.h"
-// Damit ist regler weg. #include "Regler.h"
 
 
 //************************************   Objekte ereugen ****************************************************
@@ -120,7 +119,7 @@ void en_Kalibrierung()
       Spuelautomat.transitionTo(Kalibrierung_Lore_vorne);
     }
     
-    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) || ABS() ) // auskommentier sonst schwerer Fehler beim öffnen vom Deckel
+    if( (Spuelautomat.timeInCurrentState() > ErrTimeLore_Kalib && digitalRead(endschalter_Hinten)!=kontakt) || ABS() ) 
     {
       Spuelautomat.transitionTo(ErrorState);
     }
@@ -137,7 +136,7 @@ void en_Kalibrierung()
   void en_Kalibrierung_Lore_vorne()
   { 
     Serial.println("Kalibrieren Lore Vorne");
-      //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!! + 3
+      //RB_Dfr_444.changeSpeed(MotSpeed); //Zeile muss raus wenn ein Regler implementiert wurde!!!!
    }
   void do_Kalibrierung_Lore_vorne()
   {
@@ -218,8 +217,8 @@ void en_Kalibrierung()
   }
   void ex_Standby()
   {
-    Serial.print("Histogramm Wir sind waren angehalten bei: ");//Für Histogramm. Delete!!!
-    Serial.println(derEncoder.getZaehler());//Für Histogramm. Delete!!!
+    Serial.print("Histogramm Wir sind waren angehalten bei: ");//Für Histogramm.
+    Serial.println(derEncoder.getZaehler());//Für Histogramm.
     LastState = 3;
   }
 
@@ -227,9 +226,7 @@ void en_Kalibrierung()
   void en_Rakeln()
   { 
     Serial.println("Rakeln");
-    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.
-    //delay(500); //Für Histogramm. Delete!!!
-    
+    digitalWrite(endePin, endePinAus); // Denn wir fangen jetzt an.   
   }
 
   void do_Rakeln()
@@ -264,7 +261,7 @@ void en_Kalibrierung()
 
   void ex_Rakelreinigen()
   {
-    LastState = 5;                    // Würde den State wie oben weglassen und dann Rekelreinigen 1 und 2 einführen.
+    LastState = 5;                    
   }
 //Rakelreinigen Kolben raus
  void en_Rakelreinigen_Kolben_raus() 
@@ -348,7 +345,7 @@ void en_Kalibrierung()
     }
     if(digitalRead(endschalter_Vorne)==kontakt||derEncoder.getZaehler()<=AntiAnschlagWert)
     {
-      if(digitalRead(endschalter_Vorne)==kontakt)   // beta beta beta beta
+      if(digitalRead(endschalter_Vorne)==kontakt)   // beta 
       {
         derEncoder.resetZaehler(); //Encoder Nullen. 
       }
@@ -400,7 +397,7 @@ void en_Kalibrierung()
   }
   void do_Nothalt()
   {
-    if(digitalRead(quittieren)==kontakt || Serial.read()=='q') //Andy ändert != zu == habe aber kein Plan. Das darf nicht durchlaufen nur weil kein Schalter angeschlossen ist!
+    if(digitalRead(quittieren)==kontakt || Serial.read()=='q') 
     {  
       Serial.println("Quittierung...");
       switch (LastState)
