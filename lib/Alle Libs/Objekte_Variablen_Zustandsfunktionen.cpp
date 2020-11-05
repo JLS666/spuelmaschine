@@ -349,7 +349,7 @@ void en_Kalibrierung()
     {
       Spuelautomat.transitionTo(Standby); //Von Vorne
     }
-    else if(derEncoder.getZaehler()<=AntiAnschlagWert*6) //langsamer
+    else if(derEncoder.getZaehler()<=AntiAnschlagWert*3) //langsamer
     {
       RB_Dfr_444.changeRealSpeed(RealSpeed/1.5); //ruhig Brauner
     }
